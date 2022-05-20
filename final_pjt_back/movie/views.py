@@ -26,6 +26,7 @@ def movie_list(request):
 def give_movie_data(request):
     movies = get_list_or_404(Movie)
     serializer = SerachMovieSerializer(movies, many=True)
+    print('hi')
     return Response(serializer.data)
 
 @api_view(['GET'])
