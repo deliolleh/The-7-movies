@@ -1,32 +1,41 @@
 <template>
   <nav>
-    <!-- 로고 및 홈화면 -->
-    <div class="home">
-      <router-link to="/">the-7-movies</router-link>
-    </div>
-    <!-- 화면 이동 like 커뮤니티, 추천등  -->
-    <!-- <div>
-      <router-link></router-link>
-    </div> -->
-    <!-- accounts 기능  -->
-    <div class="users">
-      <router-link :to="{name: 'login'}">Login</router-link>
-      <router-link :to="{name: 'logout'}">Logout</router-link>
-      <router-link :to="{name: 'signup'}">Signup</router-link>
-      <router-link :to="{name : 'profile', params: {username} }">profile</router-link>
-    </div>
+      <!-- 로고 및 홈화면 -->
+      <div class="home">
+        <router-link to="/">the-7-movies</router-link>
+      </div>
+      <!-- 화면 이동 like 커뮤니티, 추천등  -->
+      <!-- <div>
+        <router-link></router-link>
+      </div> -->
+      <!-- accounts 기능  -->
+       <div class="users">
+         <div v-if="!isLoggedIn">
+          <router-link :to="{name: 'login'}">Login</router-link>
+          <router-link :to="{name: 'signup'}">Signup</router-link>
+         </div>
+         <div v-if="isLoggedIn">
+          <router-link 
+            @click.native="logout"
+            :to="{name: 'logout'}">Logout</router-link>
+          <router-link :to="{name : 'profile', params: {username} }">profile</router-link>
+         </div>
+      </div>
   </nav>
 </template>
 
 <script>
-import { mapGetters } from 'vuex'
+import { mapActions, mapGetters } from 'vuex'
 export default {
   name: 'NavBar',
   computed: {
-    ...mapGetters(['currentUser']),
+    ...mapGetters(['currentUser', 'isLoggedIn']),
     username() {
       return this.currentUser.username ? this.currentUser.username : 'guest'
     }
+  },
+  methods: {
+    ...mapActions(['logout'])
   }
 
 }
