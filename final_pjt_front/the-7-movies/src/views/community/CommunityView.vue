@@ -3,8 +3,13 @@
 </template>
 
 <script>
-export default {
+import ReviewList from '@/components/ReviewList'
 
+export default {
+  name: 'CommunityView',
+  components: {
+    ReviewList,
+  }
 }
 </script>
 
