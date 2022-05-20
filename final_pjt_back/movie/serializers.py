@@ -28,7 +28,7 @@ class movieserializer(serializers.ModelSerializer):
 
         class Meta:
             model = Score
-            fields = ('score')
+            fields = ('score',)
 
     class userlistserializer(serializers.ModelSerializer):
 
@@ -46,11 +46,12 @@ class movieserializer(serializers.ModelSerializer):
         # read_only_fields = ('like_people',)
 
 
-class scoreserializer(serializers.ModelSerializer):
+class ScoreSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Score
         fields = '__all__'
+        read_only_fields = ('movie',)
 
 
 class MovieChoiceSerializer(serializers.ModelSerializer):
@@ -64,4 +65,5 @@ class UserGenreSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = get_user_model()
-        fields = ('genre_status')
+        fields = ('genre_status',)
+        read_only_fiedls = ('genre_status',)
