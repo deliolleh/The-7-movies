@@ -5,9 +5,9 @@
         <router-link to="/">the-7-movies</router-link>
       </div>
       <!-- 화면 이동 like 커뮤니티, 추천등  -->
-      <!-- <div>
-        <router-link></router-link>
-      </div> -->
+      <div class="community">
+        <router-link :to="{name: 'community'}">Community</router-link>
+      </div>
       <!-- accounts 기능  -->
        <div class="users">
          <div v-if="!isLoggedIn">
@@ -63,7 +63,26 @@ div a {
   display: flex;
 }
 
+.community {
+  display: flex;
+}
+
 nav a.router-link-exact-active {
   color: #42b983;
 }
+
+a {
+  color: #34495e;
+  text-decoration: none;
+}
+
+a:hover {
+  color: #2c3e50;
+  text-decoration: underline;
+}
+
+a.router-link-exact-active {
+  text-decoration: underline;
+}
+
 </style>

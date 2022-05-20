@@ -8,6 +8,8 @@ import NotFound404 from '@/views/accounts/NotFound404'
 import SignupView from '@/views/accounts/SignupView'
 import ProfileView from '@/views/accounts/ProfileView'
 
+import CommnuityView from '@/views/community/CommunityView'
+import ReviewForm from '@/components/ReviewForm'
 
 Vue.use(VueRouter)
 
@@ -39,16 +41,16 @@ const routes = [
     component: ProfileView,
   },
   // ---------community------------
-  // {
-  //   path: '/',
-  //   name: 'home',
-  //   component: HomeView
-  // },
-  // {
-  //   path: '/',
-  //   name: 'home',
-  //   component: HomeView
-  // },
+  {
+    path: '/community',
+    name: 'community',
+    component: CommnuityView
+  },
+  {
+    path: '/community/create',
+    name: 'create',
+    component: ReviewForm
+  },
   // {
   //   path: '/',
   //   name: 'home',
