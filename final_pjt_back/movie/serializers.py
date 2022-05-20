@@ -51,3 +51,17 @@ class scoreserializer(serializers.ModelSerializer):
     class Meta:
         model = Score
         fields = '__all__'
+
+
+class MovieChoiceSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = Movie
+        fields = ('poster_path', 'title', 'genres')
+
+
+class UserGenreSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = get_user_model()
+        fields = ('genre_status')
