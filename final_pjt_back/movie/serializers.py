@@ -10,6 +10,13 @@ class movielistserializer(serializers.ModelSerializer):
         fields = ('title', 'like_people', 'poster_path', 'pk')
         read_only_fields = ('like_people',)
 
+class MovieMainSerializer(serializers.ModelSerializer):
+
+
+    class Meta:
+        model = Movie
+        fields = ('poster_path',)
+
 
 class movieserializer(serializers.ModelSerializer):
     class genreserializer(serializers.ModelSerializer):

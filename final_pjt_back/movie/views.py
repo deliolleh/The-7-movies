@@ -11,13 +11,19 @@ from django.contrib.auth import get_user_model
 
 from .models import Movie, Genre, Actor
 
-from .serializers import MovieChoiceSerializer, movielistserializer, movieserializer, UserGenreSerializer, ScoreSerializer
+from .serializers import MovieChoiceSerializer, MovieMainSerializer, movielistserializer, movieserializer, UserGenreSerializer, ScoreSerializer
 
 # Create your views here.
 @api_view(['GET'])
 def movie_list(request):
     movies = get_list_or_404(Movie)
     serializer = movielistserializer(movies, many=True)
+    return Response(serializer.data)
+
+@api_view(['GET'])
+def main_movie(request):
+    movies = Movie.objects.all().order_by('-popularity')[0:5]
+    serializer = MovieMainSerializer(movies, many=True)
     return Response(serializer.data)
 
 @api_view(['GET'])
