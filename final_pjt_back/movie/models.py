@@ -18,6 +18,7 @@ class Movie(models.Model) :
     poster_path = models.CharField(max_length=500)
     director = models.CharField(max_length=50)
     genres = models.ManyToManyField(Genre, related_name='movies')
+    vote_user = models.ManyToManyField(settings.AUTH_USER_MODEL, through='Score')
 
     def __str__(self):
         return self.title
@@ -29,4 +30,4 @@ class Actor(models.Model):
 class Score(models.Model):
     movie = models.ForeignKey(Movie, on_delete=models.CASCADE)
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
-    score = models.IntegerField()
+    score = models.IntegerField(default=0)
