@@ -2,8 +2,7 @@
   <div>
     <h1>회원가입</h1>
     <br>
-    <v-form 
-      ref="form"       
+    <v-form       
       @submit.prevent="signup(credentials)"
       >
       <v-text-field
@@ -27,6 +26,7 @@
       </v-text-field>
       <v-btn
       :disabled="!credentials.password2"
+      type="submit"
       color="success"
       class="mr-4"
       >

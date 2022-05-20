@@ -11,11 +11,13 @@
       <v-text-field
       v-model="credentials.password"
       label="Password"
+      type="password"
       required
       >
       </v-text-field>
       <v-btn
       :disabled="!credentials.password"
+      type="submit"
       color="success"
       class="mr-4"
       >

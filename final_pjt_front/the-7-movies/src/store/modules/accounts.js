@@ -56,7 +56,7 @@ export default {
         성공하면
           응답 토큰 저장
           현재 사용자 정보 받기
-          메인 페이지(ArticleListView)로 이동
+          메인 페이지로 이동
         실패하면
           에러 메시지 표시
       */
@@ -69,7 +69,7 @@ export default {
           const token = res.data.key
           dispatch('saveToken', token)
           dispatch('fetchCurrentUser')
-          router.push({ name: 'articles' })
+          router.push({ name: 'home' })
         })
         .catch(err => {
           console.error(err.response.data)
