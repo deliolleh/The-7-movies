@@ -1,0 +1,53 @@
+from rest_framework import serializers
+from django.contrib.auth import get_user_model
+from .models import Movie, Genre, Actor, Score
+
+class movielistserializer(serializers.ModelSerializer):
+
+
+    class Meta:
+        model = Movie
+        fields = ('title', 'like_people', 'poster_path', 'pk')
+        read_only_fields = ('like_people',)
+
+
+class movieserializer(serializers.ModelSerializer):
+    class genreserializer(serializers.ModelSerializer):
+
+        class Meta:
+            model = Genre
+            fields = ('name')
+
+    class actorlistserializer(serializers.ModelSerializer):
+
+        class Meta:
+            model = Actor
+            fields = '__all__'
+    
+    class scorelistserializer(serializers.ModelSerializer):
+
+        class Meta:
+            model = Score
+            fields = ('score')
+
+    class userlistserializer(serializers.ModelSerializer):
+
+        class Meta:
+            model = get_user_model()
+            fields = ('username',)
+
+    genre_set = genreserializer(many=True, read_only=True)
+    actor = actorlistserializer(many=True, read_only=True)
+    score_set = scorelistserializer(many=True, read_only=True)
+    like_people = userlistserializer(many=True, read_only=True)
+    class Meta:
+        model = Movie
+        fields = '__all__'
+        # read_only_fields = ('like_people',)
+
+
+class scoreserializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = Score
+        fields = '__all__'
