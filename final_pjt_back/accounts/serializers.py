@@ -38,8 +38,8 @@ class ProfileSerializer(serializers.ModelSerializer):
             model = Comment
             fields = '__all__'
 
-    review_set = ReviewSerializer(many=True, read_only=True)
-    comment_set = CommentSerializer(many=True, read_only=True)
+    like_review = ReviewSerializer(many=True, read_only=True)
+    like_comment = CommentSerializer(many=True, read_only=True)
 
 
     class Meta:
