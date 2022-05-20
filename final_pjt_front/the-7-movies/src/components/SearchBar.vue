@@ -20,6 +20,15 @@ export default {
     }
   },
   computed: {
+    findItems () {
+      if (this.input) {
+        return this.searchMovies.filter((value) => {
+          return value.indexOf(this.input) > -1
+        })
+      } else {
+        return null
+      }
+    },
     ...mapGetters(['searchMovies'])
   },
   methods: {
