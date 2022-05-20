@@ -9,7 +9,7 @@ import SignupView from '@/views/accounts/SignupView'
 import ProfileView from '@/views/accounts/ProfileView'
 
 import CommnuityView from '@/views/community/CommunityView'
-import ReviewForm from '@/components/ReviewForm'
+import ReviewNewView from '@/views/community/ReviewNewView'
 
 Vue.use(VueRouter)
 
@@ -49,7 +49,7 @@ const routes = [
   {
     path: '/community/create',
     name: 'create',
-    component: ReviewForm
+    component: ReviewNewView
   },
   // {
   //   path: '/',

@@ -1,7 +1,7 @@
 <template>
   <div>
     <h1>New Review</h1>
-    <review-form></review-form>
+    <review-form :review="review" action="create"></review-form>
   </div>
 </template>
 
@@ -9,13 +9,22 @@
 import { mapActions } from 'vuex'
 import ReviewForm from '@/components/ReviewForm'
 export default {
-  name: 'ReviewNew',
+  name: 'ReviewNewView',
   components: {
     ReviewForm,
   },
+  data() {
+    return {
+      review: {
+        moviePk: null,
+        title: '',
+        content: '',
+      }
+    }
+  },
   methods: {
     ...mapActions(['createReview'])
-  }
+  },
 }
 </script>
 

@@ -82,7 +82,7 @@ export default {
       */
       
       axios({
-        url: drf.reviews.reviews(),
+        url: drf.community.create(),
         method: 'post',
         data: review,
         headers: getters.authHeader,
@@ -90,10 +90,10 @@ export default {
         .then(res => {
           commit('SET_REVIEW', res.data)
           router.push({
-            name: 'review',
-            params: { reviewPk: getters.review.pk }
+            name: 'community',
           })
         })
+        .catch(err => console.log(err))
     },
 
     updateReview({ commit, getters }, { pk, title, content}) {
