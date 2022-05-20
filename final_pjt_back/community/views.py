@@ -4,8 +4,9 @@ from django.shortcuts import render
 from django.shortcuts import get_list_or_404, get_object_or_404
 
 from rest_framework import status
-from rest_framework.decorators import api_view
 from rest_framework.response import Response
+from rest_framework.permissions import IsAuthenticated, AllowAny
+from rest_framework.decorators import api_view, permission_classes
 
 from .serializers.review import ReivewListSerializer, ReviewSerializer
 from .serializers.comment import CommentSerializer
@@ -13,6 +14,7 @@ from .models import Review, Comment
 
 # Create your views here.
 @api_view(['GET'])
+@permission_classes([AllowAny])
 def review_list(request):
     review = get_list_or_404(Review)
     serializer = ReivewListSerializer(review, many=True)
@@ -25,6 +27,7 @@ def create_review(request):
 
 
 @api_view(['GET', 'PUT', 'DELETE'])
+@permission_classes([AllowAny])
 def review_detail(request, review_pk):
     review = get_object_or_404(Review, pk=review_pk)
     

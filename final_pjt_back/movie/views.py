@@ -4,7 +4,7 @@ from rest_framework import status
 from rest_framework.response import Response
 from rest_framework.decorators import api_view
 from rest_framework.decorators import permission_classes
-from rest_framework.permissions import IsAuthenticated
+from rest_framework.permissions import IsAuthenticated, AllowAny
 
 from django.shortcuts import get_list_or_404, get_object_or_404
 from django.contrib.auth import get_user_model
@@ -15,24 +15,28 @@ from .serializers import MovieChoiceSerializer, MovieMainSerializer, SerachMovie
 
 # Create your views here.
 @api_view(['GET'])
+@permission_classes([AllowAny])
 def movie_list(request):
     movies = get_list_or_404(Movie)
     serializer = movielistserializer(movies, many=True)
     return Response(serializer.data)
 
 @api_view(['GET'])
+@permission_classes([AllowAny])
 def give_movie_data(request):
     movies = get_list_or_404(Movie)
     serializer = SerachMovieSerializer(movies, many=True)
     return Response(serializer.data)
 
 @api_view(['GET'])
+@permission_classes([AllowAny])
 def main_movie(request):
     movies = Movie.objects.all().order_by('-popularity')[0:5]
     serializer = MovieMainSerializer(movies, many=True)
     return Response(serializer.data)
 
 @api_view(['GET'])
+@permission_classes([AllowAny])
 def movie_detail(request, movie_pk):
     movie = get_object_or_404(Movie, pk=movie_pk)
     serializers = movieserializer(movie)
