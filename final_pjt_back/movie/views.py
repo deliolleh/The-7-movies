@@ -57,8 +57,8 @@ def scroe_add_change_delete(request, movie_pk):
 @permission_classes([IsAuthenticated])
 def inital_movie(request):
     if request.method == 'GET':
-        movie = get_list_or_404(Movie).order_by('-popularity')[0:50]
-        movie = random.sample(movie, 16)
+        ran = random.randrange(1, 100)
+        movie = Movie.objects.all()[ran + 0: ran + 16]
         serializer = MovieChoiceSerializer(movie, many=True)
         return Response(serializer.data)
     
