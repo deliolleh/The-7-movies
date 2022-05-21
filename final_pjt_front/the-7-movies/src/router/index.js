@@ -55,7 +55,12 @@ const routes = [
   },
   {
     path: '/community/detail/:reviewPk',
-    name: 'reviewdatail',
+    name: 'reviewDatail',
+    component: ReviewDetailView
+  },
+  {
+    path: '/community/detail/:reviewPk/edit',
+    name: 'reviewEdit',
     component: ReviewDetailView
   },
   // {
