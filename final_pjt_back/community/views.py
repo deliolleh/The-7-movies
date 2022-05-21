@@ -1,4 +1,5 @@
 from django.shortcuts import get_list_or_404, get_object_or_404
+from django.db.models import Count
 
 from rest_framework import status
 from rest_framework.response import Response
@@ -13,7 +14,10 @@ from .models import Review, Comment
 @api_view(['GET'])
 @permission_classes([AllowAny])
 def review_list(request):
-    review = get_list_or_404(Review)
+    review = Review.objects.annotate(
+        comment_count= Count('comments', distinct=True),
+        like_count = Count('like_people', distinct=True)
+    )
     serializer = ReivewListSerializer(review, many=True)
     return Response(serializer.data)
 
@@ -35,11 +39,12 @@ def serach_review(request):
 @api_view(['GET', 'PUT', 'DELETE'])
 @permission_classes([AllowAny])
 def review_detail(request, review_pk):
-    review = get_object_or_404(Review, pk=review_pk)        
+    review = Review.objects.annotate(
+        like_count = Count('like_people', distinct=True)
+    ).get(pk=review_pk)
     
     if request.method == 'GET':
         serializer = ReviewSerializer(review)
-        print(type(serializer.data))
         return Response(serializer.data)
     
     elif request.method == 'PUT':
@@ -57,13 +62,25 @@ def review_detail(request, review_pk):
 @api_view(['POST'])
 @permission_classes([IsAuthenticated])
 def like_review(request, review_pk):
-    if request.user.is_authenticatd:
-        review = get_object_or_404(Review, pk=review_pk)
+    if request.user.is_authenticated:
+        review = Review.objects.annotate(
+        like_count = Count('like_people', distinct=True)
+            ).get(pk=review_pk)
         if review.like_people.filter(pk=request.user.pk).exists():
             review.like_people.remove(request.user)
+            review = Review.objects.annotate(
+                like_count = Count('like_people', distinct=True)
+                ).get(pk=review_pk)
+            serializer = ReviewSerializer(review)
+            return Response(serializer.data)
 
         else:
             review.like_people.add(request.user)
+            review = Review.objects.annotate(
+                like_count = Count('like_people', distinct=True)
+                ).get(pk=review_pk)
+            serializer = ReviewSerializer(review)
+            return Response(serializer.data)
         
 
 

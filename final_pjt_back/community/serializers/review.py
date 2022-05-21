@@ -20,10 +20,15 @@ class ReivewListSerializer(serializers.ModelSerializer):
     
     movie = MovieSerializer(read_only=True)
     user = Userserializer(read_only=True)
+    like_people = Userserializer(many=True, read_only=True)
+    like_count = serializers.IntegerField()
+    comment_count = serializers.IntegerField()
 
     class Meta:
         model = Review
-        fields = '__all__'
+        fields = ('movie', 'user', 'title', 'content', 
+                'created_at', 'updated_at', 'comments',
+                'like_people', 'like_count', 'comment_count')
 
 
 class ReviewSerializer(serializers.ModelSerializer):
@@ -37,13 +42,16 @@ class ReviewSerializer(serializers.ModelSerializer):
             model = get_user_model()
             fields = ('pk',)
 
-    comment_set = CommentSerializer(many=True, read_only=True)
+    comments = CommentSerializer(many=True, read_only=True)
     like_people = UserSerializer(many=True, read_only=True)
+    like_count = serializers.IntegerField()
 
     class Meta:
         model = Review
-        fields = '__all__'
-        read_only_fields = ('comment_set', 'movie', 'user')
+        fields = ('movie', 'user', 'title', 'content', 
+                'created_at', 'updated_at', 'comments',
+                'like_people', 'like_count')
+        read_only_fields = ('comment_set', 'movie', 'user', 'like_count')
 
 
 class ReviewCreationSerializer(serializers.ModelSerializer):
