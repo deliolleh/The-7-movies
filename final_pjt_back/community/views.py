@@ -1,11 +1,8 @@
-from logging import raiseExceptions
-from tkinter import getboolean
-from django.shortcuts import render
 from django.shortcuts import get_list_or_404, get_object_or_404
 
 from rest_framework import status
 from rest_framework.response import Response
-from rest_framework.permissions import IsAuthenticated, AllowAny
+from rest_framework.permissions import IsAuthenticated, AllowAny, IsAuthenticatedOrReadOnly
 from rest_framework.decorators import api_view, permission_classes
 
 from .serializers.review import ReivewListSerializer, ReviewSerializer
@@ -21,13 +18,16 @@ def review_list(request):
     return Response(serializer.data)
 
 @api_view(['POST'])
+@permission_classes([IsAuthenticated])
 def create_review(request):
     serializer = ReviewSerializer(data=request.data)
+    if serializer.is_valid(raise_exception=True):
+        serializer.save(user=request.user)
     return Response(serializer.data)
 
 
 @api_view(['GET', 'PUT', 'DELETE'])
-@permission_classes([AllowAny])
+@permission_classes([IsAuthenticatedOrReadOnly])
 def review_detail(request, review_pk):
     review = get_object_or_404(Review, pk=review_pk)
     
@@ -58,6 +58,7 @@ def review_detail(request, review_pk):
             delete_review()
 
 @api_view(['POST'])
+@permission_classes([IsAuthenticated])
 def like_review(request, review_pk):
     if request.user.is_authenticatd:
         review = get_object_or_404(Review, pk=review_pk)
@@ -70,6 +71,7 @@ def like_review(request, review_pk):
 
 
 @api_view(['POST'])
+@permission_classes([IsAuthenticated])
 def create_comment(request, review_pk):
     user=request.user
     review = get_object_or_404(Review, pk=review_pk)
@@ -82,6 +84,7 @@ def create_comment(request, review_pk):
         return Response(serializer.data, status=status.HTTP_201_CREATED)
 
 @api_view(['PUT', 'DELETE'])
+@permission_classes([IsAuthenticated])
 def update_delete_comment(request, review_pk, comment_pk):
     review = get_object_or_404(Review, pk=review_pk)
     comment = get_object_or_404(Comment, pk=comment_pk)
