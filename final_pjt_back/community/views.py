@@ -51,6 +51,10 @@ def review_detail(request, review_pk):
         if request.user == review.user:
             serializer = ReviewSerializer(instance=review, data=request.data)
             if serializer.is_valid(raise_exception=True):
+                review = Review.objects.annotate(
+                like_count = Count('like_people', distinct=True)
+                    ).get(pk=review_pk)
+                serializer = ReviewSerializer(review)
                 serializer.save()
                 return Response(serializer.data)
     
@@ -93,8 +97,8 @@ def create_comment(request, review_pk):
     if serializer.is_valid(raise_exception=True):
         serializer.save(user=user, review=review)
 
-        comments = review.comment_set.all()
-        serializer = Comment(comments, many=True)
+        comments = review.comments.all()
+        serializer = CommentSerializer(comments, many=True)
         return Response(serializer.data, status=status.HTTP_201_CREATED)
 
 @api_view(['PUT', 'DELETE'])
