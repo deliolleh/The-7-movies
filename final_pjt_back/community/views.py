@@ -15,7 +15,6 @@ from .models import Review, Comment
 def review_list(request):
     review = get_list_or_404(Review)
     serializer = ReivewListSerializer(review, many=True)
-    print(serializer.data)
     return Response(serializer.data)
 
 @api_view(['POST'])
@@ -24,39 +23,36 @@ def create_review(request):
     serializer = ReviewCreationSerializer(data=request.data)
     if serializer.is_valid(raise_exception=True):
         serializer.save(user=request.user)
-    return Response(serializer.data)
+    return Response(serializer.data, status=status.HTTP_201_CREATED)
+
+
+@api_view(['GET'])
+@permission_classes([AllowAny])
+def serach_review(request):
+    pass
 
 
 @api_view(['GET', 'PUT', 'DELETE'])
-@permission_classes([IsAuthenticatedOrReadOnly])
+@permission_classes([AllowAny])
 def review_detail(request, review_pk):
-    review = get_object_or_404(Review, pk=review_pk)
-    
-    def review_detail():
-        serializer = ReviewSerializer(review)
-        return Response(serializer.data)
-    
-    def update_review():
-        serializer = ReviewSerializer(instance=review, data=request.data)
-        if serializer.is_valid(raise_exception=True):
-            serializer.save()
-            return Response(serializer.data)
-    
-    def delete_review():
-        if request.user == review.user:
-            review.delete()
-            return Response(status=status.HTTP_204_NO_CONTENT)
+    review = get_object_or_404(Review, pk=review_pk)        
     
     if request.method == 'GET':
-        review_detail()
+        serializer = ReviewSerializer(review)
+        print(type(serializer.data))
+        return Response(serializer.data)
     
     elif request.method == 'PUT':
         if request.user == review.user:
-            update_review()
+            serializer = ReviewSerializer(instance=review, data=request.data)
+            if serializer.is_valid(raise_exception=True):
+                serializer.save()
+                return Response(serializer.data)
     
     elif request.method == 'DELETE':
         if request.user == review.user:
-            delete_review()
+            review.delete()
+            return Response(status=status.HTTP_204_NO_CONTENT)
 
 @api_view(['POST'])
 @permission_classes([IsAuthenticated])

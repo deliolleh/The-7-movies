@@ -40,8 +40,8 @@ def main_movie(request):
 @permission_classes([AllowAny])
 def movie_detail(request, movie_pk):
     movie = get_object_or_404(Movie, pk=movie_pk)
-    serializers = movieserializer(movie)
-    return Response(serializers.data)
+    serializer = movieserializer(movie)
+    return Response(serializer.data)
 
 @api_view(['POST', 'PUT', 'DELETE'])
 @permission_classes([IsAuthenticated])
