@@ -2,7 +2,10 @@
   <form @submit.prevent="onSubmit" class="comment-list-form">
     <label for="comment">comment: </label>
     <input type="text" id="comment" v-model="content" required>
-    <button>Comment</button>
+    <v-btn
+    elevation="2"
+    @click="onSubmit"
+    > 등록 </v-btn>
   </form>
 </template>
 
@@ -17,22 +20,27 @@ export default {
     }
   },
   computed: {
-    ...mapGetters(['article']),
+    ...mapGetters(['review']),
   },
   methods: {
     ...mapActions(['createComment']),
     onSubmit() {
-      this.createComment({ articlePk: this.article.pk, content: this.content, })
+      this.createComment({ reviewPk: this.review.pk, content: this.content, })
       this.content = ''
     }
   }
 }
 </script>
 
-<style>
-.comment-list-form {
-  border: 1px solid black;
-  margin: 1rem;
-  padding: 1rem;
+<style scoped>
+
+button {
+
 }
+
+form {
+  display: flex;
+  border-bottom: 1px solid #eee;
+}
+
 </style>

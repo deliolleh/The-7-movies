@@ -19,10 +19,12 @@ export default {
     searchMovies: state => state.searchMovies,
     currentMovie: state => state.currentMovie,
     recommend: state => state.recommend,
+    movie: state => state.movie,
   },
 
   mutations: {
     GET_ALL_MOVIES: (state, movies) => state.searchMovies = movies,
+    GET_MOVIE: (state, movie) => state.movie = movie,
     GET_MOIVE_PK: (state, pk) => state.currentMovie = pk,
     GET_RECOMMEND: (state, recommend) => state.recommend = recommend,
   },
@@ -51,6 +53,16 @@ export default {
         .then(res => {
           commit('GET_RECOMMEND', res.data)
 
+        })
+    },
+    getMovie({commit, getters}, moviePk) {
+      axios({
+        url: drf.movies.detail(moviePk),
+        method: 'get',
+        headers: getters.authHeader
+      })
+        .then(res => {
+          commit('GET_MOVIE', res.data)
         })
     }
   }

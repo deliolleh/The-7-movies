@@ -93,6 +93,7 @@ export default {
       })
         .then(res => {
           commit('SET_REVIEW', res.data)
+          console.log(res.data);
           router.push({
             name: 'community',
           })
@@ -100,7 +101,7 @@ export default {
         .catch(err => console.log(err))
     },
 
-    updateReview({ commit, getters }, { pk, title, content}) {
+    updateReview({ commit, getters }, {pk, title, content, movie}) {
       /* 게시글 수정
       PUT: review URL (게시글 입력정보, token)
         성공하면
@@ -110,17 +111,20 @@ export default {
           에러 메시지 표시
       */
       axios({
-        url: drf.community.review(pk),
+        url: drf.community.detail(pk),
         method: 'put',
-        data: { title, content },
+        data: { title, content, movie},
         headers: getters.authHeader,
       })
         .then(res => {
           commit('SET_REVIEW', res.data)
           router.push({
-            name: 'review',
+            name: 'reviewDatail',
             params: { reviewPk: getters.review.pk }
           })
+        })
+        .catch(() => {
+          console.log('에러요');
         })
     },
 
@@ -137,13 +141,13 @@ export default {
       
       if (confirm('정말 삭제하시겠습니까?')) {
         axios({
-          url: drf.community.review(reviewPk),
+          url: drf.community.detail(reviewPk),
           method: 'delete',
           headers: getters.authHeader,
         })
           .then(() => {
             commit('SET_REVIEW', {})
-            router.push({ name: 'reviews' })
+            router.push({ name: 'community' })
           })
           .catch(err => console.error(err.response))
       }
@@ -163,7 +167,7 @@ export default {
         headers: getters.authHeader,
       })
         .then(res => {
-          console.log('좋아요');
+          console.log(res.data);
           commit('SET_REVIEW', res.data)})
         .catch(err => console.error(err.response))
     },
@@ -185,6 +189,7 @@ export default {
         headers: getters.authHeader,
       })
         .then(res => {
+          console.log('댓글?');
           commit('SET_REVIEW_COMMENTS', res.data)
         })
         .catch(err => console.error(err.response))
@@ -201,12 +206,13 @@ export default {
       const comment = { content }
 
       axios({
-        url: drf.community.comment(reviewPk, commentPk),
+        url: drf.community.updateDelete(reviewPk, commentPk),
         method: 'put',
         data: comment,
         headers: getters.authHeader,
       })
         .then(res => {
+          console.log('수정??');
           commit('SET_REVIEW_COMMENTS', res.data)
         })
         .catch(err => console.error(err.response))
@@ -223,7 +229,7 @@ export default {
       */
         if (confirm('정말 삭제하시겠습니까?')) {
           axios({
-            url: drf.community.comment(reviewPk, commentPk),
+            url: drf.community.updateDelete(reviewPk, commentPk),
             method: 'delete',
             data: {},
             headers: getters.authHeader,

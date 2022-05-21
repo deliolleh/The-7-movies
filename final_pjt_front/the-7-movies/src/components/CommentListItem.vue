@@ -1,8 +1,10 @@
 <template>
-  <li class="comment-list-item">
-    <router-link :to="{ name: 'profile', params: { username: comment.user.username } }">
+  <li class="post">
+    <router-link 
+      class="user"
+      :to="{ name: 'profile', params: { username: comment.user.username } }">
       {{ comment.user.username }}
-    </router-link>: 
+    </router-link>
     
     <span v-if="!isEditing">{{ payload.content }}</span>
 
@@ -29,7 +31,7 @@ export default {
     return {
       isEditing: false,
       payload: {
-        articlePk: this.comment.article,
+        reviewPk: this.comment.review,
         commentPk: this.comment.pk,
         content: this.comment.content
       },
@@ -52,9 +54,29 @@ export default {
 }
 </script>
 
-<style>
-.comment-list-item {
-  border: 1px solid green;
-
+<style scoped>
+.user {
+  width: 80px;
+  height: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #34495e;
+  text-decoration: none;
 }
+
+a:hover {
+  color: #2c3e50;
+  text-decoration: underline;
+}
+
+
+.post {
+  list-style: none;
+  display: flex;
+  align-items: center;
+  border-bottom: 1px solid #eee;
+  justify-content: space-between;
+}
+
 </style>

@@ -50,10 +50,18 @@ export default {
     }
   },
   methods: {
-    ...mapActions(['filteredList', 'createReview']),
+    ...mapActions(['filteredList', 'createReview', 'updateReview']),
      onSubmit() {
         if (this.action === 'create') {
-          this.createReview(this.newReview)}
+          this.createReview(this.newReview)
+        } else  {
+          const payload = {
+            pk: this.review.pk,
+            ...this.newReview
+          }
+          console.log(payload);
+          this.updateReview(payload)
+        }
     }
   },
 }

@@ -47,8 +47,6 @@ export default {
     goNext(idx) {
       const left = document.querySelector('#left > img')
       const right = document.querySelector('#right > img')
-      console.log('이건 되나?', this.index);
-      console.log(left);
       left.setAttribute('src', this.lst[idx])
       right.setAttribute('src', this.lst[idx+1])
     },

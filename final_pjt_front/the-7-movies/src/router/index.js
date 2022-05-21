@@ -15,6 +15,8 @@ import ReviewEditView from '@/views/community/ReviewEditView'
 
 import RecommendView from '@/views/RecommendView'
 
+import MovieDetailView from '@/views/movies/MovieDetailView'
+
 Vue.use(VueRouter)
 
 const routes = [
@@ -71,6 +73,12 @@ const routes = [
     name: 'recommend',
     component: RecommendView
   },
+    // ---------recommend------------
+    {
+      path: '/movies/:moviePk',
+      name: 'movieDetail',
+      component: MovieDetailView
+    },
   // {
   //   path: '/',
   //   name: 'home',

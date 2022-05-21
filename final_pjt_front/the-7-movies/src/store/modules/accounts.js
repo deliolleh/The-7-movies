@@ -169,6 +169,9 @@ export default {
         .then(res => {
           commit('SET_PROFILE', res.data)
         })
+        .catch(() => {
+          console.log('실패');
+        })
     },
   },
 }
