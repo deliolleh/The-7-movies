@@ -33,6 +33,13 @@ class ReivewListSerializer(serializers.ModelSerializer):
 
 class ReviewSerializer(serializers.ModelSerializer):
     class CommentSerializer(serializers.ModelSerializer):
+        class UserSerializer(serializers.ModelSerializer):
+            class Meta:
+                model = get_user_model()
+                fields = ('pk', 'username')
+        
+        user= UserSerializer(read_only=True)
+
         class Meta:
             model = Comment
             exclude = ('review',)
