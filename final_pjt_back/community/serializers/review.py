@@ -26,7 +26,7 @@ class ReivewListSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Review
-        fields = ('movie', 'user', 'title', 'content', 
+        fields = ('pk', 'movie', 'user', 'title', 'content', 
                 'created_at', 'updated_at', 'comments',
                 'like_people', 'like_count', 'comment_count')
 
