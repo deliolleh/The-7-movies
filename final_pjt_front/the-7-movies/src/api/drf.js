@@ -30,5 +30,6 @@ export default {
   community: {
     reviews: () => HOST + COMMUNITY,
     create: () => HOST + COMMUNITY + 'create/',
+    detail: moviePk => HOST + COMMUNITY + 'detail' + `${moviePk}`,
   }
 }

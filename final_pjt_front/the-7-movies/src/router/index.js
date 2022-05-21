@@ -10,6 +10,8 @@ import ProfileView from '@/views/accounts/ProfileView'
 
 import CommnuityView from '@/views/community/CommunityView'
 import ReviewNewView from '@/views/community/ReviewNewView'
+import ReviewDetailView from '@/views/community/ReviewDetailView'
+
 
 Vue.use(VueRouter)
 
@@ -50,6 +52,11 @@ const routes = [
     path: '/community/create',
     name: 'create',
     component: ReviewNewView
+  },
+  {
+    path: '/community/detail/:reviewPk',
+    name: 'reviewdatail',
+    component: ReviewDetailView
   },
   // {
   //   path: '/',

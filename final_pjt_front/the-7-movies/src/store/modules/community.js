@@ -38,11 +38,13 @@ export default {
           에러 메시지 표시
       */
       axios({
-        url: drf.reviews.reviews(),
+        url: drf.community.reviews(),
         method: 'get',
         headers: getters.authHeader,
       })
-        .then(res => commit('SET_REVIEWS', res.data))
+        .then(res => {
+          console.log(res.data);
+          commit('SET_REVIEWS', res.data)})
         .catch(err => console.error(err.response))
     },
 
@@ -58,11 +60,13 @@ export default {
             NotFound404 로 이동
       */
       axios({
-        url: drf.reviews.review(reviewPk),
+        url: drf.community.detail(reviewPk),
         method: 'get',
         headers: getters.authHeader,
       })
-        .then(res => commit('SET_REVIEW', res.data))
+        .then(res => {
+          console.log(res.data);
+          commit('SET_REVIEW', res.data)})
         .catch(err => {
           console.error(err.response)
           if (err.response.status === 404) {
