@@ -42,7 +42,7 @@ class ReviewSerializer(serializers.ModelSerializer):
 
         class Meta:
             model = Comment
-            fields = ('pk', 'user')
+            fields = ('pk', 'user', 'content')
     
     class UserSerializer(serializers.ModelSerializer):
         class Meta:
