@@ -40,11 +40,12 @@ class ReviewSerializer(serializers.ModelSerializer):
     class UserSerializer(serializers.ModelSerializer):
         class Meta:
             model = get_user_model()
-            fields = ('pk',)
+            fields = ('pk', 'username')
 
     comments = CommentSerializer(many=True, read_only=True)
     like_people = UserSerializer(many=True, read_only=True)
     like_count = serializers.IntegerField()
+    user = UserSerializer(read_only=True)
 
     class Meta:
         model = Review
