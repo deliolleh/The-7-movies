@@ -51,17 +51,16 @@ def review_detail(request, review_pk):
         if request.user == review.user:
             serializer = ReviewSerializer(instance=review, data=request.data)
             if serializer.is_valid(raise_exception=True):
-                review = Review.objects.annotate(
-                like_count = Count('like_people', distinct=True)
-                    ).get(pk=review_pk)
-                serializer = ReviewSerializer(review)
                 serializer.save()
                 return Response(serializer.data)
     
     elif request.method == 'DELETE':
         if request.user == review.user:
             review.delete()
-            return Response(status=status.HTTP_204_NO_CONTENT)
+            data = {
+                "message": "정상적으로 삭제되었습니다"
+            }
+            return Response(data=data, status=status.HTTP_204_NO_CONTENT)
 
 @api_view(['POST'])
 @permission_classes([IsAuthenticated])
@@ -76,6 +75,7 @@ def like_review(request, review_pk):
                 like_count = Count('like_people', distinct=True)
                 ).get(pk=review_pk)
             serializer = ReviewSerializer(review)
+            print(serializer.data)
             return Response(serializer.data)
 
         else:
