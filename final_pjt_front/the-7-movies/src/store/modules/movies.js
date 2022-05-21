@@ -11,17 +11,20 @@ export default {
     searchMovies: [],
     movies: [],
     movie: {},
-    currentMovie: null
+    currentMovie: null, //pk
+    recommend: [],
   },
   // 모든 state는 getters 를 통해서 접근하겠다.
   getters: {
     searchMovies: state => state.searchMovies,
-    currentMovie: state => state.currentMovie
+    currentMovie: state => state.currentMovie,
+    recommend: state => state.recommend,
   },
 
   mutations: {
     GET_ALL_MOVIES: (state, movies) => state.searchMovies = movies,
-    GET_MOIVE_PK: (state, pk) => state.currentMovie = pk
+    GET_MOIVE_PK: (state, pk) => state.currentMovie = pk,
+    GET_RECOMMEND: (state, recommend) => state.recommend = recommend,
   },
 
   actions: {
@@ -39,5 +42,16 @@ export default {
         })
         .catch(err => console.log(err))
     },
+    getRecommend({commit, getters}) {
+      axios({
+        url: drf.movies.recommend(),
+        method: 'get',
+        headers: getters.authHeader
+      })
+        .then(res => {
+          commit('GET_RECOMMEND', res.data)
+
+        })
+    }
   }
 }

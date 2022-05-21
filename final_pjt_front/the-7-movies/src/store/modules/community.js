@@ -162,7 +162,9 @@ export default {
         method: 'post',
         headers: getters.authHeader,
       })
-        .then(res => commit('SET_REVIEW', res.data))
+        .then(res => {
+          console.log('좋아요');
+          commit('SET_REVIEW', res.data)})
         .catch(err => console.error(err.response))
     },
 
