@@ -18,8 +18,8 @@ class ReivewListSerializer(serializers.ModelSerializer):
             model = get_user_model()
             fields = ('username',)
     
-    영화 = MovieSerializer(read_only=True)
-    글쓴이 = Userserializer(read_only=True)
+    movie = MovieSerializer(read_only=True)
+    user = Userserializer(read_only=True)
 
     class Meta:
         model = Review
@@ -42,6 +42,13 @@ class ReviewSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Review
-        fields = ('movie', 'user', 'title', 'content', 'comment_set', 'like_people')
+        fields = '__all__'
         read_only = ('comment_set', 'movie', 'user')
 
+
+class ReviewCreationSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = Review
+        fields = ('user', 'movie', 'title', 'content')
+        read_only_fields = ('user',)

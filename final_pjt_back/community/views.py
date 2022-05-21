@@ -5,7 +5,7 @@ from rest_framework.response import Response
 from rest_framework.permissions import IsAuthenticated, AllowAny, IsAuthenticatedOrReadOnly
 from rest_framework.decorators import api_view, permission_classes
 
-from .serializers.review import ReivewListSerializer, ReviewSerializer
+from .serializers.review import ReivewListSerializer, ReviewSerializer, ReviewCreationSerializer
 from .serializers.comment import CommentSerializer
 from .models import Review, Comment
 
@@ -20,7 +20,7 @@ def review_list(request):
 @api_view(['POST'])
 @permission_classes([IsAuthenticated])
 def create_review(request):
-    serializer = ReviewSerializer(data=request.data)
+    serializer = ReviewCreationSerializer(data=request.data)
     if serializer.is_valid(raise_exception=True):
         serializer.save(user=request.user)
     return Response(serializer.data)
