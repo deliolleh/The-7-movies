@@ -42,7 +42,7 @@ class ReviewSerializer(serializers.ModelSerializer):
 
         class Meta:
             model = Comment
-            exclude = ('review',)
+            fields = ('pk', 'user')
     
     class UserSerializer(serializers.ModelSerializer):
         class Meta:

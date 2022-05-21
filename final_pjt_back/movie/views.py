@@ -9,7 +9,7 @@ from rest_framework.permissions import IsAuthenticated, AllowAny
 from django.shortcuts import get_list_or_404, get_object_or_404
 from django.contrib.auth import get_user_model
 
-from .models import Movie, Genre, Actor
+from .models import Movie, Genre, Actor, Score
 
 from .serializers import MovieChoiceSerializer, MovieMainSerializer, SerachMovieSerializer, movielistserializer, movieserializer, UserGenreSerializer, ScoreSerializer
 
@@ -47,9 +47,25 @@ def movie_detail(request, movie_pk):
 @permission_classes([IsAuthenticated])
 def scroe_add_change_delete(request, movie_pk):
     movie = get_object_or_404(Movie, pk=movie_pk)
-    serializer = ScoreSerializer(data=request.POST)
-    serializer.save()
-    return Response(serializer.data)
+    
+    if request.method == 'POST':
+        serializer = ScoreSerializer(data=request.POST)
+        if serializer.is_valid(raise_exception=True):
+            serializer.save(user=request.user, movie=movie, many=True)
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+    
+    elif request.method == 'PUT':
+        score = Score.objects.filter(user=request.user, movie=movie)
+        serializer = ScoreSerializer(instance=score, data=request.data, many=True)
+        return Response(serializer.data)
+
+    elif request.method == 'DELETE':
+        score = Score.objects.filter(user=request.user, movie=movie)
+        score.delete()
+        data = {
+            "message": "정상적으로 삭제되었습니다"
+        }
+        return Response(data=data, status=status.HTTP_204_NO_CONTENT)
 
     # 평점 보낼 때 10배해서 보내달라 이야기하기
     # variablerouting이 int로 밖에 못받아서
