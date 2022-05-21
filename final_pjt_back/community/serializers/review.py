@@ -10,7 +10,7 @@ class ReivewListSerializer(serializers.ModelSerializer):
 
         class Meta:
             model = Movie
-            fields = ('제목',)
+            fields = ('title', 'pk')
 
     class Userserializer(serializers.ModelSerializer):
         

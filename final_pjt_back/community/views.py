@@ -15,6 +15,7 @@ from .models import Review, Comment
 def review_list(request):
     review = get_list_or_404(Review)
     serializer = ReivewListSerializer(review, many=True)
+    print(serializer.data)
     return Response(serializer.data)
 
 @api_view(['POST'])
