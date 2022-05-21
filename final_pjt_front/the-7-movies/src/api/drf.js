@@ -28,6 +28,7 @@ export default {
     search: () => HOST + MOVIES + 'review/search/'
   },
   community: {
-    create: () => HOST + COMMUNITY + 'create/'
+    reviews: () => HOST + COMMUNITY,
+    create: () => HOST + COMMUNITY + 'create/',
   }
 }

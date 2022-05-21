@@ -43,7 +43,7 @@ export default {
     return {
       movieInput: '',
       newReview: {
-        movie: 123,
+        movie: 13,
         title: this.review.title,
         content: this.review.content
       }

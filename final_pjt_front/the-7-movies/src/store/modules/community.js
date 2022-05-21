@@ -19,7 +19,7 @@ export default {
     isAuthor: (state, getters) => {
       return state.review.user?.username === getters.currentUser.username
     },
-    isreview: state => !_.isEmpty(state.review),
+    isReview: state => !_.isEmpty(state.review),
   },
 
   mutations: {
