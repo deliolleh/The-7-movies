@@ -25,11 +25,13 @@ export default {
   //     HOST + ARTICLES + `${articlePk}/` + COMMENTS + `${commentPk}/`,
   // },
   movies: {
-    search: () => HOST + MOVIES + 'review/search/'
+    search: () => HOST + MOVIES + 'review/search/',
+    recommend: () => HOST + MOVIES + 'recommends/representative/', //이상형
   },
   community: {
     reviews: () => HOST + COMMUNITY,
     create: () => HOST + COMMUNITY + 'create/',
-    detail: moviePk => HOST + COMMUNITY + 'detail' + `${moviePk}`,
+    detail: reviewPk => HOST + COMMUNITY + `${reviewPk}`,
+    likereview: reviewPk => HOST + COMMUNITY + `${reviewPk}/` + 'like/'
   }
 }

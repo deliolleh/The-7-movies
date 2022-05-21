@@ -6,22 +6,22 @@
       {{ review.content }}
     </p>
     
-    <!-- Article Edit/Delete UI -->
-    <!-- <div v-if="isAuthor">
-      <router-link :to="{ name: 'articleEdit', params: { articlePk } }">
+    <!-- Review Edit/Delete UI -->
+    <div v-if="isAuthor">
+      <router-link :to="{ name: 'reviewEdit', params: { reviewPk } }">
         <button>Edit</button>
       </router-link>
       |
-      <button @click="deleteArticle(articlePk)">Delete</button>
-    </div> -->
+      <button @click="deleteReview(reviewPk)">Delete</button>
+    </div>
 
-    <!-- Article Like UI -->
-    <!-- <div>
+    <!-- Review Like UI -->
+    <div>
       Likeit:
       <button
-        @click="likeArticle(articlePk)"
-      >{{ likeCount }}</button>
-    </div> -->
+        @click="likeReview(reviewPk)"
+      >{{ likeCount }} ddd</button>
+    </div>
 
     <hr />
     <!-- Comment UI -->

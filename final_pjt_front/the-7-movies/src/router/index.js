@@ -11,7 +11,9 @@ import ProfileView from '@/views/accounts/ProfileView'
 import CommnuityView from '@/views/community/CommunityView'
 import ReviewNewView from '@/views/community/ReviewNewView'
 import ReviewDetailView from '@/views/community/ReviewDetailView'
+import ReviewEditView from '@/views/community/ReviewEditView'
 
+import RecommendView from '@/views/RecommendView'
 
 Vue.use(VueRouter)
 
@@ -54,14 +56,20 @@ const routes = [
     component: ReviewNewView
   },
   {
-    path: '/community/detail/:reviewPk',
+    path: '/community/:reviewPk',
     name: 'reviewDatail',
     component: ReviewDetailView
   },
   {
-    path: '/community/detail/:reviewPk/edit',
+    path: '/community/:reviewPk/edit',
     name: 'reviewEdit',
-    component: ReviewDetailView
+    component: ReviewEditView
+  },
+    // ---------recommend------------
+  {
+    path: '/recommend',
+    name: 'recommend',
+    component: RecommendView
   },
   // {
   //   path: '/',

@@ -1,9 +1,9 @@
 <template>
   <div>
     <h1>Edit Article</h1>
-    <article-form v-if="isReview" :review="review" action="update">
+    <review-form v-if="isReview" :review="review" action="update">
 
-    </article-form>
+    </review-form>
   </div>
 
 </template>
