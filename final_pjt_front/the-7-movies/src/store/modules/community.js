@@ -19,7 +19,7 @@ export default {
     isAuthor: (state, getters) => {
       return state.review.user?.username === getters.currentUser.username
     },
-    isreview: state => !_.isEmpty(state.review),
+    isReview: state => !_.isEmpty(state.review),
   },
 
   mutations: {
@@ -38,11 +38,13 @@ export default {
           에러 메시지 표시
       */
       axios({
-        url: drf.reviews.reviews(),
+        url: drf.community.reviews(),
         method: 'get',
         headers: getters.authHeader,
       })
-        .then(res => commit('SET_REVIEWS', res.data))
+        .then(res => {
+          console.log(res.data);
+          commit('SET_REVIEWS', res.data)})
         .catch(err => console.error(err.response))
     },
 
@@ -58,11 +60,13 @@ export default {
             NotFound404 로 이동
       */
       axios({
-        url: drf.reviews.review(reviewPk),
+        url: drf.community.detail(reviewPk),
         method: 'get',
         headers: getters.authHeader,
       })
-        .then(res => commit('SET_REVIEW', res.data))
+        .then(res => {
+          console.log(res.data);
+          commit('SET_REVIEW', res.data)})
         .catch(err => {
           console.error(err.response)
           if (err.response.status === 404) {
@@ -106,7 +110,7 @@ export default {
           에러 메시지 표시
       */
       axios({
-        url: drf.reviews.review(pk),
+        url: drf.community.review(pk),
         method: 'put',
         data: { title, content },
         headers: getters.authHeader,
@@ -133,7 +137,7 @@ export default {
       
       if (confirm('정말 삭제하시겠습니까?')) {
         axios({
-          url: drf.reviews.review(reviewPk),
+          url: drf.community.review(reviewPk),
           method: 'delete',
           headers: getters.authHeader,
         })
@@ -154,7 +158,7 @@ export default {
           에러 메시지 표시
       */
       axios({
-        url: drf.reviews.likereview(reviewPk),
+        url: drf.community.likereview(reviewPk),
         method: 'post',
         headers: getters.authHeader,
       })
@@ -173,7 +177,7 @@ export default {
       const comment = { content }
 
       axios({
-        url: drf.reviews.comments(reviewPk),
+        url: drf.community.comments(reviewPk),
         method: 'post',
         data: comment,
         headers: getters.authHeader,
@@ -195,7 +199,7 @@ export default {
       const comment = { content }
 
       axios({
-        url: drf.reviews.comment(reviewPk, commentPk),
+        url: drf.community.comment(reviewPk, commentPk),
         method: 'put',
         data: comment,
         headers: getters.authHeader,
@@ -217,7 +221,7 @@ export default {
       */
         if (confirm('정말 삭제하시겠습니까?')) {
           axios({
-            url: drf.reviews.comment(reviewPk, commentPk),
+            url: drf.community.comment(reviewPk, commentPk),
             method: 'delete',
             data: {},
             headers: getters.authHeader,
