@@ -39,14 +39,16 @@ def genre_init(request):
     }
     return Response(data=data, status=status.HTTP_201_CREATED)
 
-@api_view(['POST'])
+@api_view(['PUT'])
 def get_init(request):
     user = Genre_score.objects.filter(user=request.user)
     serializer = GenreScoreSerializer(instance=user, data=request.data, many=True)
+    for idx in range(len(user)):
+        serializer = GenreScoreSerializer(instance=user[idx], data=request.data[idx])
     # serializer = ProfileSerializer(data=request.data)
-    if serializer.is_valid(raise_exception=True):
-        serializer.save()
-        data = {
-            "message": "변경완료"
-        }
-        return Response(data=data)
+        if serializer.is_valid(raise_exception=True):
+            serializer.save()
+    data = {
+        "message": "변경완료"
+    }
+    return Response(data=data)
