@@ -8,6 +8,7 @@ from rest_framework import status
 
 from .serializers import GenreScoreSerializer, ProfileSerializer
 from movie.models import Genre
+from .models import Genre_score
 
 # from .serializers import GenreSerializer
 
@@ -40,9 +41,11 @@ def genre_init(request):
 
 @api_view(['POST'])
 def get_init(request):
-    serializer = ProfileSerializer(data=request.data)
+    user = Genre_score.objects.filter(user=request.user)
+    serializer = GenreScoreSerializer(instance=user, data=request.data)
+    # serializer = ProfileSerializer(data=request.data)
     if serializer.is_valid(raise_exception=True):
-        serializer.save(user=request.user)
+        serializer.save()
         data = {
             "message": "변경완료"
         }
