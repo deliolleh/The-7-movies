@@ -42,4 +42,10 @@ def genre_init(request):
 @api_view(['POST'])
 def get_init(request):
     user = get_user_model().objects.filter(user=request.user)
-    serializer = 
+    serializer = ProfileSerializer(instance=user, data=request.data)
+    if serializer.is_valid(raise_exception=True):
+        serializer.save()
+        data = {
+            "message": "변경완료"
+        }
+        return Response(data=data)
