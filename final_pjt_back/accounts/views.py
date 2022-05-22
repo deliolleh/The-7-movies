@@ -2,7 +2,7 @@ from django.contrib.auth import get_user_model
 from django.shortcuts import get_object_or_404
 
 from rest_framework.decorators import api_view, permission_classes
-# from rest_framework.permissions import AllowAny, IsAuthenticated, IsAuthenticatedOrReadOnly
+from rest_framework.permissions import AllowAny, IsAuthenticated, IsAuthenticatedOrReadOnly
 from rest_framework.response import Response
 from rest_framework import status
 
@@ -19,12 +19,14 @@ from .models import Genre_score
 #     return Response(serializer.data)
 
 @api_view(['GET'])
+@permission_classes([IsAuthenticated])
 def profile(request, username):
     user = get_object_or_404(get_user_model(), username=username)
     serializer = ProfileSerializer(user)
     return Response(serializer.data)
 
 @api_view(['Get'])
+@permission_classes([IsAuthenticated])
 def genre_init(request):
     genres = Genre.objects.all()
     for genre in genres:
@@ -40,6 +42,7 @@ def genre_init(request):
     return Response(data=data, status=status.HTTP_201_CREATED)
 
 @api_view(['PUT'])
+@permission_classes([IsAuthenticated])
 def get_init(request):
     user = Genre_score.objects.filter(user=request.user)
     serializer = GenreScoreSerializer(instance=user, data=request.data, many=True)

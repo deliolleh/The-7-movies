@@ -1,4 +1,4 @@
-from django.shortcuts import get_object_or_404
+from django.shortcuts import get_list_or_404, get_object_or_404
 from django.db.models import Count
 
 from rest_framework import status
@@ -113,13 +113,16 @@ def update_delete_comment(request, review_pk, comment_pk):
             serializer = CommentSerializer(instance=comment, data=request.data)
             if serializer.is_valid(raise_exception=True):
                 serializer.save(review=review)
-                return Response(serializer.data)
 
     elif request.method == 'DELETE':
         if request.user == comment.user:
             comment.delete()
-            data = {
-                "message": "정상적으로 삭제됐습니다"
-            }
-            return Response(data=data, status=status.HTTP_204_NO_CONTENT)
     
+    new_comments = get_list_or_404(Comment, review=review_pk)
+    serializer = CommentSerializer(new_comments, many=True)
+    return Response(serializer.data)
+
+@api_view(['POST'])
+@permission_classes([IsAuthenticated])
+def like_comment(request, review_pk, comment_pk):
+    pass
