@@ -11,9 +11,11 @@ from rest_framework.permissions import IsAuthenticated, AllowAny
 from django.shortcuts import get_list_or_404, get_object_or_404
 from django.contrib.auth import get_user_model
 
-from .models import Movie, Genre, Actor, Score
+from .models import Movie, Score
+from accounts.models import Genre_score
 
 from .serializers import MovieChoiceSerializer, MovieMainSerializer, SerachMovieSerializer, movielistserializer, movieserializer, UserGenreSerializer, ScoreSerializer
+from accounts.serializers import GenreScoreSerializer
 
 # Create your views here.
 @api_view(['GET'])
@@ -37,6 +39,7 @@ def main_movie(request):
     movies = Movie.objects.annotate(
         total = (F('vote_score')) / (F('popularity') * 100 + Count('vote_user'))
     ).order_by('total')[0:5]
+    print(movies.values('vote_user'))
     # movies = Movie.objects.all().order_by('-popularity')[0:5]
     serializer = MovieMainSerializer(movies, many=True)
     return Response(serializer.data)
@@ -48,21 +51,32 @@ def movie_detail(request, movie_pk):
     serializer = movieserializer(movie)
     return Response(serializer.data)
 
-@api_view(['POST', 'PUT', 'DELETE'])
+@api_view(['POST', 'DELETE'])
 @permission_classes([IsAuthenticated])
 def scroe_add_change_delete(request, movie_pk):
-    movie = get_object_or_404(Movie, pk=movie_pk)
-    
+    movie = Movie.objects.get(pk=movie_pk)
+    genres = Movie.objects.filter(pk=movie_pk).values('genres')
+    print(genres)
     if request.method == 'POST':
-        serializer = ScoreSerializer(data=request.POST)
-        if serializer.is_valid(raise_exception=True):
-            serializer.save(user=request.user, movie=movie, many=True)
-            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        score = Score.objects.filter(user=request.user, movie=movie).first()
+        genre_score = Genre_score.objects.filter(user=request.user)
+        print(genre_score)
+        if not score:
+            print('create')
+            serializer = ScoreSerializer(data=request.data)
+            if serializer.is_valid(raise_exception=True):
+                serializer.save(user=request.user, movie=movie)
+                for genre in genres:
+                    now = genre['genres']
+                    anoserializer = GenreScoreSerializer(data=request.data, genre=now, )
+                return Response(serializer.data, status=status.HTTP_201_CREATED)
     
-    elif request.method == 'PUT':
-        score = Score.objects.filter(user=request.user, movie=movie)
-        serializer = ScoreSerializer(instance=score, data=request.data, many=True)
-        return Response(serializer.data)
+        else:
+            print('update')
+            serializer = ScoreSerializer(instance=score, data=request.data)
+            if serializer.is_valid(raise_exception=True):
+                serializer.save()
+                return Response(serializer.data)
 
     elif request.method == 'DELETE':
         score = Score.objects.filter(user=request.user, movie=movie)
