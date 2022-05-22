@@ -27,7 +27,6 @@ def profile(request, username):
 def genre_init(request):
     genres = Genre.objects.all()
     for genre in genres:
-        print(genre)
         data= {
             "score" : 0
         }
