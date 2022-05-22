@@ -22,6 +22,7 @@ from accounts.serializers import GenreScoreSerializer
 @permission_classes([AllowAny])
 def movie_list(request):
     movies = get_list_or_404(Movie)
+    print(movies)
     serializer = movielistserializer(movies, many=True)
     return Response(serializer.data)
 
@@ -108,14 +109,19 @@ def inital_movie(request):
 @api_view(['GET'])
 @permission_classes([IsAuthenticated])
 def recommends(request):
-    user_status = get_object_or_404(get_user_model(), pk=request.user.pk).genres_status.all()
-    user_status = sorted(user_status, key=lambda x: x['score'])[0:4]
+    # user = get_list_or_404(Genre_score.objects.filter(user=request.user).order_by('score'))[0:4]
+    user = Genre_score.objects.filter(user=request.user).order_by('score')[0:4]
+
     total = []
-    for idx in range(len(user_status)):
-        num = 2 if idx != len(user_status) - 1 else 1
-        movies = Movie.objects.filter(genres__in=[user_status[idx]]).order_by('-popularity')[0:num]
-        total.append(movies)
-    serializer = movielistserializer(data=total, many=True)
+    for idx in range(len(user)):
+        print(user[idx].genre_id)
+        num = 3 if idx != len(user) - 1 else 2
+        movies = get_list_or_404(Movie.objects.filter(genres__in=[user[idx].genre_id]).order_by('-popularity'))[0:num]
+        # movies = Movie.objects.filter(genres__in=[user[idx].genre_id]).order_by('-popularity')[0:num]
+        print(movies)
+        total += movies
+    total = list(set(total))
+    serializer = movielistserializer(total, many=True)
     return Response(serializer.data)
 
 
