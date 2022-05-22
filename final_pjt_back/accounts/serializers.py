@@ -54,6 +54,7 @@ class ProfileSerializer(serializers.ModelSerializer):
         fields = ('id', 'username', 'like_movies',
             'like_reviews', 'like_comments', 'review_set',
             'comment_set', 'genre_score_set')
+        read_only_fields = ('user',)
 
 
 class GenreScoreSerializer(serializers.ModelSerializer):
