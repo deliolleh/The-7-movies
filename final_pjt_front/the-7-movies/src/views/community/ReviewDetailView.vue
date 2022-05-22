@@ -1,5 +1,8 @@
 <template>
   <div>
+    <!-- <user-info></user-info> -->
+    {{ review.user.username }}
+
     <v-card>
       <v-system-bar>
     <!-- Review Edit/Delete UI -->
@@ -47,12 +50,13 @@
 <script>
   import { mapGetters, mapActions } from 'vuex'
   import CommentList from '@/components/CommentList.vue'
-
+  // import UserInfo from '@/components/UserInfo'
 
   export default {
     name: 'ReviewDetailView',
     components: { 
       CommentList,
+      // UserInfo,
      },
     data() {
       return {

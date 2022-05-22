@@ -12,7 +12,9 @@ export default {
     // Token 으로 현재 user 판단
     currentUserInfo: () => HOST + ACCOUNTS + 'user/',
     // username으로 프로필 제공
-    profile: username => HOST + ACCOUNTS + 'profile/' + username,
+    profile: username => HOST + ACCOUNTS + 'profile/' + `${username}/`,
+    init: () => HOST + ACCOUNTS + 'genre_init/',
+    changeUserInfo: () => HOST + ACCOUNTS + 'get_init/'
   },
   // articles: {
   //   // /articles/
@@ -27,7 +29,8 @@ export default {
   movies: {
     search: () => HOST + MOVIES + 'review/search/',
     recommend: () => HOST + MOVIES + 'recommends/representative/', //이상형
-    detail: moviePk => HOST + MOVIES + `${moviePk}/`
+    detail: moviePk => HOST + MOVIES + `${moviePk}/`,
+    best: () => HOST + MOVIES + 'popular/',
   },
   community: {
     reviews: () => HOST + COMMUNITY,

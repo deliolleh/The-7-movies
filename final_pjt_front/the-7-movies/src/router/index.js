@@ -69,7 +69,7 @@ const routes = [
   },
     // ---------recommend------------
   {
-    path: '/recommend',
+    path: '/recommend/:username',
     name: 'recommend',
     component: RecommendView
   },

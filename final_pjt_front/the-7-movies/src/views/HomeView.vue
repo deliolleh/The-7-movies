@@ -19,7 +19,7 @@ import RecommendMovie from '@/components/movies/RecommendMovie'
 
 export default {
   name: 'HomeView',
-  component: {
+  components: {
     BestMovie,
     WeeklyBest,
     RecommendMovie,

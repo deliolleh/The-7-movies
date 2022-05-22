@@ -124,7 +124,7 @@ export default {
           })
         })
         .catch(() => {
-          console.log('에러요');
+          console.log('리뷰 업데이트 에러요');
         })
     },
 
@@ -149,7 +149,8 @@ export default {
             commit('SET_REVIEW', {})
             router.push({ name: 'community' })
           })
-          .catch(err => console.error(err.response))
+          .catch(() => 
+            console.log('댓글 삭제 실패'))
       }
     },
 

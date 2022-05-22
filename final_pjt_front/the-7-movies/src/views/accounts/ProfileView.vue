@@ -1,24 +1,16 @@
 <template>
-  <div>
-    <h1>
-      {{ profile.username }}
-    </h1>
+  <div class="user-container">
+    <user-info></user-info>
   </div>
 </template>
 
 <script>
-import { mapActions, mapGetters } from 'vuex'
+import UserInfo from '@/components/UserInfo'
+
 export default {
   name: 'ProfileView',
-  computed: {
-    ...mapGetters(['profile'])
-  },
-  methods: {
-    ...mapActions(['fetchProfile'])
-  },
-  created() {
-    const payload = { username: this.$route.params.username}
-    this.fetchProfile(payload)
+  components: {
+    UserInfo,
   }
 }
 </script>

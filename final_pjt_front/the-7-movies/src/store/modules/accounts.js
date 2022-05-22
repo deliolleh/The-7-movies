@@ -28,7 +28,8 @@ export default {
     SET_TOKEN: (state, token) => state.token = token,
     SET_CURRENT_USER: (state, user) => state.currentUser = user,
     SET_PROFILE: (state, profile) => state.profile = profile,
-    SET_AUTH_ERROR: (state, error) => state.authError = error
+    SET_AUTH_ERROR: (state, error) => state.authError = error,
+    SCORE_UPDATE: (state, profile) => state.profile = profile
   },
 
   actions: {
@@ -77,7 +78,7 @@ export default {
         })
     },
 
-    signup({ commit, dispatch }, credentials) {
+    signup({ commit, dispatch, getters }, credentials) {
       /* 
       POST: 사용자 입력정보를 signup URL로 보내기
         성공하면
@@ -94,9 +95,17 @@ export default {
       })
         .then(res => {
           const token = res.data.key
+          console.log(credentials)
           dispatch('saveToken', token)
           dispatch('fetchCurrentUser')
-          router.push({ name: 'recommend' })
+          axios({
+            url: drf.accounts.init(),
+            method: 'get',
+            headers: getters.authHeader
+          })
+          .then(() => {
+            router.push({ name: 'recommend', params: {username : credentials.username} } )
+          })
         })
         .catch(err => {
           console.error(err.response.data)
@@ -155,7 +164,7 @@ export default {
       }
     },
 
-    fetchProfile({ commit, getters }, { username }) {
+    fetchProfile({ commit, getters }, username ) {
       /*
       GET: profile URL로 요청보내기
         성공하면
@@ -170,8 +179,32 @@ export default {
           commit('SET_PROFILE', res.data)
         })
         .catch(() => {
-          console.log('실패');
+          console.log('프로필 들고 올수 없음.');
         })
     },
+    scoreUpdate({commit, getters}, profile) {
+      axios({
+        url: drf.accounts.changeUserInfo(),
+        method: 'put',
+        headers: getters.authHeader,
+        data: profile.genre_score_set
+
+      })
+        .then(res => {
+          commit('SCORE_UPDATE', res.data)
+        })
+        .catch(() => console.log(profile.genre_score_set))
+    }
   },
 }
+
+
+/*
+user: {
+  username: '신혜원'
+  genre: {
+    romance: 0,
+    comedy: 0,
+  }
+}
+*/
