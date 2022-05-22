@@ -1,5 +1,7 @@
 import random
 
+from django.db.models import F, Count
+
 from rest_framework import status
 from rest_framework.response import Response
 from rest_framework.decorators import api_view
@@ -32,7 +34,10 @@ def give_movie_data(request):
 @api_view(['GET'])
 @permission_classes([AllowAny])
 def main_movie(request):
-    movies = Movie.objects.all().order_by('-popularity')[0:5]
+    movies = Movie.objects.annotate(
+        total = (F('vote_score')) / (F('popularity') * 100 + Count('vote_user'))
+    ).order_by('total')[0:5]
+    # movies = Movie.objects.all().order_by('-popularity')[0:5]
     serializer = MovieMainSerializer(movies, many=True)
     return Response(serializer.data)
 

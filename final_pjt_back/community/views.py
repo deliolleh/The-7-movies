@@ -104,27 +104,22 @@ def create_comment(request, review_pk):
 @api_view(['PUT', 'DELETE'])
 @permission_classes([IsAuthenticated])
 def update_delete_comment(request, review_pk, comment_pk):
+    # review = get_object_or_404(Review, pk=review_pk)
     review = get_object_or_404(Review, pk=review_pk)
     comment = get_object_or_404(Comment, pk=comment_pk)
 
-    def update_comment():
+    if request.method == 'PUT':
         if request.user == comment.user:
             serializer = CommentSerializer(instance=comment, data=request.data)
             if serializer.is_valid(raise_exception=True):
-                serializer.save()
-                comments = review.comment_set.all()
-                serializer = Comment(comments, many=True)
+                serializer.save(review=review)
                 return Response(serializer.data)
-        
 
-    def delete_comment():
+    elif request.method == 'DELETE':
         if request.user == comment.user:
             comment.delete()
-            comments = review.comment_set.all()
-            serializer = Comment(comments, many=True)
-            return Response(serializer.data)
+            data = {
+                "message": "정상적으로 삭제됐습니다"
+            }
+            return Response(data=data, status=status.HTTP_204_NO_CONTENT)
     
-    if request.method == 'PUT':
-        update_comment()
-    elif request.method == 'DELETE':
-        delete_comment()
