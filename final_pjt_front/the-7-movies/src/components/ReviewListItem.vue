@@ -1,10 +1,18 @@
 <template>
-  <div>
-    <router-link :to="{ name: 'reviewDatail', params: { reviewPk: item.pk } } ">
-      영화 제목 : {{ item.movie.title }} 제목 : {{ item.title }}
-    </router-link>
+  <v-card id="item">
+    <div>
+      <router-link style="text-decoration: none;" :to="{ name: 'reviewDatail', params: { reviewPk: item.pk } } ">
+        {{ item.title }}
+      </router-link>
+      <div>
+        <div><h5>{{ item.movie.title }}</h5></div>
+      </div>
+    </div>
+    <div>
+      <span>hi</span>
+    </div>
     <!-- review 목록을 받아서 화면에 뿌리는 역할 -->
-  </div>
+  </v-card>
 </template>
 
 <script>
@@ -20,5 +28,7 @@ export default {
 </script>
 
 <style>
-
+  #item {
+    padding: 1px 0 1px 20px;
+  }
 </style>

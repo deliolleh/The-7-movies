@@ -28,5 +28,7 @@ export default {
 </script>
 
 <style>
-
+  div {
+    margin: 8px 0;
+  }
 </style>

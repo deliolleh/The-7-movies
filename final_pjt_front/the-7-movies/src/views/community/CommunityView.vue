@@ -1,8 +1,11 @@
 <template>
-  <div>
-    <div>
-      <router-link :to="{name: 'create'}">review 생성</router-link>
-    </div>
+  <div id="main">
+    <v-btn
+    depressed
+    color="Primary">
+      <router-link style="text-decoration: none;" :to="{name: 'create'}">review 생성</router-link>
+    </v-btn>
+    <v-divider></v-divider>
     <!-- 게시글 -->
     <div>
       <review-list></review-list>
@@ -22,5 +25,7 @@ export default {
 </script>
 
 <style>
-
+ #main {
+   margin: 0 8px;
+ }
 </style>
