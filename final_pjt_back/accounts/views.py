@@ -42,7 +42,7 @@ def genre_init(request):
 @api_view(['POST'])
 def get_init(request):
     user = Genre_score.objects.filter(user=request.user)
-    serializer = GenreScoreSerializer(instance=user, data=request.data)
+    serializer = GenreScoreSerializer(instance=user, data=request.data, many=True)
     # serializer = ProfileSerializer(data=request.data)
     if serializer.is_valid(raise_exception=True):
         serializer.save()
