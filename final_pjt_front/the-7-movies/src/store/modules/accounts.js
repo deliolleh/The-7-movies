@@ -178,8 +178,7 @@ export default {
         .then(res => {
           commit('SET_PROFILE', res.data)
         })
-        .catch(() => {
-          console.log('프로필 들고 올수 없음.');
+        .catch(() => {          console.log('프로필 들고 올수 없음.');
         })
     },
     scoreUpdate({commit, getters}, profile) {

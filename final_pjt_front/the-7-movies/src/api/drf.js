@@ -31,6 +31,7 @@ export default {
     recommend: () => HOST + MOVIES + 'recommends/representative/', //이상형
     detail: moviePk => HOST + MOVIES + `${moviePk}/`,
     best: () => HOST + MOVIES + 'popular/',
+    recommends: () => HOST + MOVIES + 'recommends/' //유저 추천영화
   },
   community: {
     reviews: () => HOST + COMMUNITY,

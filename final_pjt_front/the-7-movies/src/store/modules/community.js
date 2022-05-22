@@ -213,10 +213,13 @@ export default {
         headers: getters.authHeader,
       })
         .then(res => {
-          console.log('수정??');
+          console.log(res.data);
           commit('SET_REVIEW_COMMENTS', res.data)
         })
-        .catch(err => console.error(err.response))
+        .catch(err => {
+          console.error(err.response)
+          console.log('댓글 수정');  
+        })
     },
 
     deleteComment({ commit, getters }, { reviewPk, commentPk }) {

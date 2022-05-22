@@ -1,37 +1,12 @@
 <template>
   <div>
-    <v-row>
-      <v-card>
-        <v-img
-          :src="movie.poster_path">
-        </v-img>
-      </v-card>
-      <v-card>
-        <v-row
-          align="center"
-          class="mx-0"
-        >
-          <v-rating
-            :value="4.5"
-            color="amber"
-            dense
-            half-increments
-            readonly
-            size="14"
-          ></v-rating>
-
-          <div class="grey--text ms-4">
-            4.5 (413)
-          </div>
-        </v-row>
-
-        <div class="my-4 text-subtitle-1">
-          {{ movie.title }}
-        </div>
-
-        <div>{{ movie.overview }}</div>
-      </v-card>
-    </v-row>
+  <div class="text-center">
+    <v-rating
+      v-model="rating"
+      icon-label="custom icon label text {0} of {1}"
+    ></v-rating>
+    {{ this.movie.title }}
+  </div>
   </div>
 </template>
 
@@ -39,24 +14,43 @@
 import { mapActions, mapGetters } from 'vuex'
 export default {
   name: 'MovieDetail',
+  data() {
+    return {
+      rating: 0,
+    }
+  },
   props: {
-    moviePk: String,
+    username: String,
   },
   computed: {
-    ...mapGetters(['movie'])
+    ...mapGetters(['movie', 'currentUser', 'profile']),
+    
   },
   methods: {
-    ...mapActions(['getMovie'])
+    ...mapActions(['getMovie', 'scoreUpdate', 'fetchProfile', 'fetchCurrentUser']),
   },
   created() {
-    this.getMovie(this.moviePk)
+    this.getMovie(this.$route.params.moviePk)
+  },
+  beforeUnmount() {
+    this.movie.genres.forEach(id => {
+      this.profile.genre_score_set.forEach(object => {
+          if (object.genre === id) {
+            object.score += this.rating
+          }
+        })
+    });
+    this.$store.dispatch('scoreUpdate', this.profile)
+  },
+  watch: {
+    username: function () {
+      this.fetchProfile(this.username)
+    }
   }
 }
 </script>
 
 <style>
-img {
-  width: 500px;
-}
+
 
 </style>
