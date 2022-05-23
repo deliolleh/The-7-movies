@@ -51,7 +51,7 @@ def get_init(request):
     # serializer = ProfileSerializer(data=request.data)
         if serializer.is_valid(raise_exception=True):
             serializer.save()
-    data = {
-        "message": "변경완료"
-    }
-    return Response(data=data)
+    user = get_object_or_404(get_user_model(), username=request.user.username)
+    send_serializer = ProfileSerializer(user)
+    # print(send_serializer.data)
+    return Response(send_serializer.data)
