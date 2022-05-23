@@ -39,6 +39,7 @@ export default {
     detail: reviewPk => HOST + COMMUNITY + `${reviewPk}/`,
     likereview: reviewPk => HOST + COMMUNITY + `${reviewPk}/` + 'like/',
     comments: reviewPk => HOST + COMMUNITY + `${reviewPk}/` + 'comment/',
-    updateDelete: (reviewPk, commentPk) => HOST + COMMUNITY + `${reviewPk}/` + `${commentPk}/`
+    likecomment: (reviewPk, commentPk) => HOST + COMMUNITY + `${reviewPk}/` + `${commentPk}/` + 'like/',
+    updateDelete: (reviewPk, commentPk) => HOST + COMMUNITY + `${reviewPk}/` + `${commentPk}/`,
   }
 }

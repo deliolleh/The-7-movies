@@ -244,5 +244,23 @@ export default {
             .catch(err => console.error(err.response))
         }
       },
+      likeComment({ commit, getters }, { reviewPk, commentPk }) {
+        /* 좋아요
+        POST: likereview URL(token)
+          성공하면
+            state.comment 갱신
+          실패하면
+            에러 메시지 표시
+        */
+        axios({
+          url: drf.community.likecomment(reviewPk, commentPk),
+          method: 'post',
+          headers: getters.authHeader,
+        })
+          .then(res => {
+            console.log(res.data, '댓글성공');
+            commit('SET_REVIEW', res.data)})
+          .catch(err => console.error(err.response))
+      },
   },
 }
