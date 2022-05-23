@@ -28,7 +28,7 @@
 </template>
 
 <script>
-import { mapActions } from 'vuex'
+import { mapActions, mapGetters } from 'vuex'
 import SearchBar from '@/components/SearchBar'
 export default {
   name: 'ReviewForm',
@@ -49,10 +49,15 @@ export default {
       }
     }
   },
+  computed: {
+    ...mapGetters(['currentMovie'])
+  },
   methods: {
     ...mapActions(['filteredList', 'createReview', 'updateReview']),
      onSubmit() {
         if (this.action === 'create') {
+          this.newReview.movie = this.currentMovie
+          console.log(this.newReview);
           this.createReview(this.newReview)
         } else  {
           const payload = {

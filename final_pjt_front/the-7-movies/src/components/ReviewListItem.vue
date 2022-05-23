@@ -18,7 +18,7 @@
             <li class="post">
               <div> 
                 <router-link class="username" :to="{ name: 'profile', params: { username: currentUser.username } } ">
-                  글쓴이 : {{ currentUser.username }} 
+                  글쓴이 : {{ item.user.username }} 
                 </router-link>
               </div>
               <div>

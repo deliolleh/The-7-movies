@@ -40,7 +40,12 @@ export default {
       const payload = selectedMovie[0].pk
       this.getMoviePk(payload)
     },
+    onSubmit () {
+        console.log('아들');
+        this.$emit('onSubmit', this.findItems[0].pk)
+      },
     ...mapActions(['getAllMovies', 'getMoviePk']),
+      
   },
   computed: {
     findItems () {
