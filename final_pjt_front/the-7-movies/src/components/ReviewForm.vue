@@ -43,18 +43,18 @@ export default {
     return {
       movieInput: '',
       newReview: {
-        movie: 13,
+        movie: null,
         title: this.review.title,
         content: this.review.content
       }
     }
   },
   computed: {
-    ...mapGetters(['currentMovie'])
+    ...mapGetters(['currentMovie']),
   },
   methods: {
     ...mapActions(['filteredList', 'createReview', 'updateReview']),
-     onSubmit() {
+      onSubmit() {
         if (this.action === 'create') {
           this.newReview.movie = this.currentMovie
           console.log(this.newReview);
@@ -69,6 +69,11 @@ export default {
         }
     }
   },
+  watch: {
+    currentMovie() {
+      this.review.movie == this.$store.state.currentMovie
+    }
+  }
 }
 </script>
 

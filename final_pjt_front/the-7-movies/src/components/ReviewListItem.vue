@@ -1,7 +1,6 @@
 <template>
   <v-container>
     <v-spacer></v-spacer>
-    <v-divider></v-divider>
     <v-row>
       <v-col
         sm="3"

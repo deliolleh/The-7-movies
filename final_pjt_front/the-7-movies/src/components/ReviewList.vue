@@ -6,14 +6,16 @@
           offset="2"
         >
           <div id="main">
-              <v-btn
-              elevation="2"
-              color="success"
-              class="mr-4"
-              >
-                <router-link style="color: white; text-decoration: none;" :to="{name: 'create'}">review 생성</router-link>
-              </v-btn>
+            <v-btn
+            elevation="2"
+            color="success"
+            class="mr-4"
+            >
+              <router-link style="color: white; text-decoration: none;" :to="{name: 'create'}">review 생성</router-link>
+            </v-btn>
           </div>
+        <v-spacer></v-spacer>
+        <v-divider></v-divider>
         </v-col>
       </v-row>
     <review-list-item

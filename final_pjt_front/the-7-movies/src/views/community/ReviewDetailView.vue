@@ -9,11 +9,12 @@
       <v-system-bar class="py-5 pl-5 ma-0">
     <!-- Review Edit/Delete UI -->
         <v-toolbar-title class="font-weight-black"> {{ review.title }}</v-toolbar-title>
+        <v-spacer></v-spacer>
         <div v-if="isAuthor">
           <router-link :to="{ name: 'reviewEdit', params: { reviewPk } }">
             <button>Edit</button>
           </router-link>
-          <button @click="deleteReview(reviewPk)">Delete</button>
+          <button @click="deleteReview(reviewPk)" class="ml-1">Delete</button>
         </div>
       </v-system-bar>
       <v-toolbar flat style="margin: 0;">
