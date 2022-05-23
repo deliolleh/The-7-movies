@@ -104,7 +104,7 @@ def scroe_add_change_delete(request, movie_pk):
 def inital_movie(request):
     if request.method == 'GET':
         ran = random.randrange(1, 100)
-        movie = Movie.objects.all()[ran + 0: ran + 16]
+        movie = Movie.objects.all().order_by('-popularity')[0:16]
         serializer = MovieChoiceSerializer(movie, many=True)
         return Response(serializer.data)
     
