@@ -1,28 +1,56 @@
 <template>
-  <div>
+  <v-app>
+    <v-container fluid>
+
     <h1> 선호 하는 영화를 선택해주세요 </h1>
     <!-- 2장씩 받아야함. -->
-
+    <br>
+    <v-progress-linear
+      color="light-blue"
+      height="50"
+      :value="progress"
+      striped
+    ></v-progress-linear>
     <section id="recommends">
-      <v-row id="cards">
+      <v-row id="cards"
+        class="ma-2"
+      >
+        <v-col
+          offset="1"
+          offset-lg="3"
+          cols="5"
+          lg="3"
+          class="d-flex flex-column"
+        >
         <v-card id="left"
-          @click="bigin_left()">
+          @click="bigin_left()"
+          class=" flex d-flex flex-column"
+          >
           <img
-          :src="this.recommend[this.index].poster_path"
-          alt="#"
+            :src="this.recommend[this.index].poster_path"
           >
         </v-card>
+        </v-col>
+        <v-col
+          cols="5"
+          lg="3"
+          class="d-flex flex-column"
+        >
         <v-card id="right"
-          @click="bigin_right()">
+          @click="bigin_right()"
+          class=" flex d-flex flex-column"
+          >
           <img
-          :src="this.recommend[this.index+1].poster_path"
-          alt="#">
+            :src="this.recommend[this.index+1].poster_path"
+          >
+          <!-- <router-link :to="{name: 'movies', params: `${this.recommend[this.index+1].}`}">
+          </router-link> -->
         </v-card>
+        </v-col>
       </v-row>
     </section>
-
-
-  </div>
+    </v-container>
+  </v-app>
 </template>
 
 <script>
@@ -65,11 +93,9 @@ export default {
       } else {
         const left = document.querySelector('#left > img')
         const right = document.querySelector('#right > img')
-        left.setAttribute('src', this.lst[0])
-        right.setAttribute('src', this.lst[1])
-        console.log('이건 추천');
+        left.removeAttribute('src')
+        right.removeAttribute('src')
         console.log(this.profile);
-        console.log('이건 추천 후');
         return  this.$store.dispatch('scoreUpdate', this.profile)
       }
       
@@ -83,7 +109,10 @@ export default {
     },
   },
   computed: {
-    ...mapGetters(['profile', 'recommend'])
+    ...mapGetters(['profile', 'recommend']),
+    progress() {
+      return this.index * 7.5
+    }
   },
   created() {
     this.getRecommend()
@@ -94,29 +123,6 @@ export default {
 
 <style scoped>
 
-#cards {
-
-}
-
-section {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-#left {
-  padding: 25px;
-  margin: 25px;
-}
-
-#right {
-  padding: 25px;
-  margin: 25px;
-}
-
-.row {
-  flex: none;
-}
 
 @keyframes fadeIn {
   from { opacity: 0;}
