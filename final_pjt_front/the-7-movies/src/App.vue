@@ -1,7 +1,9 @@
 <template>
   <div id="app">
     <nav-bar></nav-bar>
+    <v-scroll-x-transition mode="in" hide-on-leave="true">
       <router-view></router-view>
+    </v-scroll-x-transition>
   </div>
 </template>
 

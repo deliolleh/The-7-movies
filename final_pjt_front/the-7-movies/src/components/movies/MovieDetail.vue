@@ -1,26 +1,63 @@
 <template>
-  <div>
-  <div class="text-center">
-    <v-rating
-      v-if="!score_set.score"
-      v-model="score_set.score"
-      :value="this.profile.score_set.score"
-      icon-label="custom icon label text {0} of {1}"
-      @input="onClick"
-    ></v-rating>
-      <v-rating
-      v-else
-      v-model="score_set.score"
-      icon-label="custom icon label text {0} of {1}"
-      @input="onClick"
-    ></v-rating>
-    {{ this.movie.title }}
-    <!-- 별값을 고정 해야 함. -->
-    <!--  -->
+  <v-app>
+    <v-container>
+      <v-row
+      justify="center"
+      >
+        <v-card
+        max-width="400"
+        >
+          <v-img
+            :src="movie.poster_path"
+          >
+          </v-img>
+        </v-card>
+        <v-card
+        width="400"
+        color="#FAFAFAFF"
+        >
+          <v-card-title>
+            {{ movie.title }}                 
+            
+          </v-card-title>
+          <v-card-text>
+            감독 : {{ movie.director }}
+            <br>
+            개봉 : {{ movie.release_date }}
+            <br>
+            평점 : {{ average }}
+            <hr>
+            <br>
+            {{ movie.overview }}
+            <v-spacer></v-spacer>
+            <router-link :to="{name:'create'}">
+              리뷰 쓰러 가기
+            </router-link>
 
+          </v-card-text>
+        </v-card>
+      </v-row>
 
-  </div>
-  </div>
+    <div class="text-center">
+      <!-- <v-rating
+        v-model="score_set.score"
+        icon-label="custom icon label text {0} of {1}"
+        @input="onClick"
+        background-color="orange lighten-3"
+        color="orange"
+        large
+      ></v-rating> -->
+        <v-rating
+        v-model="score_set.score"
+        icon-label="custom icon label text {0} of {1}"
+        @input="onClick"
+        background-color="orange lighten-3"
+        color="orange"
+        large
+      ></v-rating>
+    </div>
+  </v-container>
+  </v-app>
 </template>
 
 <script>
@@ -43,6 +80,10 @@ export default {
   },
   computed: {
     ...mapGetters(['movie', 'currentUser', 'profile']),
+    average() {
+      const avg = this.movie.vote_score/this.movie.vote_count
+      return avg
+    }
     
   },
   methods: {
@@ -87,16 +128,14 @@ export default {
     username: function () {
       this.fetchProfile(this.username)
     },
-    curr: function () {
-      this.checkReview()
-    },
-    pro() {
-    }
   },
 }
 </script>
 
 <style>
 
+div.v-card {
+  background-color: rgba(233, 245, 233, 1);
+}
 
 </style>

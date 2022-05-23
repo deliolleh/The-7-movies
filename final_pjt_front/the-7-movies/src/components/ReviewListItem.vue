@@ -32,7 +32,9 @@
           </ul>
           <div>
             <div class="movie-title">
-              <h5>{{ item.movie.title }}</h5>
+              <router-link style="text-decoration: none;" :to="{name: 'movieDetail', params: {moviePk : item.movie.pk} }">
+                <h5>영화 제목 : {{ item.movie.title }}</h5>
+              </router-link>
             </div>
           </div>
           <div>
