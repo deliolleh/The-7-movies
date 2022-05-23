@@ -2,6 +2,11 @@
   <v-container class="header">
     <v-row>
       <v-col
+        sm="3"
+        md="2"
+        >
+      </v-col>
+      <v-col
         cols="12"
         sm="6"
         md="8"

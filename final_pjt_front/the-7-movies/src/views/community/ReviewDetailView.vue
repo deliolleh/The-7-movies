@@ -90,7 +90,7 @@
             this.like = true
           }
         });
-      }
+      },
     },
     created() {
       this.fetchReview(this.reviewPk)

@@ -1,12 +1,16 @@
 <template>
-  <v-carousel hide-delimiters>
-    <v-carousel-item
-      v-for="(item,i) in bestmovie"
-      :key="i"
-      :src="item.poster_path"
-    >
-    </v-carousel-item>
-  </v-carousel>
+  <v-app>
+    <v-carousel hide-delimiters>
+      <v-carousel-item
+        v-for="(item,i) in bestmovie"
+        :key="i"
+        :src="item.poster_path"
+        width="1000"
+        height="auto"
+      >
+      </v-carousel-item>
+    </v-carousel>
+  </v-app>
 </template>
 
 <script>

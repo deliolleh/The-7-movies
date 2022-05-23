@@ -19,18 +19,14 @@
       <button @click="switchIsEditing">Cancel</button>
     </span>
 
-    <span v-if="currentUser.username === comment.user.username && !isEditing">
-      <button @click="switchIsEditing">Edit</button> |
-      <button @click="deleteComment(payload)">Delete</button>
-    </span>
-
-    <div @click="likeComment(this.comment.review, this.comment.pk)">
-      <v-switch
-        label="좋아요"
-        hide-details
-      >
-      </v-switch>
-
+    <div @click="likeComment(payload)">
+        <!-- Review Like UI -->
+        <v-switch
+          v-model="like"
+          :input-value="like"
+          label="좋아요"
+          hide-details
+        ></v-switch>
     </div>
   </li>
 </template>
@@ -49,22 +45,31 @@ export default {
         commentPk: this.comment.pk,
         content: this.comment.content
       },
+      like: false,
     }
   },
   computed: {
     ...mapGetters(['currentUser']),
   },
   methods: {
-    ...mapActions(['updateComment', 'deleteComment']),
+    ...mapActions(['updateComment', 'deleteComment', 'likeComment']),
     switchIsEditing() {
       this.isEditing = !this.isEditing
     },
+    checkLikes() {
+      console.log(1)
+      if (this.comment.like_people.includes(this.currentUser.pk)){
+        this.like= true
+        }
+      },
     onUpdate() {
       this.updateComment(this.payload)
       this.isEditing = false
     },
   },
-
+  created() {
+    this.checkLikes()
+  }
 }
 </script>
 
