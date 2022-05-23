@@ -1,23 +1,10 @@
 <template>
-  <div>
-    <v-container>
-      <v-row>
-        <div id="main">
-          <v-btn
-          elevation="2"
-          color="success"
-          class="mr-4 justify-end"
-          >
-            <router-link style="color: white; text-decoration: none;" :to="{name: 'create'}">review 생성</router-link>
-          </v-btn>
-        </div>
-      </v-row>
-    </v-container>
+  <v-app>
     <!-- 게시글 -->
     <div>
       <review-list></review-list>
     </div>
-  </div>
+  </v-app>
 </template>
 
 <script>

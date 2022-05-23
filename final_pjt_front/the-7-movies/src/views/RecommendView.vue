@@ -14,39 +14,34 @@
     <section id="recommends">
       <v-row id="cards"
         class="ma-2"
+        justify="center"
       >
-        <v-col
-          offset="1"
-          offset-lg="3"
-          cols="5"
-          lg="3"
-          class="d-flex flex-column"
-        >
         <v-card id="left"
+          max-width="350"
           @click="bigin_left()"
           class=" flex d-flex flex-column"
           >
+        <v-scroll-x-transition mode="in" hide-on-leave="true">
           <img
             :src="this.recommend[this.index].poster_path"
+            :key="this.recommend[this.index].poster_path"
           >
+        </v-scroll-x-transition>
         </v-card>
-        </v-col>
-        <v-col
-          cols="5"
-          lg="3"
-          class="d-flex flex-column"
-        >
         <v-card id="right"
+          max-width="350"
           @click="bigin_right()"
           class=" flex d-flex flex-column"
           >
+          <v-scroll-x-transition mode="in" hide-on-leave="true">
           <img
             :src="this.recommend[this.index+1].poster_path"
+            :key="this.recommend[this.index+1].poster_path"
           >
+          </v-scroll-x-transition>
           <!-- <router-link :to="{name: 'movies', params: `${this.recommend[this.index+1].}`}">
           </router-link> -->
         </v-card>
-        </v-col>
       </v-row>
     </section>
     </v-container>
@@ -95,17 +90,28 @@ export default {
         const right = document.querySelector('#right > img')
         left.removeAttribute('src')
         right.removeAttribute('src')
+        return  this.$store.dispatch('scoreUpdate', this.profile)
+      }
+    },
+    bigin_right() {
+      this.recommend[this.index+1].genres.forEach(id => {
+        this.profile.genre_score_set.forEach(object => {
+          if (object.genre === id) {
+            object.score += 1
+          }
+        })
+      });
+      this.index = this.index + 2
+            if (this.index < this.recommend.length) {
+        return this.goNext(this.index)
+      } else {
+        const left = document.querySelector('#left > img')
+        const right = document.querySelector('#right > img')
+        left.removeAttribute('src')
+        right.removeAttribute('src')
         console.log(this.profile);
         return  this.$store.dispatch('scoreUpdate', this.profile)
       }
-      
-    },
-    bigin_right() {
-      // this.recommend[this.index+1].genre.forEach(id => {
-      //   this.$store.dispatch('updateScore', id)
-      // });
-      this.index = this.index + 2
-      this.goNext(this.index)
     },
   },
   computed: {
@@ -123,25 +129,32 @@ export default {
 
 <style scoped>
 
-
-@keyframes fadeIn {
-  from { opacity: 0;}
-  to { opacity: 1; }
+img {
+  -webkit-transition: all 3s ease;
+  transition: all 3s ease;
 }
 
-@keyframes fadeOut {
-  from { opacity: 1;}
-  to { opacity: 0; }
+
+#left {
+  margin: 15px;
 }
 
-@-webkit-keyframes fadeIn {
-  from { opacity: 0;}
-  to { opacity: 1; }
+#right {
+  margin: 15px;
 }
 
-@-webkit-keyframes fadeOut {
-  from { opacity: 1;}
-  to { opacity: 0; }
+.slide-fade-enter-active {
+  opacity: 1;
+  z-index: 10;
+}
+
+.slide-fade-leave-active {
+  opacity: 1;
+}
+
+.slide-fade-enter,
+.slide-fade-leave-to {
+  opacity: 0;
 }
 
 </style>
