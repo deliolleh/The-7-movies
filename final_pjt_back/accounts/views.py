@@ -19,7 +19,7 @@ from .models import Genre_score
 #     return Response(serializer.data)
 
 @api_view(['GET'])
-@permission_classes([IsAuthenticated])
+@permission_classes([AllowAny])
 def profile(request, username):
     user = get_object_or_404(get_user_model(), username=username)
     serializer = ProfileSerializer(user)
@@ -53,5 +53,5 @@ def get_init(request):
             serializer.save()
     user = get_object_or_404(get_user_model(), username=request.user.username)
     send_serializer = ProfileSerializer(user)
-    # print(send_serializer.data)
+    print(send_serializer.data)
     return Response(send_serializer.data)

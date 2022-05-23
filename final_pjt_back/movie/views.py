@@ -54,7 +54,7 @@ def movie_detail(request, movie_pk):
 
 @api_view(['POST', 'DELETE'])
 @permission_classes([IsAuthenticated])
-def scroe_add_change_delete(request, movie_pk):
+def score_add_change_delete(request, movie_pk):
     movie = Movie.objects.get(pk=movie_pk)
     genres = Movie.objects.filter(pk=movie_pk).values('genres')
     # print(genres)
@@ -77,15 +77,15 @@ def scroe_add_change_delete(request, movie_pk):
             if serializer.is_valid(raise_exception=True):
                 serializer.save()
                 # 되는지 체크!
-                for genre in genres:
-                    status = Genre_score.objects.get(user=request.user, genre=genre['genres'])
-                    # print(status.score)
-                    data = {
-                        "score" : status.score + 5
-                    }
-                    secondeserializer = GenreScoreSerializer(instance=status, data=data)
-                    if secondeserializer.is_valid(raise_exception=True):
-                        secondeserializer.save()
+                # for genre in genres:
+                #     status = Genre_score.objects.get(user=request.user, genre=genre['genres'])
+                #     # print(status.score)
+                #     data = {
+                #         "score" : status.score + 5
+                #     }
+                #     secondeserializer = GenreScoreSerializer(instance=status, data=data)
+                #     if secondeserializer.is_valid(raise_exception=True):
+                #         secondeserializer.save()
                 return Response(serializer.data)
 
     elif request.method == 'DELETE':
