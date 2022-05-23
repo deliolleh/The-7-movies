@@ -1,8 +1,10 @@
+from traceback import print_tb
 from django.shortcuts import get_list_or_404, get_object_or_404
 from django.db.models import Count
 
 from rest_framework import status
 from rest_framework.response import Response
+from django.contrib.auth import get_user_model
 from rest_framework.permissions import IsAuthenticated, AllowAny
 from rest_framework.decorators import api_view, permission_classes
 
@@ -126,14 +128,16 @@ def update_delete_comment(request, review_pk, comment_pk):
 @permission_classes([IsAuthenticated])
 def like_comment(request, review_pk, comment_pk):
     comment = Comment.objects.get(pk=comment_pk)
-    if comment.like_people.filter(pk=request.user.pk).exist():
-        comment.like_peopele.remove(request.user)
-        comments = Comment.objects.filter(pk=review_pk)
-        serializer = CommentSerializer(comments)
+    if comment.like_people.filter(pk=request.user.pk):
+        print('del')
+        comment.like_people.remove(request.user)
+        comments = Comment.objects.filter(review=review_pk)
+        serializer = CommentSerializer(comments, many=True)
         return Response(serializer.data)
     
     else:
+        print('cre')
         comment.like_people.add(request.user)
-        comments = Comment.objects.filter(pk=review_pk)
-        serializer = CommentSerializer(comments)
+        comments = Comment.objects.filter(review=review_pk)
+        serializer = CommentSerializer(comments, many=True)
         return Response(serializer.data)

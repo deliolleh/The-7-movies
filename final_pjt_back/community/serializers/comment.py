@@ -15,9 +15,10 @@ class CommentSerializer(serializers.ModelSerializer):
     #         fields = ('pk',)
 
     user = UserSerializer(read_only=True)
+    like_people = UserSerializer(many=True, read_only=True)
     # review = ReviewSerializer(read_only=True)
 
     class Meta:
         model = Comment
-        fields = ('pk', 'content', 'user', 'review')
+        fields = ('pk', 'content', 'user', 'review', 'like_people')
         read_only_fields = ('user', 'review')
