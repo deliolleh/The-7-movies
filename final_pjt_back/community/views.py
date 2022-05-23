@@ -19,7 +19,7 @@ def review_list(request):
     review = Review.objects.annotate(
         comment_count= Count('comments', distinct=True),
         like_count = Count('like_people', distinct=True)
-    )
+    ).order_by('-pk')
     serializer = ReivewListSerializer(review, many=True)
     return Response(serializer.data)
 
