@@ -1,7 +1,7 @@
 from rest_framework import serializers
 from django.contrib.auth import get_user_model
 from community.models import Review, Comment
-from movie.models import Genre
+from movie.models import Score
 from .models import Genre_score
 
 
@@ -44,16 +44,23 @@ class ProfileSerializer(serializers.ModelSerializer):
         class Meta:
             model = Genre_score
             fields = ('genre', 'score',)
+    
+    class ScoreSerializer(serializers.ModelSerializer):
+
+        class Meta:
+            model = Score
+            exclude = ('pk',)
 
     like_reviews = ReviewSerializer(many=True, read_only=True)
     like_comments = CommentSerializer(many=True, read_only=True)
     genre_score_set = GenreScoreSerializer(many=True, read_only=True)
+    score_set = ScoreSerializer(many=True, read_only=True)
 
     class Meta:
         model = get_user_model()
         fields = ('id', 'username', 'like_movies',
             'like_reviews', 'like_comments', 'review_set',
-            'comment_set', 'genre_score_set')
+            'comment_set', 'genre_score_set', 'score_set')
         read_only_fields = ('user',)
 
 

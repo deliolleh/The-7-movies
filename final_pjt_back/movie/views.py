@@ -40,7 +40,7 @@ def main_movie(request):
     movies = Movie.objects.annotate(
         total = (F('vote_score')) / (F('popularity') * 100 + Count('vote_user'))
     ).order_by('total')[0:5]
-    print(movies.values('vote_user'))
+    # print(movies.values('vote_user'))
     # movies = Movie.objects.all().order_by('-popularity')[0:5]
     serializer = MovieMainSerializer(movies, many=True)
     return Response(serializer.data)
@@ -57,26 +57,35 @@ def movie_detail(request, movie_pk):
 def scroe_add_change_delete(request, movie_pk):
     movie = Movie.objects.get(pk=movie_pk)
     genres = Movie.objects.filter(pk=movie_pk).values('genres')
-    print(genres)
+    # print(genres)
     if request.method == 'POST':
         score = Score.objects.filter(user=request.user, movie=movie).first()
-        genre_score = Genre_score.objects.filter(user=request.user)
-        print(genre_score)
         if not score:
-            print('create')
+            # print('create')
             serializer = ScoreSerializer(data=request.data)
             if serializer.is_valid(raise_exception=True):
                 serializer.save(user=request.user, movie=movie)
-                for genre in genres:
-                    now = genre['genres']
-                    anoserializer = GenreScoreSerializer(data=request.data, genre=now, )
+                # 추후 update 부분을 복사
+                # for genre in genres:
+                #     print(genre['genres'])
+                #     status = Genre_score.objects.filter(genre['genres'])
                 return Response(serializer.data, status=status.HTTP_201_CREATED)
     
         else:
-            print('update')
+            # print('update')
             serializer = ScoreSerializer(instance=score, data=request.data)
             if serializer.is_valid(raise_exception=True):
                 serializer.save()
+                # 되는지 체크!
+                for genre in genres:
+                    status = Genre_score.objects.get(user=request.user, genre=genre['genres'])
+                    # print(status.score)
+                    data = {
+                        "score" : status.score + 5
+                    }
+                    secondeserializer = GenreScoreSerializer(instance=status, data=data)
+                    if secondeserializer.is_valid(raise_exception=True):
+                        secondeserializer.save()
                 return Response(serializer.data)
 
     elif request.method == 'DELETE':
@@ -110,18 +119,16 @@ def inital_movie(request):
 @permission_classes([IsAuthenticated])
 def recommends(request):
     # user = get_list_or_404(Genre_score.objects.filter(user=request.user).order_by('score'))[0:4]
-    user = Genre_score.objects.filter(user=request.user).order_by('score')[0:4]
+    user = Genre_score.objects.filter(user=request.user).order_by('-score')[0:4]
 
     total = []
     for idx in range(len(user)):
-        print(user[idx].genre_id)
+        # print(user[idx].genre_id)
         num = 3 if idx != len(user) - 1 else 2
         movies = get_list_or_404(Movie.objects.filter(genres__in=[user[idx].genre_id]).order_by('-popularity'))[0:num]
         # movies = Movie.objects.filter(genres__in=[user[idx].genre_id]).order_by('-popularity')[0:num]
-        print(movies)
+        # print(movies)
         total += movies
-    total = list(set(total))
+    total = list(set(total))[0:7]
     serializer = movielistserializer(total, many=True)
     return Response(serializer.data)
-
-
