@@ -1,13 +1,15 @@
 <template>
-  <div>
-    <section>
-      <best-movie></best-movie>
-    </section>
-    <section>
-      <weekly-best v-if="!this.isLoggedIn"></weekly-best>
-      <recommend-movie v-else></recommend-movie>
-    </section>
-  </div>
+  <v-container>
+    <v-row>
+      <section>
+        <best-movie></best-movie>
+      </section>
+    </v-row>
+      <section>
+        <weekly-best v-if="!this.isLoggedIn"></weekly-best>
+        <recommend-movie v-else></recommend-movie>
+      </section>
+  </v-container>
 </template>
 
 <script>

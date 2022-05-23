@@ -190,6 +190,7 @@ export default {
 
       })
         .then(res => {
+          console.log(res.data)
           commit('SCORE_UPDATE', res.data)
         })
         .catch(() => console.log(profile.genre_score_set))

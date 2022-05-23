@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div id="app">
     <nav-bar></nav-bar>
       <router-view></router-view>
   </div>
@@ -23,4 +23,11 @@ export default {
 </script>
 
 <style>
+
+/* #app {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+} */
+
 </style>

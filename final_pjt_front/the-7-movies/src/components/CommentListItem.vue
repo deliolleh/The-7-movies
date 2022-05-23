@@ -18,6 +18,13 @@
       <button @click="switchIsEditing">Edit</button> |
       <button @click="deleteComment(payload)">Delete</button>
     </span>
+     <div @click="likeComment(reviewPk)">
+          <!-- Review Like UI -->
+          <v-switch
+            label="좋아요"
+            hide-details
+          ></v-switch>
+      </div>
   </li>
 </template>
 
@@ -48,7 +55,7 @@ export default {
     onUpdate() {
       this.updateComment(this.payload)
       this.isEditing = false
-    }
+    },
   },
 
 }

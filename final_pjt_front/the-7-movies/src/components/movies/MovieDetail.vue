@@ -2,10 +2,15 @@
   <div>
   <div class="text-center">
     <v-rating
-      v-model="rating"
+      v-model="score_set.score"
       icon-label="custom icon label text {0} of {1}"
+      @input="onClick"
     ></v-rating>
     {{ this.movie.title }}
+    <!-- 별값을 고정 해야 함. -->
+    <!--  -->
+
+
   </div>
   </div>
 </template>
@@ -16,9 +21,12 @@ export default {
   name: 'MovieDetail',
   data() {
     return {
-      rating: 0,
-    }
-  },
+      score_set: {
+        user: '',
+        movie: this.$route.params.moviePk,
+        score: 0
+    },
+  }},
   props: {
     username: String,
   },
@@ -28,24 +36,26 @@ export default {
   },
   methods: {
     ...mapActions(['getMovie', 'scoreUpdate', 'fetchProfile', 'fetchCurrentUser']),
+    onClick() {
+      this.movie.genres.forEach(id => {
+        this.profile.genre_score_set.forEach(object => {
+            if (object.genre === id) {
+              object.score += this.score
+            }
+          })
+      });
+      this.score_set.user = this.currentUser.pk
+      this.profile = {...this.profile, ...this.score_set}
+      this.$store.dispatch('scoreUpdate', this.profile)
+    },
   },
   created() {
     this.getMovie(this.$route.params.moviePk)
   },
-  beforeUnmount() {
-    this.movie.genres.forEach(id => {
-      this.profile.genre_score_set.forEach(object => {
-          if (object.genre === id) {
-            object.score += this.rating
-          }
-        })
-    });
-    this.$store.dispatch('scoreUpdate', this.profile)
-  },
   watch: {
     username: function () {
       this.fetchProfile(this.username)
-    }
+    },
   }
 }
 </script>
