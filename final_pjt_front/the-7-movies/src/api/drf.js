@@ -14,7 +14,8 @@ export default {
     // username으로 프로필 제공
     profile: username => HOST + ACCOUNTS + 'profile/' + `${username}/`,
     init: () => HOST + ACCOUNTS + 'genre_init/',
-    changeUserInfo: () => HOST + ACCOUNTS + 'get_init/'
+    changeUserInfo: () => HOST + ACCOUNTS + 'get_init/',
+    changeScoreInfo: (moviePk) => HOST + MOVIES + `${moviePk}/` + 'score/' 
   },
   // articles: {
   //   // /articles/

@@ -17,6 +17,8 @@ import RecommendView from '@/views/RecommendView'
 
 import MovieDetailView from '@/views/movies/MovieDetailView'
 
+// import store from '@/store/index'
+
 Vue.use(VueRouter)
 
 const routes = [
@@ -77,7 +79,19 @@ const routes = [
     {
       path: '/movies/:moviePk',
       name: 'movieDetail',
-      component: MovieDetailView
+      component: MovieDetailView,
+      props: {
+        username: String,
+      },
+      // beforeEnter: (to, from, next) => {
+      //   to, from, next
+      //   store.dispatch('fetchCurrentUser')
+      //     .then(() => {
+      //         console.log(store.getters);
+      //         console.log(store.getters.currentUser);
+      //         console.log(store.getters.currentUser.username);
+      //     })
+      // }
     },
   // {
   //   path: '/',
@@ -101,5 +115,7 @@ const router = new VueRouter({
   base: process.env.BASE_URL,
   routes
 })
+
+
 
 export default router

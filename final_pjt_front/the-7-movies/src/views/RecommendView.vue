@@ -67,6 +67,9 @@ export default {
         const right = document.querySelector('#right > img')
         left.setAttribute('src', this.lst[0])
         right.setAttribute('src', this.lst[1])
+        console.log('이건 추천');
+        console.log(this.profile);
+        console.log('이건 추천 후');
         return  this.$store.dispatch('scoreUpdate', this.profile)
       }
       

@@ -2,6 +2,13 @@
   <div>
   <div class="text-center">
     <v-rating
+      v-if="!score_set.score"
+      v-model="score_set.score"
+      icon-label="custom icon label text {0} of {1}"
+      @input="onClick"
+    ></v-rating>
+      <v-rating
+      v-else
       v-model="score_set.score"
       icon-label="custom icon label text {0} of {1}"
       @input="onClick"
@@ -26,6 +33,7 @@ export default {
         movie: this.$route.params.moviePk,
         score: 0
     },
+      curr: this.profile
   }},
   props: {
     username: String,
@@ -37,25 +45,50 @@ export default {
   methods: {
     ...mapActions(['getMovie', 'scoreUpdate', 'fetchProfile', 'fetchCurrentUser']),
     onClick() {
+      console.log(this.profile.genre_score_set);
       this.movie.genres.forEach(id => {
         this.profile.genre_score_set.forEach(object => {
             if (object.genre === id) {
-              object.score += this.score
+              object.score += this.score_set.score
+              console.log(this.score_set.score, object.score);
             }
           })
       });
+      console.log(this.profile.genre_score_set);
       this.score_set.user = this.currentUser.pk
-      this.profile = {...this.profile, ...this.score_set}
-      this.$store.dispatch('scoreUpdate', this.profile)
+      console.log(this.score_set);
+      this.profile.score_set = this.score_set
+      console.log('이건 별 매길때');
+      console.log(this.profile);
+      console.log('별매긴 후');
+      const payload = {
+        profile: this.profile,
+        moviePk: this.$route.params.moviePk
+      }
+      this.$store.dispatch('scoreUpdate', payload)
     },
+    checkReview() {
+      console.log(this.$store.getters, 'profile');
+      this.$store.profile.score_set.forEach(object => {
+        if (object.movie === this.$route.params.moviePk ) {
+          this.score = object.score
+          console.log('체크리뷰');
+        } 
+      });
+    }
   },
   created() {
+    console.log(this.currentUser);
     this.getMovie(this.$route.params.moviePk)
+    this.checkReview()
   },
   watch: {
     username: function () {
       this.fetchProfile(this.username)
     },
+    curr: function () {
+      console.log(this.profile);
+    }
   }
 }
 </script>

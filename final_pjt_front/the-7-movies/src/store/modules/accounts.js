@@ -181,7 +181,7 @@ export default {
         .catch(() => {          console.log('프로필 들고 올수 없음.');
         })
     },
-    scoreUpdate({commit, getters}, profile) {
+    scoreUpdate({commit, getters}, {profile, moviePk}) {
       axios({
         url: drf.accounts.changeUserInfo(),
         method: 'put',
@@ -191,10 +191,21 @@ export default {
       })
         .then(res => {
           console.log(res.data)
+          console.log('이건 응답데이터');
           commit('SCORE_UPDATE', res.data)
         })
-        .catch(() => console.log(profile.genre_score_set))
-    }
+        .catch(() => console.log('에러발생'))
+      axios({
+        url: drf.accounts.changeScoreInfo(moviePk),
+        method: 'post',
+        headers: getters.authHeader,
+        data: profile.score_set
+      })
+        .then(res => {
+          console.log('이건 score');
+          commit('SCORE_UPDATE', res.data)
+        })
+      }
   },
 }
 
