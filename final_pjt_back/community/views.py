@@ -75,7 +75,6 @@ def like_review(request, review_pk):
                 like_count = Count('like_people', distinct=True)
                 ).get(pk=review_pk)
             serializer = ReviewSerializer(review)
-            print(serializer.data)
             return Response(serializer.data)
 
         else:
@@ -84,6 +83,7 @@ def like_review(request, review_pk):
                 like_count = Count('like_people', distinct=True)
                 ).get(pk=review_pk)
             serializer = ReviewSerializer(review)
+            # print(serializer.data)
             return Response(serializer.data)
         
 
@@ -125,4 +125,15 @@ def update_delete_comment(request, review_pk, comment_pk):
 @api_view(['POST'])
 @permission_classes([IsAuthenticated])
 def like_comment(request, review_pk, comment_pk):
-    pass
+    comment = Comment.objects.get(pk=comment_pk)
+    if comment.like_people.filter(pk=request.user.pk).exist():
+        comment.like_peopele.remove(request.user)
+        comments = Comment.objects.filter(pk=review_pk)
+        serializer = CommentSerializer(comments)
+        return Response(serializer.data)
+    
+    else:
+        comment.like_people.add(request.user)
+        comments = Comment.objects.filter(pk=review_pk)
+        serializer = CommentSerializer(comments)
+        return Response(serializer.data)

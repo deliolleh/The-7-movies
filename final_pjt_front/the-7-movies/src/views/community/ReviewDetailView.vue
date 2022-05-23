@@ -74,6 +74,9 @@
       likeCount() {
         return this.review.like_users?.length
       },
+      getIt () {
+        return this.review
+      }
     },
     methods: {
       ...mapActions([
@@ -82,7 +85,6 @@
         'deleteReview',
       ]),
       checkLikes() {
-        console.log(this.review)
         this.review.like_people.forEach(object => {
           if (object.pk === this.currentUser.pk) {
             this.like = true
@@ -92,8 +94,12 @@
     },
     created() {
       this.fetchReview(this.reviewPk)
-      this.checkLikes()
     },
+    watch: {
+      getIt() {
+        this.checkLikes()
+      }
+    }
   }
 </script>
 

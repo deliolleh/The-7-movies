@@ -8,7 +8,7 @@
 
     <span v-if="!isEditing">{{ payload.content }}</span>
 
-    <span v-if="currentUser.username === comment.user.username && !isEditing">
+    <span v-if="currentUser.username === comment.user.username && !isEditing" class="float-right">
       <button @click="switchIsEditing">Edit</button> |
       <button @click="deleteComment(payload)">Delete</button>
     </span>
@@ -26,6 +26,7 @@
           hide-details
         ></v-switch>
     </div>
+    
   </li>
 </template>
 
