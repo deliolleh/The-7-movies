@@ -13,10 +13,10 @@
         </div>
       </v-row>
     </v-container>
-          <!-- 게시글 -->
-          <div>
-            <review-list></review-list>
-          </div>
+    <!-- 게시글 -->
+    <div>
+      <review-list></review-list>
+    </div>
   </div>
 </template>
 

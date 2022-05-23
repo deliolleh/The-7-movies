@@ -1,13 +1,18 @@
 <template>
   <v-container>
+    <v-spacer></v-spacer>
+    <v-divider></v-divider>
     <v-row>
+      <v-col
+        sm="3"
+        md="2"
+        >
+      </v-col>
       <v-col
         cols="12"
         sm="6"
         md="8"
       >
-      <v-spacer></v-spacer>
-          <v-divider></v-divider>
         <v-card id="item">
           <ul class="review-list">
             <li class="post">
@@ -26,9 +31,8 @@
             </li>
           </ul>
           <div>
-            <div>
-              <div class="movie-title">
-                <h5>{{ item.movie.title }}</h5></div>
+            <div class="movie-title">
+              <h5>{{ item.movie.title }}</h5>
             </div>
           </div>
           <div>
@@ -36,8 +40,8 @@
           </div>
           <!-- review 목록을 받아서 화면에 뿌리는 역할 -->
         </v-card>
-          </v-col>
-        </v-row>
+      </v-col>
+    </v-row>
   </v-container>
 </template>
 
