@@ -3,41 +3,44 @@
 
   <v-container>
     <!-- <user-info></user-info> -->
-    {{ review.user.username }}
+    <span>{{ review.user.username }}</span>
 
     <v-card>
-      <v-system-bar>
+      <v-system-bar class="py-5 pl-5 ma-0">
     <!-- Review Edit/Delete UI -->
-      <div v-if="isAuthor">
-        <router-link :to="{ name: 'reviewEdit', params: { reviewPk } }">
-          <button>Edit</button>
-        </router-link>
-        <button @click="deleteReview(reviewPk)">Delete</button>
-      </div>
+        <v-toolbar-title class="font-weight-black"> {{ review.title }}</v-toolbar-title>
+        <div v-if="isAuthor">
+          <router-link :to="{ name: 'reviewEdit', params: { reviewPk } }">
+            <button>Edit</button>
+          </router-link>
+          <button @click="deleteReview(reviewPk)">Delete</button>
+        </div>
       </v-system-bar>
-      <v-toolbar flat>
-        <v-toolbar-title> {{ review.title }}</v-toolbar-title>
+      <v-toolbar flat style="margin: 0;">
+        <div>{{ review.content }}</div>
         <v-spacer></v-spacer>
         <div @click="likeReview(reviewPk)">
           <!-- Review Like UI -->
-              <v-switch
-                v-model="like"
-                :input-value="like"
-                label="좋아요"
-                color="success"
-                hide-details
-              ></v-switch>
+            <v-switch
+              v-model="like"
+              :input-value="like"
+              label="좋아요"
+              color="success"
+              hide-details
+            ></v-switch>
         </div>
       </v-toolbar>
-      <v-banner
+      <!-- <v-banner
         single-line
       >
-      </v-banner>
+      </v-banner> -->
       <v-card-text class="grey lighten-4">
-          {{ review.content }}
       </v-card-text>
     </v-card>
     <div>
+
+      <comment-list-form  class="d-flex justify-end py-1"></comment-list-form>
+
       <v-card>
       <!-- Comment UI -->
       <comment-list :comments="review.comments"></comment-list> 
@@ -49,6 +52,7 @@
 
 <script>
   import { mapGetters, mapActions } from 'vuex'
+  import CommentListForm from '@/components/CommentListForm.vue'
   import CommentList from '@/components/CommentList.vue'
   // import UserInfo from '@/components/UserInfo'
 
@@ -56,8 +60,9 @@
     name: 'ReviewDetailView',
     components: { 
       CommentList,
+      CommentListForm,
       // UserInfo,
-     },
+      },
     data() {
       return {
         reviewPk: this.$route.params.reviewPk,
@@ -77,6 +82,7 @@
         'deleteReview',
       ]),
       checkLikes() {
+        console.log(this.review)
         this.review.like_people.forEach(object => {
           if (object.pk === this.currentUser.pk) {
             this.like = true

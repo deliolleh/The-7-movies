@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div id="ReviewTable">
     <review-list-item
     v-for="(item, idx) in reviews" :key="idx" :item="item"
     ></review-list-item>

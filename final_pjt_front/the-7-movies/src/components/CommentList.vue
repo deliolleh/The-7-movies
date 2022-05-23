@@ -1,12 +1,13 @@
 <template>
   <div class="comment-list">
     
-    <comment-list-form></comment-list-form>
+    <!-- <comment-list-form></comment-list-form> -->
     <ul>
       <comment-list-item 
         v-for="comment in comments" 
         :comment="comment" 
-        :key="comment.pk">
+        :key="comment.pk"
+        >
       </comment-list-item>        
     </ul>
 
@@ -15,17 +16,19 @@
 
 <script>
 import CommentListItem from '@/components/CommentListItem.vue'
-import CommentListForm from '@/components/CommentListForm.vue'
+// import CommentListForm from '@/components/CommentListForm.vue'
 // import { mapGetters, mapActions } from 'vuex'
 
 
 export default {
   name: 'CommentList',
-  components: { CommentListForm, CommentListItem },
+  components: { CommentListItem },
   props: { comments: Array },
 }
 </script>
 
 <style>
-
+  ul {
+    padding: 0 20px 0 0px;
+  }
 </style>

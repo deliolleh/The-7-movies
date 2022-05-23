@@ -1,12 +1,16 @@
 <template>
-  <form @submit.prevent="onSubmit" class="comment-list-form">
-    <label for="comment">comment: </label>
-    <input type="text" id="comment" v-model="content" required>
-    <v-btn
-    elevation="2"
-    @click="onSubmit"
-    > 등록 </v-btn>
-  </form>
+  <div>
+
+    <form @submit.prevent="onSubmit" class="comment-list-form">
+      <label for="comment" class="pa-2">comment: </label>
+      <input type="text" id="comment" v-model="content" required class="pr-2">
+      <v-btn
+      elevation="2"
+      @click="onSubmit"
+      > 등록 </v-btn>
+    </form>
+
+  </div>
 </template>
 
 <script>

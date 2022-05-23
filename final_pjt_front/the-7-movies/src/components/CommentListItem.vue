@@ -5,26 +5,27 @@
       :to="{ name: 'profile', params: { username: comment.user.username } }">
       {{ comment.user.username }}
     </router-link>
-    
-    <span v-if="!isEditing">{{ payload.content }}</span>
 
-    <span v-if="isEditing">
-      <input type="text" v-model="payload.content">
-      <button @click="onUpdate">Update</button> |
-      <button @click="switchIsEditing">Cancle</button>
-    </span>
+    <span v-if="!isEditing">{{ payload.content }}</span>
 
     <span v-if="currentUser.username === comment.user.username && !isEditing">
       <button @click="switchIsEditing">Edit</button> |
       <button @click="deleteComment(payload)">Delete</button>
     </span>
-     <div @click="likeComment(reviewPk)">
-          <!-- Review Like UI -->
-          <v-switch
-            label="좋아요"
-            hide-details
-          ></v-switch>
-      </div>
+
+    <span v-if="isEditing">
+      <input type="text" v-model="payload.content">
+      <button @click="onUpdate">Update</button> |
+      <button @click="switchIsEditing">Cancel</button>
+    </span>
+
+    <div @click="likeComment(reviewPk)">
+        <!-- Review Like UI -->
+        <v-switch
+          label="좋아요"
+          hide-details
+        ></v-switch>
+    </div>
   </li>
 </template>
 
