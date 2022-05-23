@@ -49,7 +49,7 @@ class ProfileSerializer(serializers.ModelSerializer):
 
         class Meta:
             model = Score
-            exclude = ('pk',)
+            fields = ('user', 'movie', 'score')
 
     like_reviews = ReviewSerializer(many=True, read_only=True)
     like_comments = CommentSerializer(many=True, read_only=True)
