@@ -1,5 +1,5 @@
 <template>
-  <v-container>
+  <v-container class="header">
     <v-row>
       <v-col
         cols="12"
@@ -59,6 +59,19 @@ export default {
 
 <style scoped>
 
+.header {
+    color: white;
+    background-color: #42b883;
+    display: flex;
+    padding: 8px;
+}
+.header .router-link-exact-active {
+    color: #35495e;
+}
+.header a {
+    color :white;
+}
+
 nav {
   padding: 30px;
   display: flex;
@@ -84,7 +97,7 @@ div a {
 }
 
 nav a.router-link-exact-active {
-  color: #42b983;
+  color: #34495e;
 }
 
 a {

@@ -19,14 +19,19 @@
       <button @click="switchIsEditing">Cancel</button>
     </span>
 
-    <div @click="likeComment(reviewPk)">
-        <!-- Review Like UI -->
-        <v-switch
-          label="좋아요"
-          hide-details
-        ></v-switch>
+    <span v-if="currentUser.username === comment.user.username && !isEditing">
+      <button @click="switchIsEditing">Edit</button> |
+      <button @click="deleteComment(payload)">Delete</button>
+    </span>
+
+    <div @click="likeComment(this.comment.review, this.comment.pk)">
+      <v-switch
+        label="좋아요"
+        hide-details
+      >
+      </v-switch>
+
     </div>
-    
   </li>
 </template>
 

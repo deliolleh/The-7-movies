@@ -4,6 +4,7 @@
     <v-rating
       v-if="!score_set.score"
       v-model="score_set.score"
+      :value="this.profile.score_set.score"
       icon-label="custom icon label text {0} of {1}"
       @input="onClick"
     ></v-rating>
@@ -33,7 +34,9 @@ export default {
         movie: this.$route.params.moviePk,
         score: 0
     },
-      curr: this.profile
+      pro() {
+        return this.username
+      }
   }},
   props: {
     username: String,
@@ -69,7 +72,7 @@ export default {
     },
     checkReview() {
       console.log(this.$store.getters, 'profile');
-      this.$store.profile.score_set.forEach(object => {
+      this.profile.score_set.forEach(object => {
         if (object.movie === this.$route.params.moviePk ) {
           this.score = object.score
           console.log('체크리뷰');
@@ -78,18 +81,18 @@ export default {
     }
   },
   created() {
-    console.log(this.currentUser);
     this.getMovie(this.$route.params.moviePk)
-    this.checkReview()
-  },
+    },
   watch: {
     username: function () {
       this.fetchProfile(this.username)
     },
     curr: function () {
-      console.log(this.profile);
+      this.checkReview()
+    },
+    pro() {
     }
-  }
+  },
 }
 </script>
 
