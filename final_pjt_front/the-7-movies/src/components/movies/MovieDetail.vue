@@ -1,42 +1,44 @@
 <template>
   <v-app>
     <v-container>
-      <v-row
-      justify="center"
-      >
-        <v-card
-        max-width="400"
+      <v-scroll-x-transition mode="in" hide-on-leave="true">
+        <v-row
+        justify="center"
         >
-          <v-img
-            :src="movie.poster_path"
+          <v-card
+          max-width="400"
           >
-          </v-img>
-        </v-card>
-        <v-card
-        width="400"
-        color="#FAFAFAFF"
-        >
-          <v-card-title>
-            {{ movie.title }}                 
-            
-          </v-card-title>
-          <v-card-text>
-            감독 : {{ movie.director }}
-            <br>
-            개봉 : {{ movie.release_date }}
-            <br>
-            평점 : {{ average }}
-            <hr>
-            <br>
-            {{ movie.overview }}
-            <v-spacer></v-spacer>
-            <router-link :to="{name:'create'}">
-              리뷰 쓰러 가기
-            </router-link>
+            <v-img
+              :src="movie.poster_path"
+            >
+            </v-img>
+          </v-card>
+          <v-card
+          width="400"
+          color="#FAFAFAFF"
+          >
+            <v-card-title>
+              {{ movie.title }}                 
+              
+            </v-card-title>
+            <v-card-text>
+              감독 : {{ movie.director }}
+              <br>
+              개봉 : {{ movie.release_date }}
+              <br>
+              평점 : {{ average }}
+              <hr>
+              <br>
+              {{ movie.overview }}
+              <v-spacer></v-spacer>
+              <router-link :to="{name:'create'}">
+                리뷰 쓰러 가기
+              </router-link>
 
-          </v-card-text>
-        </v-card>
-      </v-row>
+            </v-card-text>
+          </v-card>
+        </v-row>
+      </v-scroll-x-transition>
 
     <div class="text-center">
       <!-- <v-rating
