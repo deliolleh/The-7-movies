@@ -48,10 +48,10 @@ def get_init(request):
     serializer = GenreScoreSerializer(instance=user, data=request.data, many=True)
     for idx in range(len(user)):
         serializer = GenreScoreSerializer(instance=user[idx], data=request.data[idx])
-    # serializer = ProfileSerializer(data=request.data)
+        # serializer = ProfileSerializer(data=request.data)
         if serializer.is_valid(raise_exception=True):
             serializer.save()
     user = get_object_or_404(get_user_model(), username=request.user.username)
     send_serializer = ProfileSerializer(user)
-    print(send_serializer.data)
+    # print(send_serializer.data)
     return Response(send_serializer.data)
