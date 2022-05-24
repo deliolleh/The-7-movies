@@ -11,6 +11,8 @@ from rest_framework.permissions import IsAuthenticated, AllowAny
 from django.shortcuts import get_list_or_404, get_object_or_404
 from django.contrib.auth import get_user_model
 
+from accounts.serializers import ProfileSerializer
+
 from .models import Movie, Score
 from accounts.models import Genre_score
 
@@ -21,7 +23,13 @@ from accounts.serializers import GenreScoreSerializer
 @api_view(['GET'])
 @permission_classes([AllowAny])
 def movie_list(request):
-    movies = get_list_or_404(Movie)
+    movies = Movie.objects.all()
+    print(movies)
+    serializer = movielistserializer(movies, many=True)
+    return Response(serializer.data)
+
+def movie_list_filter(request, genre_pk):
+    movies = Movie.objects.all().filter(genres__in=genre_pk)
     print(movies)
     serializer = movielistserializer(movies, many=True)
     return Response(serializer.data)
@@ -65,28 +73,18 @@ def score_add_change_delete(request, movie_pk):
             serializer = ScoreSerializer(data=request.data)
             if serializer.is_valid(raise_exception=True):
                 serializer.save(user=request.user, movie=movie)
-                # 추후 update 부분을 복사
-                # for genre in genres:
-                #     print(genre['genres'])
-                #     status = Genre_score.objects.filter(genre['genres'])
-                return Response(serializer.data, status=status.HTTP_201_CREATED)
+                user = get_user_model().objects.get(pk=request.user.pk)
+                send_serializer = ProfileSerializer(user)
+                return Response(send_serializer.data, status=status.HTTP_201_CREATED)
     
         else:
             # print('update')
             serializer = ScoreSerializer(instance=score, data=request.data)
             if serializer.is_valid(raise_exception=True):
                 serializer.save()
-                # 되는지 체크!
-                # for genre in genres:
-                #     status = Genre_score.objects.get(user=request.user, genre=genre['genres'])
-                #     # print(status.score)
-                #     data = {
-                #         "score" : status.score + 5
-                #     }
-                #     secondeserializer = GenreScoreSerializer(instance=status, data=data)
-                #     if secondeserializer.is_valid(raise_exception=True):
-                #         secondeserializer.save()
-                return Response(serializer.data)
+                user = get_user_model().objects.get(pk=request.user.pk)
+                send_serializer = ProfileSerializer(user)
+                return Response(send_serializer.data, status=status.HTTP_201_CREATED)
 
     elif request.method == 'DELETE':
         score = Score.objects.filter(user=request.user, movie=movie)

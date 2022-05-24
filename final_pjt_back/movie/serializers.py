@@ -21,7 +21,7 @@ class MovieMainSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Movie
-        fields = ('poster_path',)
+        fields = ('poster_path', 'pk')
 
 
 class movieserializer(serializers.ModelSerializer):
