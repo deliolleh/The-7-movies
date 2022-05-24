@@ -4,22 +4,43 @@
     <v-scroll-x-transition>
       <router-view></router-view>
     </v-scroll-x-transition>
+    <the-spinner :loading="this.loadingStatus"></the-spinner>
   </v-app>
 </template>
 
 <script>
 import NavBar from '@/components/NavBar.vue'
 import { mapActions } from 'vuex'
+import bus from '@/utils/bus'
+import TheSpinner from '@/components/common/TheSpinner'
 export default {
   name: 'HomeView',
   components: {
     NavBar,
+    TheSpinner,
+  },
+  data() {
+    return {
+      loadingStatus: false
+    }
   },
   methods: {
-      ...mapActions(['fetchCurrentUser'])
-    },
+      ...mapActions(['fetchCurrentUser']),
+      startSpinner() {
+        this.loadingStatus = true
+      },
+      endSpinner() {
+        this.loadingStatus = false
+      }
+  },
   created() {
+    bus.$on('start:spinner', this.startSpinner)
+    bus.$on('end:spinner', this.endSpinner)
     this.fetchCurrentUser()
+  },
+  beforeDestroy() {
+    bus.$off('start:spinner', this.startSpinner)
+    bus.$off('end:spinner', this.endSpinner)
   }
 }
 </script>

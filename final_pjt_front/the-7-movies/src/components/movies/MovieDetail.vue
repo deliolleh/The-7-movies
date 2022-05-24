@@ -73,13 +73,7 @@ export default {
         movie: this.$route.params.moviePk,
         score: 0
     },
-      pro() {
-        return this.username
-      }
   }},
-  props: {
-    username: String,
-  },
   computed: {
     ...mapGetters(['movie', 'currentUser', 'profile']),
     average() {
@@ -100,13 +94,8 @@ export default {
             }
           })
       });
-      console.log(this.profile.genre_score_set);
       this.score_set.user = this.currentUser.pk
-      console.log(this.score_set);
       this.profile.score_set = this.score_set
-      console.log('이건 별 매길때');
-      console.log(this.profile);
-      console.log('별매긴 후');
       const payload = {
         profile: this.profile,
         moviePk: this.$route.params.moviePk
@@ -114,22 +103,16 @@ export default {
       this.$store.dispatch('scoreUpdate', payload)
     },
     checkReview() {
-      console.log(this.$store.getters, 'profile');
       this.profile.score_set.forEach(object => {
-        if (object.movie === this.$route.params.moviePk ) {
-          this.score = object.score
-          console.log('체크리뷰');
-        } 
+        if (object.movie === Number(this.$route.params.moviePk) ) {
+          this.score_set.score = object.score
+        }
       });
     }
   },
   created() {
     this.getMovie(this.$route.params.moviePk)
-    },
-  watch: {
-    username: function () {
-      this.fetchProfile(this.username)
-    },
+    this.checkReview()
   },
 }
 </script>

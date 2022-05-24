@@ -62,7 +62,7 @@ export default {
         })
     },
     getMovie({commit, getters}, moviePk) {
-      axios({
+      return axios({
         url: drf.movies.detail(moviePk),
         method: 'get',
         headers: getters.authHeader
@@ -82,7 +82,7 @@ export default {
         .catch(() => console.log('메인 영화 안나옴'))
     },
     getRecommends({commit, getters}) {
-      axios({
+      return axios({
         url: drf.movies.recommends(),
         method: 'get',
         headers: getters.authHeader

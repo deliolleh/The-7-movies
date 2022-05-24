@@ -23,10 +23,9 @@ export default {
     BestReview,
   },
   computed: {
-    ...mapGetters(['currentUser']),
+    ...mapGetters(['currentUser', 'profile']),
   },
   created() {
-    this.$store.dispatch('fetchCurrentUser')
   }
 }
 </script>

@@ -13,9 +13,10 @@ import ReviewNewView from '@/views/community/ReviewNewView'
 import ReviewDetailView from '@/views/community/ReviewDetailView'
 import ReviewEditView from '@/views/community/ReviewEditView'
 
-import RecommendView from '@/views/RecommendView'
+import RecommendView from '@/views/recommend/RecommendView'
 
 import MovieDetailView from '@/views/movies/MovieDetailView'
+import store from '@/store'
 
 // import store from '@/store/index'
 
@@ -47,6 +48,20 @@ const routes = [
     path: '/profile/:username',
     name: 'profile',
     component: ProfileView,
+          // next를 호출해야만 호출됨.
+    beforeEnter: (to, from, next) => {
+      to, from, next
+      return store.dispatch('fetchCurrentUser')
+        .then(() => {
+            console.log('fetchuser받음 2');
+            console.log(store.getters.currentUser.username, '2');
+            return store.dispatch('fetchProfile', store.getters.currentUser.username)
+              .then(() => {
+                store.dispatch('getRecommends')
+                console.log('여기');
+                next()})
+        })
+    }
   },
   // ---------community------------
   {
@@ -83,15 +98,17 @@ const routes = [
       props: {
         username: String,
       },
-      // beforeEnter: (to, from, next) => {
-      //   to, from, next
-      //   store.dispatch('fetchCurrentUser')
-      //     .then(() => {
-      //         console.log(store.getters);
-      //         console.log(store.getters.currentUser);
-      //         console.log(store.getters.currentUser.username);
-      //     })
-      // }
+      beforeEnter: (to, from, next) => {
+        to, from, next
+        return store.dispatch('fetchCurrentUser')
+          .then(() => {
+              console.log('fetchuser받음 2');
+              console.log(store.getters.currentUser.username, '2');
+              return store.dispatch('fetchProfile', store.getters.currentUser.username)
+                .then(() => {
+                  next()})
+          })
+      }
     },
   // {
   //   path: '/',
