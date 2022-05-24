@@ -59,6 +59,7 @@
 
 <script>
 import { mapActions, mapGetters } from 'vuex'
+// import bus from '@/utils/bus'
 
 export default {
   name: 'UserInfo',
@@ -71,11 +72,9 @@ export default {
   methods: {
     ...mapActions(['fetchProfile'])
   },
-  created() {
-    this.fetchProfile(this.$route.params.username)
-    console.log(this.$route.params.username)
-    console.log(this.profile)
-  },
+  // created() {
+  //   this.fetchProfile(this.$route.params.username)
+  // },
 }
 </script>
 

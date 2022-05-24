@@ -1,11 +1,14 @@
 <template>
-  <vueper-slides fade :touchable="false" autoplay>
-  <vueper-slide
-    v-for="(slide, i) in bestmovie"
-    :key="i"
-    :image="slide.poster_path"
-    :title="slide.title"
-    :content="slide.content" />
+  <vueper-slides fade :touchable="false" 
+    autoplay
+    fixed-height="1000px"
+    >
+    <vueper-slide
+      v-for="(slide, i) in bestmovie"
+      :key="i"
+      :image="slide.backdrop_path"
+      :title="slide.title"
+      :content="slide.content" />
 </vueper-slides>
 
       <!-- <v-carousel-item

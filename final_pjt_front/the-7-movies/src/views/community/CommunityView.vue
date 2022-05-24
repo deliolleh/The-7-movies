@@ -9,11 +9,16 @@
 
 <script>
 import ReviewList from '@/components/ReviewList'
+import bus from '@/utils/bus'
 
 export default {
   name: 'CommunityView',
   components: {
     ReviewList,
+  },
+  created() {
+    bus.$emit('start:spinner')
+    
   }
 }
 </script>

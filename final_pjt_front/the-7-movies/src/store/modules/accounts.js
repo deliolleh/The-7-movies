@@ -21,12 +21,14 @@ export default {
     profile: state => state.profile,
     authError: state => state.authError,
     authHeader: state => ({ Authorization: `Token ${state.token}`}),
-    isValid: state => state.valid
+    isValid: state => state.valid,
   },
 
   mutations: {
     SET_TOKEN: (state, token) => state.token = token,
-    SET_CURRENT_USER: (state, user) => state.currentUser = user,
+    SET_CURRENT_USER: (state, user) => {
+      console.log('현재 유저정보에 담기전 mutation');
+      state.currentUser = user},
     SET_PROFILE: (state, profile) => state.profile = profile,
     SET_AUTH_ERROR: (state, error) => state.authError = error,
     SCORE_UPDATE: (state, profile) => state.profile = profile
@@ -150,12 +152,16 @@ export default {
             LoginView로 이동
       */
       if (getters.isLoggedIn) {
-        axios({
+        return axios({
           url: drf.accounts.currentUserInfo(),
           method: 'get',
           headers: getters.authHeader,
         })
-          .then(res => commit('SET_CURRENT_USER', res.data))
+          .then(res => {
+            console.log('현재 유저정보 commit전');
+            commit('SET_CURRENT_USER', res.data)
+            return res
+          })
           .catch(err => {
             if (err.response.status === 401) {
               dispatch('removeToken')
@@ -171,15 +177,16 @@ export default {
         성공하면
           state.profile에 저장
       */
-      axios({
+      return axios({
         url: drf.accounts.profile(username),
         method: 'get',
         headers: getters.authHeader,
       })
         .then(res => {
           commit('SET_PROFILE', res.data)
+          return res
         })
-        .catch(() => {          console.log('프로필 들고 올수 없음.');
+        .catch(() => {console.log('프로필 들고 올수 없음.');
         })
     },
     scoreUpdate({commit, getters}, {profile, moviePk}) {
@@ -191,9 +198,8 @@ export default {
 
       })
         .then(res => {
-          console.log(res.data)
-          console.log('이건 응답데이터');
           commit('SCORE_UPDATE', res.data)
+          this.$store.dispatch('getRecommends')
         })
         .catch(() => console.log('에러발생'))
       axios({

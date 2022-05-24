@@ -86,6 +86,7 @@
   </v-app> -->
   
 
+<!-- 수정 필요 -->
 <vueper-slides
   class="no-shadow"
   :visible-slides="3"
