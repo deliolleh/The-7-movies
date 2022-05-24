@@ -4,8 +4,7 @@
       <v-carousel-item
         v-for="(item,i) in bestmovie"
         :key="i"
-        :src="item.poster_path"
-        width="1000"
+        :src="item.backdrop_path"
         height="auto"
       >
       </v-carousel-item>

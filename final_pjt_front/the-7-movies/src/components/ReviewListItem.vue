@@ -16,7 +16,7 @@
           <ul class="review-list">
             <li class="post">
               <div> 
-                <router-link class="username" :to="{ name: 'profile', params: { username: currentUser.username } } ">
+                <router-link class="username" :to="{ name: 'profile', params: { username: item.user.username } } ">
                   글쓴이 : {{ item.user.username }} 
                 </router-link>
               </div>

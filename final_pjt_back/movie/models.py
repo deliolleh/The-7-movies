@@ -9,14 +9,15 @@ class Genre(models.Model):
     def __str__(self):
         return self.name
 
-class Movie(models.Model) :
+class Movie(models.Model):
     title = models.CharField(max_length=100)
     release_date = models.CharField(max_length=50)
+    backdrop_path = models.TextField(null=True)
     popularity = models.FloatField()
     vote_score = models.FloatField()
     vote_count = models.IntegerField()
     overview = models.TextField()
-    poster_path = models.CharField(max_length=500)
+    poster_path = models.TextField()
     director = models.CharField(max_length=50)
     genres = models.ManyToManyField(Genre, related_name='movies')
     vote_user = models.ManyToManyField(settings.AUTH_USER_MODEL, through='Score')

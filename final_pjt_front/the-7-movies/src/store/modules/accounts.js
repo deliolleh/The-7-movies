@@ -48,6 +48,7 @@ export default {
       localStorage에 token 추가
       */
       commit('SET_TOKEN', '')
+      console.log(1)
       localStorage.setItem('token', '')
     },
 

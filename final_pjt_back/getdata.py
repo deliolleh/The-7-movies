@@ -3,7 +3,7 @@ import json
 
 get_cast_crew_a = 'https://api.themoviedb.org/3/movie/'
 get_cast_crew_b = '/credits?api_key=1ad88638edfc6353f76e904be8c2e02b&language=ko-KR'
-poster_url = 'https://www.themoviedb.org/t/p/original/'
+poster_url = 'https://www.themoviedb.org/t/p/w1280'
 
 TMDB_API_KEY = '1ad88638edfc6353f76e904be8c2e02b'
 movie_ids = []
@@ -12,7 +12,7 @@ def get_movie_datas():
     global movie_ids
     total_data = []
 
-    for i in range(1, 10):
+    for i in range(1, 15):
         request_url = f"https://api.themoviedb.org/3/movie/top_rated?api_key={TMDB_API_KEY}&language=ko-KR&page={i}"
         movies = requests.get(request_url).json()
 
@@ -24,6 +24,7 @@ def get_movie_datas():
                         break
                 fields = {
                     # 'movie_id': movie['id'],
+                    'backdrop_path': poster_url +  movie['backdrop_path'],
                     'title': movie['title'],
                     'release_date': movie['release_date'],
                     'popularity': movie['popularity'],
@@ -101,5 +102,5 @@ def get_actor_data(movie_ids):
 
 
 get_movie_datas()
-get_genre_data()
+# get_genre_data()
 get_actor_data(movie_ids)

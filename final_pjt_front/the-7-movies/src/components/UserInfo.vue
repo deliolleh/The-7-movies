@@ -13,8 +13,8 @@
         <hr>
         <br>
         <div
-        v-if="profile.review_set.length"
-        >
+          v-if="profile.review_set.length"
+          >
           <ul>
             <h2> 작성 글 목록 </h2>
             <li
@@ -66,7 +66,7 @@ export default {
   //   username: Object,
   // },
   computed: {
-    ...mapGetters(['profile', 'recommends'])
+    ...mapGetters(['profile', 'recommends']),
   },
   methods: {
     ...mapActions(['fetchProfile'])
@@ -74,6 +74,7 @@ export default {
   created() {
     this.fetchProfile(this.$route.params.username)
     console.log(this.$route.params.username)
+    console.log(this.profile)
   },
 }
 </script>
