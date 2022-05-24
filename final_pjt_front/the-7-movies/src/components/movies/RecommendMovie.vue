@@ -1,6 +1,6 @@
 <template>
-  <v-app>
-    <!-- <v-sheet
+  <!-- <v-app>
+    <v-sheet
     class="mx-auto"
     elevation="8"
     max-width="800"
@@ -59,7 +59,7 @@
     </v-expand-transition>
   </v-sheet> -->
   
-  <v-app>
+  <!-- <v-app>
       <v-row
         dense
         justify="center">
@@ -83,14 +83,54 @@
         </v-col>
       </v-row>
   </v-app>
-  </v-app>
+  </v-app> -->
   
+
+<vueper-slides
+  class="no-shadow"
+  :visible-slides="3"
+  :slide-ratio="1 / 4"
+  :dragging-distance="70"
+  >
+  <template #arrow-left>
+    <i class="icon icon-arrow-left" />
+  </template>
+
+  <template #arrow-right>
+    <i class="icon icon-arrow-right" />
+  </template>
+  <vueper-slide v-for="(recommend,idx) in recommends"
+      :key="idx"
+      :image="recommend.poster_path"
+      />
+</vueper-slides>
+
+    <!-- <vueper-slides
+    class="no-shadow"
+    :visible-slides="3"
+    :slide-ratio="1 / 4"
+    :dragging-distance="70">
+    <vueper-slide v-for="(recommend,idx) in recommends"
+      :key="idx"
+      :image="recommend.poster_path"
+      />
+    </vueper-slides> -->
+    <!-- <v-card
+      v-for="(recommend,idx) in recommends"
+      :key="idx"
+    >
+    <img :src="recommend.poster_path" alt="">
+    </v-card>
+  -->
 </template>
 
 <script>
+import { VueperSlides, VueperSlide } from 'vueperslides'
+import 'vueperslides/dist/vueperslides.css'
 import { mapActions, mapGetters } from 'vuex'
 export default {
   name: 'RecommendMovie',
+  components: { VueperSlides, VueperSlide },
   computed: {
     ...mapGetters(['recommends'])
   },
