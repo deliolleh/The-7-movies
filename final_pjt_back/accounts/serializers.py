@@ -55,6 +55,7 @@ class ProfileSerializer(serializers.ModelSerializer):
     like_comments = CommentSerializer(many=True, read_only=True)
     genre_score_set = GenreScoreSerializer(many=True, read_only=True)
     score_set = ScoreSerializer(many=True, read_only=True)
+    review_set = ReviewSerializer(many=True, read_only=True)
 
     class Meta:
         model = get_user_model()
