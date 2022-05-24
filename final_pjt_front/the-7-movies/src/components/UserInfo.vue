@@ -13,20 +13,21 @@
         <hr>
         <br>
         <div
-        v-if="this.profile.review_set.length"
+        v-if="profile.review_set.length"
         >
-        <ul>
-          <h2> 작성 글 목록 </h2>
-          <li
-          :v-for="(pk, idx) in this.profile.review_set"
-          :key="idx"
-          >
-          <router-link :to="{name: 'reviewDatail', params: {reviewPk: pk}}">
-          profile.review_set에 글 제목도 받아와야 함.
-          
-          </router-link>
-          </li>
-        </ul>
+          <ul>
+            <h2> 작성 글 목록 </h2>
+            <li
+            :v-for="(review, idx) in profile.review_set"
+            :key="idx"
+            >
+              {{ review }}
+            이건 그냥 텍스트
+              <router-link :to="{name: 'reviewDatail', params: {reviewPk: pk}}">
+              
+              </router-link>
+            </li>
+          </ul>
         </div>
         
         <div v-else>
@@ -72,9 +73,9 @@ export default {
   methods: {
     ...mapActions(['fetchProfile'])
   },
-  created() {
-    this.fetchProfile(this.$route.params.username)
-  }
+  // created() {
+  //   this.fetchProfile(this.$route.params.username)
+  // }
 }
 </script>
 

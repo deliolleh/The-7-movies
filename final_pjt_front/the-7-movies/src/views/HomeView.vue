@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <v-app>
     <section>
       <best-movie></best-movie>
     </section>
@@ -7,7 +7,7 @@
       <weekly-best v-if="!this.isLoggedIn"></weekly-best>
       <recommend-movie v-else></recommend-movie>
     </section>
-  </div>
+  </v-app>
 </template>
 
 <script>

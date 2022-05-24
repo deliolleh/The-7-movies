@@ -1,10 +1,10 @@
 <template>
-  <div id="app">
+  <v-app id="app">
     <nav-bar></nav-bar>
-    <v-scroll-x-transition mode="in" hide-on-leave="true">
+    <v-scroll-x-transition>
       <router-view></router-view>
     </v-scroll-x-transition>
-  </div>
+  </v-app>
 </template>
 
 <script>
