@@ -28,6 +28,7 @@ export default {
   //     HOST + ARTICLES + `${articlePk}/` + COMMENTS + `${commentPk}/`,
   // },
   movies: {
+    movies: () => HOST + MOVIES,
     search: () => HOST + MOVIES + 'review/search/',
     recommend: () => HOST + MOVIES + 'recommends/representative/', //이상형
     detail: moviePk => HOST + MOVIES + `${moviePk}/`,

@@ -1,6 +1,7 @@
 from rest_framework import serializers
 from django.contrib.auth import get_user_model
 from .models import Movie, Genre, Actor, Score
+from community.models import Review
 
 class movielistserializer(serializers.ModelSerializer):
 
@@ -48,10 +49,23 @@ class movieserializer(serializers.ModelSerializer):
         class Meta:
             model = get_user_model()
             fields = ('username',)
+    
+    class ReviewListSerializer(serializers.ModelSerializer):
+        class UserSerializer(serializers.ModelSerializer):
+
+            class Meta:
+                model = get_user_model()
+                fields = ('username',)
+        
+        user = UserSerializer(read_only=True)
+        class Meta:
+            model = Review
+            exclude = ('movie',)
 
     genres = genreserializer(many=True, read_only=True)
     actor = actorlistserializer(many=True, read_only=True)
     score_set = scorelistserializer(many=True, read_only=True)
+    review_set = ReviewListSerializer(many=True, read_only=True)
     like_people = userlistserializer(many=True, read_only=True)
     class Meta:
         model = Movie

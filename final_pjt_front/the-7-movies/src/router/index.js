@@ -13,6 +13,9 @@ import ReviewNewView from '@/views/community/ReviewNewView'
 import ReviewDetailView from '@/views/community/ReviewDetailView'
 import ReviewEditView from '@/views/community/ReviewEditView'
 
+// 추가
+import MovieAllView from '@/views/movies/MovieAllView'
+
 import RecommendView from '@/views/RecommendView'
 
 import MovieDetailView from '@/views/movies/MovieDetailView'
@@ -75,24 +78,30 @@ const routes = [
     name: 'recommend',
     component: RecommendView
   },
-    // ---------recommend------------
-    {
-      path: '/movies/:moviePk',
-      name: 'movieDetail',
-      component: MovieDetailView,
-      props: {
-        username: String,
-      },
-      // beforeEnter: (to, from, next) => {
-      //   to, from, next
-      //   store.dispatch('fetchCurrentUser')
-      //     .then(() => {
-      //         console.log(store.getters);
-      //         console.log(store.getters.currentUser);
-      //         console.log(store.getters.currentUser.username);
-      //     })
-      // }
+  // ---------movie detail------------
+  {
+    path: '/movies/:moviePk',
+    name: 'movieDetail',
+    component: MovieDetailView,
+    props: {
+      username: String,
     },
+    // beforeEnter: (to, from, next) => {
+    //   to, from, next
+    //   store.dispatch('fetchCurrentUser')
+    //     .then(() => {
+    //         console.log(store.getters);
+    //         console.log(store.getters.currentUser);
+    //         console.log(store.getters.currentUser.username);
+    //     })
+    // }
+  },
+  // ------- movielist ------------
+  {
+    path: '/movies/',
+    name: 'movieAll',
+    component: MovieAllView
+  },
   // {
   //   path: '/',
   //   name: 'home',

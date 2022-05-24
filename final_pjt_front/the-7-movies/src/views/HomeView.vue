@@ -1,12 +1,14 @@
 <template>
-  <v-app>
-    <section>
+  <v-app height="100%">
+    <section height="100%">
       <best-movie></best-movie>
     </section>
-    <section>
-      <weekly-best v-if="!this.isLoggedIn"></weekly-best>
-      <recommend-movie v-else></recommend-movie>
-    </section>
+    <v-container>
+      <section>
+        <weekly-best v-if="!this.isLoggedIn"></weekly-best>
+        <recommend-movie v-else></recommend-movie>
+      </section>
+    </v-container>
   </v-app>
 </template>
 

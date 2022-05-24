@@ -1,7 +1,6 @@
 <template>
-  <v-app> 
-    이것은 로그인 되었을 때 보여지는 화면
-     <v-sheet
+  <v-app>
+    <!-- <v-sheet
     class="mx-auto"
     elevation="8"
     max-width="800"
@@ -58,13 +57,32 @@
         </v-row>
       </v-sheet>
     </v-expand-transition>
-  </v-sheet>
-    <v-card
-      v-for="(recommend,idx) in recommends"
-      :key="idx"
-    >
-    <img :src="recommend.poster_path" alt="">
-    </v-card>
+  </v-sheet> -->
+  
+  <v-app>
+      <v-row
+        dense
+        justify="center">
+        <v-col
+          v-for="(recommend,idx) in recommends"
+          cols= "3"
+          :key="idx"
+          height=300
+          >
+          <v-card
+            height="100%"
+            >
+            <router-link
+              :to="{ name: 'movieDetail', params:{ moviePk: recommend.pk} }">
+              <v-img
+                :src="recommend.poster_path"
+                height="100%"
+                ></v-img>
+            </router-link>
+          </v-card>
+        </v-col>
+      </v-row>
+  </v-app>
   </v-app>
   
 </template>

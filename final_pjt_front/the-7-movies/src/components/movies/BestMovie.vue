@@ -1,12 +1,16 @@
 <template>
-  <v-app>
-    <v-carousel hide-delimiters>
+  <v-app >
+    <v-carousel hide-delimiters width="100%" height="auto">
       <v-carousel-item
         v-for="(item,i) in bestmovie"
         :key="i"
-        :src="item.backdrop_path"
-        height="auto"
+        width="100%"
       >
+      <router-link :to="{ name: 'movieDetail', params: { moviePk: item.pk } }">
+        <v-img
+          :src="item.backdrop_path"
+          width="100%"></v-img>
+      </router-link>
       </v-carousel-item>
     </v-carousel>
   </v-app>

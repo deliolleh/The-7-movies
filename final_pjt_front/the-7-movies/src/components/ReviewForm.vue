@@ -1,29 +1,31 @@
 <template>
   <div>
-    <search-bar></search-bar>
-    <v-form 
-      @submit.prevent="onSubmit"
-      >
-      <v-text-field
-        label="제목"
-        v-model="newReview.title"
-      >
-      </v-text-field>
-      <v-textarea
-          solo
-          name="input-7-4"
-          label="내용"
-          v-model="newReview.content"
+    <v-container>
+      <search-bar></search-bar>
+      <v-form 
+        @submit.prevent="onSubmit"
         >
-        </v-textarea>
-        <v-btn
-      type="submit"
-      color="success"
-      class="mr-4"
-      >
-      등록
-      </v-btn>
-    </v-form>
+        <v-text-field
+          label="제목"
+          v-model="newReview.title"
+        >
+        </v-text-field>
+        <v-textarea
+            solo
+            name="input-7-4"
+            label="내용"
+            v-model="newReview.content"
+          >
+          </v-textarea>
+          <v-btn
+        type="submit"
+        color="success"
+        class="mr-4"
+        >
+        등록
+        </v-btn>
+      </v-form>
+    </v-container>
   </div>
 </template>
 

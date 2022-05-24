@@ -24,7 +24,7 @@ from accounts.serializers import GenreScoreSerializer
 @permission_classes([AllowAny])
 def movie_list(request):
     movies = Movie.objects.all()
-    print(movies)
+    # print(movies)
     serializer = movielistserializer(movies, many=True)
     return Response(serializer.data)
 

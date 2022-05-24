@@ -23,6 +23,10 @@
               </div>
               <!-- 화면 이동 like 커뮤니티, 추천등  -->
               <div class="community">
+                <router-link :to="{name: 'movieAll'}">Movies</router-link>
+              </div>
+              <!-- 화면 이동 like 커뮤니티, 추천등  -->
+              <div class="community">
                 <router-link :to="{name: 'community'}">Community</router-link>
               </div>
               <!-- accounts 기능  -->

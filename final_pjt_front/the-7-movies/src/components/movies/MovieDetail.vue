@@ -40,25 +40,25 @@
         </v-row>
       </v-scroll-x-transition>
 
-    <div class="text-center">
-      <!-- <v-rating
-        v-model="score_set.score"
-        icon-label="custom icon label text {0} of {1}"
-        @input="onClick"
-        background-color="orange lighten-3"
-        color="orange"
-        large
-      ></v-rating> -->
-        <v-rating
-        v-model="score_set.score"
-        icon-label="custom icon label text {0} of {1}"
-        @input="onClick"
-        background-color="orange lighten-3"
-        color="orange"
-        large
-      ></v-rating>
-    </div>
-  </v-container>
+      <div class="text-center">
+        <!-- <v-rating
+          v-model="score_set.score"
+          icon-label="custom icon label text {0} of {1}"
+          @input="onClick"
+          background-color="orange lighten-3"
+          color="orange"
+          large
+        ></v-rating> -->
+          <v-rating
+          v-model="score_set.score"
+          icon-label="custom icon label text {0} of {1}"
+          @input="onClick"
+          background-color="orange lighten-3"
+          color="orange"
+          large
+        ></v-rating>
+      </div>
+    </v-container>
   </v-app>
 </template>
 
