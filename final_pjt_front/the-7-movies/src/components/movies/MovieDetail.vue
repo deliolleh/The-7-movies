@@ -26,7 +26,7 @@
               <br>
               개봉 : {{ movie.release_date }}
               <br>
-              평점 : {{ average }}
+              개요 : {{ movie.genres[0].name }} | 평점 : {{ average }}
               <hr>
               <br>
               {{ movie.overview }}
