@@ -72,7 +72,7 @@ export default {
     ...mapActions(['fetchProfile'])
   },
   created() {
-    // this.fetchProfile(this.$route.params.username)
+    this.fetchProfile(this.$route.params.username)
     console.log(this.$route.params.username)
   },
 }
