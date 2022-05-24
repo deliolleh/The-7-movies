@@ -29,7 +29,7 @@ class movieserializer(serializers.ModelSerializer):
 
         class Meta:
             model = Genre
-            fields = ('name')
+            fields = '__all__'
 
     class actorlistserializer(serializers.ModelSerializer):
 
@@ -49,7 +49,7 @@ class movieserializer(serializers.ModelSerializer):
             model = get_user_model()
             fields = ('username',)
 
-    genre_set = genreserializer(many=True, read_only=True)
+    genres = genreserializer(many=True, read_only=True)
     actor = actorlistserializer(many=True, read_only=True)
     score_set = scorelistserializer(many=True, read_only=True)
     like_people = userlistserializer(many=True, read_only=True)

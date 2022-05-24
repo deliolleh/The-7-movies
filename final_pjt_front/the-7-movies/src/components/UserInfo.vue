@@ -18,13 +18,11 @@
           <ul>
             <h2> 작성 글 목록 </h2>
             <li
-            :v-for="(review, idx) in profile.review_set"
+            v-for="(review, idx) in profile.review_set"
             :key="idx"
             >
-              {{ review }}
-            이건 그냥 텍스트
-              <router-link :to="{name: 'reviewDatail', params: {reviewPk: pk}}">
-              
+              <router-link :to="{name: 'reviewDatail', params: {reviewPk: review.pk}}">
+              {{ review.title }}
               </router-link>
             </li>
           </ul>
@@ -73,9 +71,10 @@ export default {
   methods: {
     ...mapActions(['fetchProfile'])
   },
-  // created() {
-  //   this.fetchProfile(this.$route.params.username)
-  // }
+  created() {
+    this.fetchProfile(this.$route.params.username)
+    console.log(this.$route.params.username)
+  },
 }
 </script>
 
