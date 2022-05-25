@@ -96,15 +96,14 @@ export default {
         })
       });
       this.index = this.index + 2
-            if (this.index < this.recommend.length) {
+       if (this.index < this.recommend.length-1) {
         return this.goNext(this.index)
       } else {
-        const left = document.querySelector('#left > img')
-        const right = document.querySelector('#right > img')
-        left.removeAttribute('src')
-        right.removeAttribute('src')
+        console.log('오른쪽?');
         console.log(this.profile);
-        return  this.$store.dispatch('scoreUpdate', this.profile)
+        this.$store.dispatch('scoreCreate', this.profile)
+        this.$router.push({name: 'recommend'})
+        return
       }
     },
   },

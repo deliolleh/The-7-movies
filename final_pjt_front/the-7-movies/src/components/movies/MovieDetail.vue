@@ -9,7 +9,7 @@
               >
                 <v-card :elevation="hover ? 16 : 2"
                   :class="{ 'on-hover': hover }">
-                    <router-link :to="{name: 'create'}">
+                    <router-link :to="{name: 'reviewcreate', params:{movieTitle: movie.title} }">
                           <v-img :src="movie.poster_path" alt="" class=""/>
                     </router-link> 
                 </v-card>
@@ -71,7 +71,7 @@
           <div class="subtitle-2 grey--text ml-5">
             <span> 영화 평점 남기기 </span>
             <v-icon>mdi-arrow-down</v-icon>
-            <v-btn class="mx-5 grey--text">reset</v-btn>
+            <v-btn class="mx-5 grey--text" @click="onReset">reset</v-btn>
           </div>
                 <v-rating
           v-model="score_set.score"
@@ -158,8 +158,23 @@ export default {
         }
       });
     },
-    resetScore() {
-      
+    onReset() {
+      this.movie.genres.forEach(genre => {
+        this.profile.genre_score_set.forEach(object => {
+            if (object.genre === genre.id) {
+              object.score -= this.score_set.score
+              console.log('되나?');
+            }
+          })
+      });
+      this.score_set.score = 0
+      this.score_set.user = this.currentUser.pk
+      this.profile.score_set = this.score_set
+      const payload = {
+        profile: this.profile,
+        moviePk: this.$route.params.moviePk
+      }
+      this.$store.dispatch('resetScore', payload)
     }
   },
   created() {

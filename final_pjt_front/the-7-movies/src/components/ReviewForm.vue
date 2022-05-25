@@ -1,6 +1,9 @@
 <template>
-  <div>
-    <v-container>
+  <v-col
+    cols="4"
+    class="mt-10"
+  >
+      <h1 style="text-align:center"> New Review </h1>
       <search-bar v-if="this.$route.name==='create'"></search-bar>
       <search-bar v-else :movietitle="this.$route.params.movieTitle"></search-bar>
       <v-form 
@@ -26,8 +29,8 @@
         등록
         </v-btn>
       </v-form>
-    </v-container>
-  </div>
+
+  </v-col>
 </template>
 
 <script>
