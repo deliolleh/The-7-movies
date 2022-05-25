@@ -48,7 +48,6 @@
         </div>
 
         <v-card-text>
-
         </v-card-text>
         <div class="user-description">
         </div>
@@ -72,9 +71,9 @@ export default {
   methods: {
     ...mapActions(['fetchProfile'])
   },
-  // created() {
-  //   this.fetchProfile(this.$route.params.username)
-  // },
+  created() {
+    this.fetchProfile(this.$route.params.username)
+  },
 }
 </script>
 

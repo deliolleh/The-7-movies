@@ -5,11 +5,13 @@
       <router-view></router-view>
     </v-scroll-x-transition>
     <the-spinner :loading="this.loadingStatus"></the-spinner>
+    <the-footer></the-footer>
   </v-app>
 </template>
 
 <script>
-import NavBar from '@/components/NavBar.vue'
+import TheFooter from '@/components/common/TheFooter'
+import NavBar from '@/components/common/NavBar.vue'
 import { mapActions } from 'vuex'
 import bus from '@/utils/bus'
 import TheSpinner from '@/components/common/TheSpinner'
@@ -18,6 +20,7 @@ export default {
   components: {
     NavBar,
     TheSpinner,
+    TheFooter,
   },
   data() {
     return {

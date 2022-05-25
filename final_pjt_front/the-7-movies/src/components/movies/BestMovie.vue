@@ -1,6 +1,5 @@
 <template>
   <vueper-slides fade :touchable="false" 
-    autoplay
     fixed-height="1000px"
     >
     <vueper-slide

@@ -1,8 +1,8 @@
 <template>
   <div>
-    <v-form>
-      <v-autocomplete type="input" 
-        v-model="input"
+    <v-form @submit.prevent="search">
+      <v-autocomplete 
+        type="input" 
         :items="getTitle"
         label="영화 제목을 찾아주세요"
         hide-details="auto"
@@ -17,39 +17,39 @@
 import { mapActions, mapGetters } from 'vuex'
 
 export default {
-  name: 'SearchBar',
+  name: 'MovieSearch',
   data() {
     return {
       input:'',
     }
   },
+  props: {
+    movies: Array,
+  },
   methods: {
-    ...mapActions(['getAllMovies', 'getMoviePk']),
+    ...mapActions(['getMoviePk']),
     selectClick(event) {
-      console.log(event);
-      this.input = event
-      const selectedMovie = this.searchMovies.filter((value) => {
-        return (value.title === event)
-      })
-      const payload = selectedMovie[0].pk
-      this.getMoviePk(payload)
+      this.input = event.target.value
     },
-    onSubmit () {
-        this.$emit('onSubmit', this.findItems[0].pk)
-      },
+    search(event) {
+      console.log(event.target[0].value);
+      this.$emit()
+    }
   },
   computed: {
     getTitle() {
-      const title = this.searchMovies.map(object => {
+      const title = this.movies.map(object => {
         return object.title
       });
       return title
-    },  
+    },
+    filteredList() {
+      return this.movies.filter(object => {
+        return object.title.includes(this.input)
+      })
+    },
     ...mapGetters(['searchMovies', 'currentMovie'])
   },
-  created() {
-    this.getAllMovies()
-  }
 }
 
 </script>
