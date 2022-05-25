@@ -12,12 +12,12 @@ def get_movie_datas():
     global movie_ids
     total_data = []
 
-    for i in range(1, 15):
+    for i in range(1, 20):
         request_url = f"https://api.themoviedb.org/3/movie/top_rated?api_key={TMDB_API_KEY}&language=ko-KR&page={i}"
         movies = requests.get(request_url).json()
 
         for movie in movies['results']:
-            if movie.get('release_date', ''):
+            if int(movie.get('release_date')[0:4]) >= 2010 and movie.get('backdrop_path'):
                 for crew in requests.get(get_cast_crew_a + str(movie['id']) + get_cast_crew_b).json()['crew']:
                     if crew['job'] == 'Director':
                         director = crew['name']
@@ -28,7 +28,7 @@ def get_movie_datas():
                     'title': movie['title'],
                     'release_date': movie['release_date'],
                     'popularity': movie['popularity'],
-                    'vote_score': movie['vote_average'] * movie['vote_count'],
+                    'vote_score': movie['vote_average'],
                     'vote_count': movie['vote_count'],
                     'overview': movie['overview'],
                     'poster_path': poster_url + movie['poster_path'],

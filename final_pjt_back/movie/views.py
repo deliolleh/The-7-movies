@@ -14,7 +14,7 @@ from django.core.paginator import Paginator
 
 from accounts.serializers import ProfileSerializer
 
-from .models import Movie, Score
+from .models import Movie, Score, Genre
 from accounts.models import Genre_score
 
 from .serializers import MovieChoiceSerializer, MovieMainSerializer, SerachMovieSerializer, movielistserializer, movieserializer, UserGenreSerializer, ScoreSerializer
@@ -59,7 +59,7 @@ def main_movie(request):
     #     total = (F('vote_score')) / (F('popularity') * 100 + Count('vote_user'))
     # ).order_by('total')[0:5]
     # print(movies.values('vote_user'))
-    movies = Movie.objects.all().order_by('-popularity')[1:6]
+    movies = Movie.objects.all().order_by('-vote_count')[0:6]
     serializer = MovieMainSerializer(movies, many=True)
     # print(serializer.data)
     return Response(serializer.data)
@@ -74,32 +74,60 @@ def movie_detail(request, movie_pk):
 @api_view(['POST', 'DELETE'])
 @permission_classes([IsAuthenticated])
 def score_add_change_delete(request, movie_pk):
-    print(request.data)
+    print(request.data['score'])
     movie = Movie.objects.get(pk=movie_pk)
-    genres = Movie.objects.filter(pk=movie_pk).values('genres')
-    # print(genres)
+    genres = Genre.objects.filter(movies=movie_pk)
+    # print(genres.values())
     if request.method == 'POST':
-        score = Score.objects.filter(user=request.user, movie=movie).first()
+        score = Score.objects.filter(user=request.user, movie=movie_pk)
         if not score:
-            # print('create')
+            print('create')
+            data = { 'score': request.data['score'] }
             serializer = ScoreSerializer(data=request.data)
             if serializer.is_valid(raise_exception=True):
                 serializer.save(user=request.user, movie=movie)
-                user = get_user_model().objects.get(pk=request.user.pk)
-                send_serializer = ProfileSerializer(user)
-                return Response(send_serializer.data, status=status.HTTP_201_CREATED)
     
         else:
-            # print('update')
-            serializer = ScoreSerializer(instance=score, data=request.data)
+            scored = score.values('score')[0]
+            print('update')
+            # print(user_genres)
+            for genre in genres.values():
+                user_genre = Genre_score.objects.filter(user=request.user, genre=genre['id']).values_list('genre_id', 'score')
+                print(user_genre)
+                update_user = Genre_score.objects.get(user=request.user, genre=genre['id'])
+                update_user.score -= scored['score']
+                update_user.save()
+            print('complete')
+            # data = { 'score': request.data['score'] }
+            now = Score.objects.get(user=request.user, movie=movie_pk)
+            # serializer = ScoreSerializer(now)
+            serializer = ScoreSerializer(instance=now, data=request.data)
             if serializer.is_valid(raise_exception=True):
                 serializer.save()
-                user = get_user_model().objects.get(pk=request.user.pk)
-                send_serializer = ProfileSerializer(user)
-                return Response(send_serializer.data, status=status.HTTP_201_CREATED)
+        
+        for genre in genres.values():
+            user_genre = Genre_score.objects.filter(user=request.user, genre=genre['id']).values_list('genre_id', 'score')
+            print(user_genre)
+            update_user = Genre_score.objects.get(user=request.user, genre=genre['id'])
+            update_user.score += request.data['score']
+            update_user.save()
+        print('update user_status')
+
+        user = get_user_model().objects.get(pk=request.user.pk)
+        send_serializer = ProfileSerializer(user)
+        return Response(send_serializer.data)
 
     elif request.method == 'DELETE':
-        score = Score.objects.filter(user=request.user, movie=movie)
+        score = Score.objects.filter(user=request.user, movie=movie_pk)
+        scored = score.values('score')[0]
+        print('update')
+        # print(user_genres)
+        for genre in genres.values():
+            user_genre = Genre_score.objects.filter(user=request.user, genre=genre['id']).values_list('genre_id', 'score')
+            print(user_genre)
+            update_user = Genre_score.objects.get(user=request.user, genre=genre['id'])
+            update_user.score -= scored['score']
+            update_user.save()
         score.delete()
         data = {
             "message": "정상적으로 삭제되었습니다"

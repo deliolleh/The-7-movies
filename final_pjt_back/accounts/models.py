@@ -16,6 +16,9 @@ class Genre_score(models.Model):
     genre = models.ForeignKey(Genre, on_delete=models.CASCADE)
     score = models.IntegerField(default=0)
 
+    def __str__(self):
+        return str(self.score)
+
 # class Genre(models.Model):
 #     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='user_genre')
 #     액션 = models.IntegerField(default=0)

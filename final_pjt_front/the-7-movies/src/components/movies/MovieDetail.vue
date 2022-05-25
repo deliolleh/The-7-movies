@@ -71,9 +71,9 @@
           <div class="subtitle-2 grey--text ml-5">
             <span> 영화 평점 남기기 </span>
             <v-icon>mdi-arrow-down</v-icon>
-            <v-btn class="mx-5 grey--text">reset</v-btn>
+            <v-btn class="mx-5 grey--text" @click="resetScore">reset</v-btn>
           </div>
-                <v-rating
+          <v-rating
           v-model="score_set.score"
           icon-label="custom icon label text {0} of {1}"
           @input="onClick"
@@ -131,7 +131,8 @@ export default {
     
   },
   methods: {
-    ...mapActions(['getMovie', 'scoreUpdate', 'fetchProfile', 'fetchCurrentUser', 'getMoviePk']),
+    ...mapActions(['getMovie', 'scoreUpdate', 'fetchProfile',
+    'fetchCurrentUser', 'getMoviePk', 'resetScore']),
     onClick() {
       console.log(this.profile.genre_score_set);
       this.movie.genres.forEach(genre => {
@@ -158,9 +159,6 @@ export default {
         }
       });
     },
-    resetScore() {
-      
-    }
   },
   created() {
     this.getMovie(this.$route.params.moviePk)

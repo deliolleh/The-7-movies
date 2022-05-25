@@ -221,19 +221,19 @@ export default {
         })
         .catch(() => console.log('생성에러'))
       },
-      resetScore({commit, getters}, profile) {
-        axios({
-          url: drf.accounts.changeUserInfo(),
-          method: 'delete',
-          headers: getters.authHeader,
-          data: profile.genre_score_set
+    resetScore({commit, getters}, profile) {
+      axios({
+        url: drf.accounts.changeUserInfo(),
+        method: 'delete',
+        headers: getters.authHeader,
+        data: profile.genre_score_set
+      })
+        .then(res => {
+          commit('SCORE_UPDATE', res.data)
+          store.dispatch('getRecommends')
         })
-          .then(res => {
-            commit('SCORE_UPDATE', res.data)
-            store.dispatch('getRecommends')
-          })
-          .catch(() => console.log('에러발생'))
-      },
+        .catch(() => console.log('에러발생'))
+    },
   },
 }
 

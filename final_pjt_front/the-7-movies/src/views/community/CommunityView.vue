@@ -10,7 +10,6 @@
         :length="totalPage"
         :total-visible="4"
       ></v-pagination>
-
     </div>
   </v-app>
 </template>
@@ -31,7 +30,7 @@ export default {
     }
   },
   computed: {
-    ...mapGetters(['currentPage', 'totalPage'])
+    ...mapGetters(['totalPage'])
   },
   created() {
     bus.$emit('start:spinner')
