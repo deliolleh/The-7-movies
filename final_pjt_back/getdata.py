@@ -22,6 +22,8 @@ def get_movie_datas():
                     if crew['job'] == 'Director':
                         director = crew['name']
                         break
+                
+
                 fields = {
                     # 'movie_id': movie['id'],
                     'backdrop_path': poster_url +  movie['backdrop_path'],
