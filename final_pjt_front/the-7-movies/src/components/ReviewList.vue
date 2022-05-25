@@ -33,14 +33,23 @@ export default {
   components: {
     ReviewListItem,
   },
+  props: {
+    currentPage: Number,
+  },
   computed: {
     ...mapGetters(['reviews'])
   },
   methods: {
-    ...mapActions(['fetchReviews'])
+    ...mapActions(['fetchReviews', 'paginationReviews'])
   },
   created() {
-    this.fetchReviews()
+    // this.fetchReviews()
+    this.paginationReviews(this.currentPage)
+  },
+  watch: {
+    currentPage () {
+      this.paginationReviews(this.currentPage)
+    }
   }
 }
 </script>

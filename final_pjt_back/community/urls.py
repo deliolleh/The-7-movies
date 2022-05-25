@@ -1,8 +1,14 @@
-from django.urls import path
+from rest_framework.routers import DefaultRouter
+from django.urls import path, include
 from . import views
+
+router= DefaultRouter()
+router.register("reviews", views.ReviewViewSet, basename="reviews")
 
 urlpatterns = [
     path('', views.review_list),
+    path('', include(router.urls)),
+    path('filter/<int:movie_pk>/', views.filter_reviews),
     path('create/', views.create_review),
     path('<int:review_pk>/', views.review_detail),
     path('<int:review_pk>/like/', views.like_review),

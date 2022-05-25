@@ -22,21 +22,55 @@
         </v-col>
       </v-row>
     </v-container>
+    <infinite-loading @infinite="infiniteHandler"></infinite-loading>
   </v-app>
 </template>
 
 <script>
+import InfiniteLoading from "vue-infinite-loading"
 import { mapActions, mapGetters } from 'vuex'
+import drf from '@/api/drf'
+import axios from 'axios'
 export default {
   name: 'MovieAllView',
+  data () {
+    return {
+      currentPage: 1,
+      
+    }
+  },
+  components: {
+    InfiniteLoading,
+  },
   computed: {
     ...mapGetters(['movies']),
   },
   methods: {
-    ...mapActions(['getMoviesList']),
+    ...mapActions(['getMoviesList', 'getMoviesPage']),
+    infiniteHandler($state) {
+      this.currentPage += 1
+      axios({
+        url: drf.movies.paginator(this.currentPage),
+        method: 'get',
+        headers: this.$store.getters.headers
+      })
+        .then(res => {
+          console.log(res.data)
+          res.data.forEach((movie) => {
+            this.$store.commit('GET_MOVIE_LIST', movie)
+          })
+          if (res.data.length) {
+            $state.loaded()
+          } else {
+            $state.complete()
+          }
+        })
+    }
   },
   created () {
-    this.getMoviesList()
+    // this.getMoviesList()
+    this.getMoviesPage(this.currentPage)
+    // this.currentPage++
   }
 }
 </script>

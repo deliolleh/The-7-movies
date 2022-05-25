@@ -7,6 +7,8 @@ from rest_framework.response import Response
 from django.contrib.auth import get_user_model
 from rest_framework.permissions import IsAuthenticated, AllowAny
 from rest_framework.decorators import api_view, permission_classes
+from rest_framework import viewsets
+from rest_framework.pagination import PageNumberPagination
 
 from .serializers.review import ReivewListSerializer, ReviewSerializer, ReviewCreationSerializer
 from .serializers.comment import CommentSerializer
@@ -22,6 +24,17 @@ def review_list(request):
     ).order_by('-pk')
     serializer = ReivewListSerializer(review, many=True)
     return Response(serializer.data)
+
+class ReviewPagination(PageNumberPagination):
+    page_size = 4
+
+class ReviewViewSet(viewsets.ModelViewSet):
+    pagination_class = ReviewPagination
+    serializer_class = ReivewListSerializer
+    queryset = Review.objects.annotate(
+        comment_count= Count('comments', distinct=True),
+        like_count = Count('like_people', distinct=True)
+    ).order_by('-pk')
 
 @api_view(['POST'])
 @permission_classes([IsAuthenticated])
@@ -141,3 +154,13 @@ def like_comment(request, review_pk, comment_pk):
         comments = Comment.objects.filter(review=review_pk)
         serializer = CommentSerializer(comments, many=True)
         return Response(serializer.data)
+
+@api_view(['GET'])
+@permission_classes([AllowAny])
+def filter_reviews(request, movie_pk):
+    review = Review.objects.filter(movie=movie_pk).annotate(
+                like_count = Count('like_people', distinct=True)
+                ).order_by('-like_count')[0:3]
+    print(review)
+    serializer = ReviewSerializer(review, many=True)
+    return Response(serializer.data)

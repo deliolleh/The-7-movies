@@ -29,6 +29,7 @@ export default {
   // },
   movies: {
     movies: () => HOST + MOVIES,
+    paginator: (page) => HOST + MOVIES + `moviepage/${page}/`,
     search: () => HOST + MOVIES + 'review/search/',
     recommend: () => HOST + MOVIES + 'recommends/representative/', //이상형
     detail: moviePk => HOST + MOVIES + `${moviePk}/`,
@@ -37,11 +38,13 @@ export default {
   },
   community: {
     reviews: () => HOST + COMMUNITY,
+    reviews_page: (page) => HOST + COMMUNITY + `reviews/?page=${page}`,
     create: () => HOST + COMMUNITY + 'create/',
     detail: reviewPk => HOST + COMMUNITY + `${reviewPk}/`,
     likereview: reviewPk => HOST + COMMUNITY + `${reviewPk}/` + 'like/',
     comments: reviewPk => HOST + COMMUNITY + `${reviewPk}/` + 'comment/',
     likecomment: (reviewPk, commentPk) => HOST + COMMUNITY + `${reviewPk}/` + `${commentPk}/` + 'like/',
     updateDelete: (reviewPk, commentPk) => HOST + COMMUNITY + `${reviewPk}/` + `${commentPk}/`,
+    bestReviews: (moviePk) => HOST + COMMUNITY + `filter/${moviePk}/`,
   }
 }

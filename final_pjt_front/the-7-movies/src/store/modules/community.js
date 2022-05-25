@@ -10,7 +10,7 @@ export default {
   state: {
     reviews: [],
     review: {},
-
+    totalPage: 0,
   },
 
   getters: {
@@ -20,12 +20,14 @@ export default {
       return state.review.user?.username === getters.currentUser.username
     },
     isReview: state => !_.isEmpty(state.review),
+    totalPage: state => state.totalPage
   },
 
   mutations: {
     SET_REVIEWS: (state, reviews) => state.reviews = reviews,
     SET_REVIEW: (state, review) => state.review = review,
     SET_REVIEW_COMMENTS: (state, comments) => (state.review.comments = comments),
+    SET_TOTAL_PAGE: (state, page) => state.totalPage = page,
   },
 
   actions: {
@@ -45,7 +47,22 @@ export default {
         .then(res => {
           console.log(res.data);
           commit('SET_REVIEWS', res.data)})
+          commit()
         .catch(err => console.error(err.response))
+    },
+
+    paginationReviews({commit, getters}, page) {
+      axios({
+        url: drf.community.reviews_page(page),
+        method: 'get',
+        headers: getters.authHeader
+      })
+        .then(res => {
+          console.log(res.data)
+          commit('SET_REVIEWS', res.data.results)
+          const page = parseInt(res.data.count / 4) + 1
+          commit('SET_TOTAL_PAGE', page)
+        })
     },
 
     fetchReview({ commit, getters }, reviewPk) {

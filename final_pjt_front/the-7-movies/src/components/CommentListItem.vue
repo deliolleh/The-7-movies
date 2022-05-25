@@ -25,6 +25,7 @@
           v-model="like"
           :input-value="like"
           label="좋아요"
+          color="success"
           hide-details
         ></v-switch>
     </div>

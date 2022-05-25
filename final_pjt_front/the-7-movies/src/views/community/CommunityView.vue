@@ -2,7 +2,14 @@
   <v-app>
     <!-- 게시글 -->
     <div>
-      <review-list></review-list>
+      <review-list :currentPage="currentPage"></review-list>
+    </div>
+    <div class="text-center">
+      <v-pagination
+        v-model="currentPage"
+        :length="totalPage"
+        :total-visible="4"
+      ></v-pagination>
     </div>
   </v-app>
 </template>
@@ -10,11 +17,20 @@
 <script>
 import ReviewList from '@/components/ReviewList'
 import bus from '@/utils/bus'
+import { mapGetters } from 'vuex'
 
 export default {
   name: 'CommunityView',
   components: {
     ReviewList,
+  },
+  data () {
+    return {
+      currentPage: 1,
+    }
+  },
+  computed: {
+    ...mapGetters(['currentPage', 'totalPage'])
   },
   created() {
     bus.$emit('start:spinner')
@@ -24,7 +40,7 @@ export default {
 </script>
 
 <style>
- #main {
-   margin: 0 8px;
- }
+  #main {
+    margin: 0 8px;
+  }
 </style>

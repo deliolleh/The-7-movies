@@ -10,6 +10,7 @@ from rest_framework.permissions import IsAuthenticated, AllowAny
 
 from django.shortcuts import get_list_or_404, get_object_or_404
 from django.contrib.auth import get_user_model
+from django.core.paginator import Paginator
 
 from accounts.serializers import ProfileSerializer
 
@@ -24,8 +25,18 @@ from accounts.serializers import GenreScoreSerializer
 @permission_classes([AllowAny])
 def movie_list(request):
     movies = Movie.objects.all()
-    # print(movies)
     serializer = movielistserializer(movies, many=True)
+    return Response(serializer.data)
+
+@api_view(['GET'])
+@permission_classes([AllowAny])
+def movie_paginator(request, movie_page):
+    movies = Movie.objects.all()
+    paginator = Paginator(movies, 8)
+    page_number = movie_page
+    page_obj = paginator.get_page(page_number)
+
+    serializer = movielistserializer(page_obj, many=True)
     return Response(serializer.data)
 
 def movie_list_filter(request, genre_pk):
@@ -63,6 +74,7 @@ def movie_detail(request, movie_pk):
 @api_view(['POST', 'DELETE'])
 @permission_classes([IsAuthenticated])
 def score_add_change_delete(request, movie_pk):
+    print(request.data)
     movie = Movie.objects.get(pk=movie_pk)
     genres = Movie.objects.filter(pk=movie_pk).values('genres')
     # print(genres)
@@ -129,4 +141,18 @@ def recommends(request):
         total += movies
     total = list(set(total))[0:7]
     serializer = movielistserializer(total, many=True)
+    return Response(serializer.data)
+
+@api_view(['POST'])
+@permission_classes([IsAuthenticated])
+def like_movie(request, movie_pk):
+    movie = Movie.objects.get(pk=movie_pk)
+    if movie.like_people.filter(pk=request.user.pk):
+        movie.like_people.remove(request.user)
+    
+    else:
+        movie.like_people.add(request.user)
+
+    serializer = movieserializer(movie)
+    print(serializer.data)
     return Response(serializer.data)
