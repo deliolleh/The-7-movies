@@ -12,7 +12,7 @@
           </v-toolbar-title>
           <router-link text class="ml-2" :to="{name: 'movieAll'}">Movies</router-link>
           <router-link :to="{name: 'community'}">Community</router-link>
-          <router-link :to="{name: 'community'}">Community</router-link>
+          <router-link :to="{name: 'recommend'}">Recommends</router-link>
           <v-spacer></v-spacer>
           <v-autocomplete
           clearable
@@ -23,12 +23,12 @@
           flat
           :items="movies"
           item-text="title"
-          item-value="id"
+          item-value="pk"
           id="search"
           >
-            <!-- <template v-slot:item="{item}">
-                <v-btn text :to="`/movie/${item.id}`">{{item.title}}</v-btn>
-            </template> -->
+            <template v-slot:item="{item}">
+                <v-btn text :to="`/movies/${item.pk}`">{{item.title}}</v-btn>
+            </template>
           </v-autocomplete>
           <div class="users">
                 <div v-if="!isLoggedIn">

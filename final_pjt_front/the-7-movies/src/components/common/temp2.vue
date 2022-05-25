@@ -1,7 +1,7 @@
 <template>
   <div id="example">
-    <h2 class="mx-3 grey--text text-center mt-10">
-      The 7 Movies for You
+    <h2 class="mx-3 grey--text">
+      당신을 위한 영화
     </h2>
     <carousel-3d
       :controls-visible="true"
@@ -12,9 +12,9 @@
     >
       <slide :index="i" :key="i" v-for="(movie, i) in recommends">
         <figure>
-          <img :src="movie.poster_path" />
+          <img :src="'movie.poster_path'" />
           <figcaption>
-            <v-btn :to="`/movies/${movie.pk}`" text color="white"> {{ movie.title }}</v-btn>
+            <v-btn :to="`/movie/${movie.id}`" text color="white"> {{ movie.title }}</v-btn>
           </figcaption>
         </figure>
       </slide>
@@ -24,35 +24,34 @@
 
 <script>
 import { Carousel3d, Slide } from "vue-carousel-3d";
-import { mapGetters, mapActions } from 'vuex';
+import { mapGetters } from 'vuex';
 export default {
+  data() {
+    return {
+      recommends: [],
+    };
+  },
   components: {
     Carousel3d,
     Slide,
   },
   computed: {
-    ...mapGetters(['recommends'])
-  },
-  methods: {
-    ...mapActions(['getRecommends']),
-    // async fetchRecommends() {
-      //   const response = await this.getRecommends
-    //   this.recommends = response.data.results
-    //   console.log(this.upcomingMovies);
-    // },
+    ...mapGetters('getRecommends')
   },
   mounted() {
-      this.getRecommends();
+    this.fetchRecommends();
+  },
+  methods: {
+    async fetchRecommends() {
+      const response = await this.getRecommends
+      this.recommends = response.data.results
+      console.log(this.upcomingMovies);
     },
+  },
 };
 </script>
 
 <style scoped>
-
-#example > h2 {
-  font-size: 45px;
-}
-
 .carousel-3d-container figure {
   margin: 0;
 }
@@ -68,7 +67,6 @@ export default {
   min-width: 100%;
   box-sizing: border-box;
 }
-
 .next span,
 .prev span {
   color: red;

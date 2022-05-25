@@ -1,7 +1,7 @@
 <template>
   <div id="example">
-    <h2 class="mx-3 grey--text text-center mt-10">
-      The 7 Movies for You
+    <h2 class="mx-3 grey--text">
+      당신을 위한 영화
     </h2>
     <carousel-3d
       :controls-visible="true"
@@ -48,10 +48,6 @@ export default {
 </script>
 
 <style scoped>
-
-#example > h2 {
-  font-size: 45px;
-}
 
 .carousel-3d-container figure {
   margin: 0;
