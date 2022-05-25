@@ -1,12 +1,65 @@
 <template>
-  <v-container>
+  <div>
+    <v-row>
+      <v-col
+        v-for="(review, idx) in bestReviews" :key="idx"
+        cols="3"
+      >
+        <v-card>
+          <v-card-title>
+            Reviewer : {{ review.user.username }}
+          </v-card-title>
+          <v-card-text>
+            {{ review.title }}
+          </v-card-text>
+          <v-card-actions>
+            <v-btn
+              text
+              color="teal accent-4"
+              @click="reveal = true"
+            >
+              Read content
+            </v-btn>
+         </v-card-actions>
+          <v-expand-transition>
+            <v-card
+              v-if="reveal"
+              class="transition-fast-in-fast-out v-card--reveal"
+              style="height: 100%;"
+            >
+              <v-card-text class="pb-0">
+                <p>{{ review.content }} </p>
+              </v-card-text>
+              <v-card-actions class="pt-0">
+                <v-btn
+                  text
+                  color="teal accent-4"
+                  @click="reveal = false"
+                >
+                  Close
+                </v-btn>
+                <v-btn
+                  text
+                  color="teal accent-4"
+                  :to="{name: 'reviewDatail', params:{reviewPk: review.pk} }"
+                >
+                  See detail...
+                </v-btn>
+              </v-card-actions>
+            </v-card>
+          </v-expand-transition>
+        </v-card>
+      </v-col>
+    </v-row>
+  </div>
+  <!-- <v-container>
     <v-row>
       <v-col
         cols="1"></v-col>
       <v-col
         cols="10">
         <div v-for="(review, idx) in bestReviews" :key="idx">
-          <v-card id="item">
+          <v-card id="item" style="width:300px">
             <ul class="review-list">
               <li class="post">
                 <div>
@@ -25,13 +78,18 @@
         </div>
       </v-col>
     </v-row>
-  </v-container>
+  </v-container> -->
 </template>
 
 <script>
 import { mapGetters, mapActions } from 'vuex'
 export default {
   name: 'BestReview',
+  data() {
+    return {
+      reveal: false,
+    }
+  },
   computed: {
     ...mapGetters(['bestReviews'])
   },
@@ -45,7 +103,14 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
+.v-card--reveal {
+  bottom: 0;
+  opacity: 1 !important;
+  position: absolute;
+  width: 100%;
+}
+
 #item {
   padding: 1px 0 1px 20px;
 }

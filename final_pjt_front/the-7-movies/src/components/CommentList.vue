@@ -1,17 +1,14 @@
 <template>
-  <div class="comment-list">
     
     <!-- <comment-list-form></comment-list-form> -->
-    <ul>
-      <comment-list-item 
-        v-for="comment in comments" 
-        :comment="comment" 
-        :key="comment.pk"
-        >
-      </comment-list-item>        
-    </ul>
-
-  </div>
+      <div>
+        <comment-list-item 
+          v-for="comment in comments" 
+          :comment="comment" 
+          :key="comment.pk"
+          >
+        </comment-list-item>
+      </div>
 </template>
 
 <script>
@@ -28,7 +25,4 @@ export default {
 </script>
 
 <style>
-  ul {
-    padding: 0 20px 0 0px;
-  }
 </style>

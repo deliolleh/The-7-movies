@@ -1,35 +1,39 @@
 <template>
-  <li class="post">
-    <router-link 
-      class="user"
-      :to="{ name: 'profile', params: { username: comment.user.username } }">
-      {{ comment.user.username }}
-    </router-link>
+  <v-col
+    cols="5"
+  >
+    <v-card class="post">
+      <router-link 
+        class="user"
+        :to="{ name: 'profile', params: { username: comment.user.username } }">
+        {{ comment.user.username }}
+      </router-link>
 
-    <span v-if="!isEditing">{{ payload.content }}</span>
+      <span v-if="!isEditing">{{ payload.content }}</span>
 
-    <span v-if="currentUser.username === comment.user.username && !isEditing" class="float-right">
-      <button @click="switchIsEditing">Edit</button> |
-      <button @click="deleteComment(payload)">Delete</button>
-    </span>
+      <span v-if="currentUser.username === comment.user.username && !isEditing" class="float-right">
+        <button @click="switchIsEditing">Edit</button> |
+        <button @click="deleteComment(payload)">Delete</button>
+      </span>
 
-    <span v-if="isEditing">
-      <input type="text" v-model="payload.content">
-      <button @click="onUpdate">Update</button> |
-      <button @click="switchIsEditing">Cancel</button>
-    </span>
+      <span v-if="isEditing">
+        <input type="text" v-model="payload.content">
+        <button @click="onUpdate">Update</button> |
+        <button @click="switchIsEditing">Cancel</button>
+      </span>
 
-    <div @click="likeComment(payload)">
-        <!-- Review Like UI -->
-        <v-switch
-          v-model="like"
-          :input-value="like"
-          label="좋아요"
-          color="success"
-          hide-details
-        ></v-switch>
-    </div>
-  </li>
+      <div @click="likeComment(payload)">
+          <!-- Review Like UI -->
+          <v-switch
+            v-model="like"
+            :input-value="like"
+            label="좋아요"
+            color="success"
+            hide-details
+          ></v-switch>
+      </div>
+    </v-card>
+  </v-col>
 </template>
 
 <script>
@@ -92,6 +96,7 @@ a:hover {
 
 
 .post {
+  width: 450px;
   list-style: none;
   display: flex;
   align-items: center;

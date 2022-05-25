@@ -3,8 +3,9 @@
 
   <v-container>
     <!-- <user-info></user-info> -->
-    <span>{{ review.user.username }}</span>
-
+    <router-link :to="{ name: 'profile', params: { username: review.user.username } } ">
+    <small> Reviewer : {{ review.user.username }}</small>
+    </router-link>
     <v-card>
       <v-system-bar class="py-5 pl-5 ma-0">
     <!-- Review Edit/Delete UI -->
@@ -42,10 +43,8 @@
 
       <comment-list-form  class="d-flex justify-end py-1"></comment-list-form>
 
-      <v-card>
       <!-- Comment UI -->
       <comment-list :comments="review.comments"></comment-list> 
-      </v-card>
     </div>
   </v-container>
     </v-app>
@@ -104,4 +103,15 @@
   }
 </script>
 
-<style></style>
+<style scoped>
+
+a {
+  text-decoration: none;
+  color: #2c3e50;
+}
+
+a:hover {
+  color: #2c3e50;
+  text-decoration: underline;
+}
+</style>

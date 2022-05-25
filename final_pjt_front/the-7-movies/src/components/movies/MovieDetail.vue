@@ -123,7 +123,7 @@ export default {
     BestReview,
   },
   computed: {
-    ...mapGetters(['movie', 'currentUser', 'profile']),
+    ...mapGetters(['movie', 'currentUser', 'profile', 'currentMovie']),
     average() {
       const avg = this.movie.vote_score/this.movie.vote_count
       return avg
@@ -131,7 +131,7 @@ export default {
     
   },
   methods: {
-    ...mapActions(['getMovie', 'scoreUpdate', 'fetchProfile', 'fetchCurrentUser']),
+    ...mapActions(['getMovie', 'scoreUpdate', 'fetchProfile', 'fetchCurrentUser', 'getMoviePk']),
     onClick() {
       console.log(this.profile.genre_score_set);
       this.movie.genres.forEach(genre => {
@@ -165,6 +165,7 @@ export default {
   created() {
     this.getMovie(this.$route.params.moviePk)
     this.checkReview()
+    this.getMoviePk(this.$route.params.moviePk)
   },
 }
 </script>

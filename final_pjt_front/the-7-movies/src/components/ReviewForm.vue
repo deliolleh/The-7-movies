@@ -75,7 +75,7 @@ export default {
   watch: {
     currentMovie() {
       this.review.movie == this.$store.state.currentMovie
-    }
+    },
   }
 }
 </script>
