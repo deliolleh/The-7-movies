@@ -7,19 +7,25 @@
           v-for="(movie, idx) in movies"
           :key="idx"
           >
-      <v-card
-        width=300
-        height=350
-        
-        >
-        <router-link
-          :to="{ name: 'movieDetail', params:{ moviePk: movie.pk} }">
-          <v-img
-            :src="movie.poster_path"
-            height=350
-            ></v-img>
-        </router-link>
-        </v-card>
+          <v-hover
+                    v-slot="{ hover }"
+                    open-delay="200"
+                  >
+            <v-card
+              :elevation="hover ? 16 : 2"
+              width=300
+              height=350
+              :class="{ 'on-hover': hover }"
+              >
+              <router-link
+                :to="{ name: 'movieDetail', params:{ moviePk: movie.pk} }">
+                <v-img
+                  :src="movie.poster_path"
+                  height=350
+                  ></v-img>
+              </router-link>
+            </v-card>
+          </v-hover>
         </v-col>
       </v-row>
     </v-container>
