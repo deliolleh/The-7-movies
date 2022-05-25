@@ -73,7 +73,7 @@
             <v-icon>mdi-arrow-down</v-icon>
             <v-btn class="mx-5 grey--text" @click="onReset">reset</v-btn>
           </div>
-                <v-rating
+          <v-rating
           v-model="score_set.score"
           icon-label="custom icon label text {0} of {1}"
           @input="onClick"
@@ -131,7 +131,8 @@ export default {
     
   },
   methods: {
-    ...mapActions(['getMovie', 'scoreUpdate', 'fetchProfile', 'fetchCurrentUser', 'getMoviePk']),
+    ...mapActions(['getMovie', 'scoreUpdate', 'fetchProfile',
+    'fetchCurrentUser', 'getMoviePk', 'resetScore']),
     onClick() {
       console.log(this.profile.genre_score_set);
       this.movie.genres.forEach(genre => {

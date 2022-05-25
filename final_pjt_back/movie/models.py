@@ -33,3 +33,6 @@ class Score(models.Model):
     movie = models.ForeignKey(Movie, on_delete=models.CASCADE)
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     score = models.IntegerField(default=0)
+
+    def __str__(self):
+        return str(self.score)

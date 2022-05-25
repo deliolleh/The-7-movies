@@ -41,15 +41,20 @@ def genre_init(request):
     }
     return Response(data=data, status=status.HTTP_201_CREATED)
 
-@api_view(['PUT'])
+@api_view(['PUT', 'DELETE'])
 @permission_classes([IsAuthenticated])
 def get_init(request):
-    for idx in range(len(request.data)):
-        user = Genre_score.objects.get(user=request.user, genre=request.data[idx].get('genre'))
-        serializer = GenreScoreSerializer(instance=user, data=request.data[idx])
-        if serializer.is_valid(raise_exception=True):
-            serializer.save()
-    user = get_object_or_404(get_user_model(), username=request.user.username)
-    send_serializer = ProfileSerializer(user)
-    # print(send_serializer.data)
-    return Response(send_serializer.data)
+    print(request.data)
+    if request.method == 'PUT':
+        for idx in range(len(request.data)):
+            user = Genre_score.objects.get(user=request.user, genre=request.data[idx].get('genre'))
+            serializer = GenreScoreSerializer(instance=user, data=request.data[idx])
+            if serializer.is_valid(raise_exception=True):
+                serializer.save()
+        user = get_object_or_404(get_user_model(), username=request.user.username)
+        send_serializer = ProfileSerializer(user)
+        # print(send_serializer.data)
+        return Response(send_serializer.data)
+    
+    elif request.method=='DELETE':
+        pass

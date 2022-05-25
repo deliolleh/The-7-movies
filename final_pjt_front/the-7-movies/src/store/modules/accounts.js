@@ -230,12 +230,12 @@ export default {
           headers: getters.authHeader,
           data: profile.genre_score_set
         })
-          .then(res => {
-            commit('SCORE_UPDATE', res.data)
-            store.dispatch('getRecommends')
-          })
-          .catch(() => console.log('에러발생'))
-      },
+        .then(res => {
+          commit('SCORE_UPDATE', res.data)
+          store.dispatch('getRecommends')
+        })
+        .catch(() => console.log('에러발생'))
+    },
   },
 }
 
