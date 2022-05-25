@@ -2,6 +2,7 @@ import router from '@/router'
 import axios from 'axios'
 import drf from '@/api/drf'
 import store from '@/store'
+import swal from 'sweetalert';
 
 export default {
   // namespaced: true,
@@ -139,7 +140,8 @@ export default {
           commit('SET_AUTH_ERROR', null)
           commit('SET_PROFILE', {})
           commit('SET_CURRENT_USER', {})
-          alert('성공적으로 Logout 되었습니다.')
+          swal('로그아웃 되었습니다.', '서비스를 이용하시려면 로그인해주세요!')
+          router.push('/login')
         })
         .error(err => {
           console.error(err.response)
@@ -221,13 +223,13 @@ export default {
         })
         .catch(() => console.log('생성에러'))
       },
-    resetScore({commit, getters}, profile) {
-      axios({
-        url: drf.accounts.changeUserInfo(),
-        method: 'delete',
-        headers: getters.authHeader,
-        data: profile.genre_score_set
-      })
+      resetScore({commit, getters}, {profile, moviePk}) {
+        axios({
+          url: drf.accounts.changeScoreInfo(moviePk),
+          method: 'delete',
+          headers: getters.authHeader,
+          data: profile.genre_score_set
+        })
         .then(res => {
           commit('SCORE_UPDATE', res.data)
           store.dispatch('getRecommends')

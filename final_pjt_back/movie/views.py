@@ -74,7 +74,6 @@ def movie_detail(request, movie_pk):
 @api_view(['POST', 'DELETE'])
 @permission_classes([IsAuthenticated])
 def score_add_change_delete(request, movie_pk):
-    print(request.data['score'])
     movie = Movie.objects.get(pk=movie_pk)
     genres = Genre.objects.filter(movies=movie_pk)
     # print(genres.values())
@@ -127,12 +126,12 @@ def score_add_change_delete(request, movie_pk):
             print(user_genre)
             update_user = Genre_score.objects.get(user=request.user, genre=genre['id'])
             update_user.score -= scored['score']
+            print(scored['score'])
             update_user.save()
         score.delete()
-        data = {
-            "message": "정상적으로 삭제되었습니다"
-        }
-        return Response(data=data, status=status.HTTP_204_NO_CONTENT)
+        user = get_user_model().objects.get(pk=request.user.pk)
+        send_serializer = ProfileSerializer(user)
+        return Response(send_serializer.data)
 
     # 평점 보낼 때 10배해서 보내달라 이야기하기
     # variablerouting이 int로 밖에 못받아서
