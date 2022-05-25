@@ -1,7 +1,7 @@
 <template>
   <v-app>
     <!-- 게시글 -->
-    <div>
+    <div class="mt-10">
       <review-list></review-list>
     </div>
   </v-app>

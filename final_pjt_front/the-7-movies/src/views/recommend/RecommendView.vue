@@ -21,7 +21,7 @@
             @click="bigin_left()"
             class=" flex d-flex flex-column"
             >
-          <v-scroll-x-transition mode="in" hide-on-leave="true">
+          <v-scroll-x-transition>
             <img
               :src="this.recommend[this.index].poster_path"
               :key="this.recommend[this.index].poster_path"
@@ -33,7 +33,7 @@
             @click="bigin_right()"
             class=" flex d-flex flex-column"
             >
-            <v-scroll-x-transition mode="in" hide-on-leave="true">
+            <v-scroll-x-transition>
             <img
               :src="this.recommend[this.index+1].poster_path"
               :key="this.recommend[this.index+1].poster_path"
@@ -76,14 +76,15 @@ export default {
         })
       });
       this.index = this.index + 2
-      if (this.index < this.recommend.length) {
+      if (this.index < this.recommend.length-1) {
         return this.goNext(this.index)
       } else {
-        const left = document.querySelector('#left > img')
-        const right = document.querySelector('#right > img')
-        left.removeAttribute('src')
-        right.removeAttribute('src')
-        return  this.$store.dispatch('scoreUpdate', this.profile)
+        console.log('일로오나?');
+        console.log(this.profile);
+        this.$store.dispatch('scoreCreate', this.profile)
+        this.$router.push({name: 'recommend'})
+        console.log('routing??');
+        return
       }
     },
     bigin_right() {

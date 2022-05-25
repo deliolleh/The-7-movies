@@ -1,7 +1,7 @@
 import router from '@/router'
 import axios from 'axios'
 import drf from '@/api/drf'
-
+import store from '@/store'
 
 export default {
   // namespaced: true,
@@ -31,7 +31,9 @@ export default {
       state.currentUser = user},
     SET_PROFILE: (state, profile) => state.profile = profile,
     SET_AUTH_ERROR: (state, error) => state.authError = error,
-    SCORE_UPDATE: (state, profile) => state.profile = profile
+    SCORE_UPDATE: (state, profile) => {
+      state.profile = profile
+      console.log('scoreupdate됨?')}
   },
 
   actions: {
@@ -107,7 +109,7 @@ export default {
             headers: getters.authHeader
           })
           .then(() => {
-            router.push({ name: 'recommend', params: {username : credentials.username} } )
+            router.push({ name: 'algorecommend', params: {username : credentials.username} } )
           })
         })
         .catch(err => {
@@ -189,19 +191,21 @@ export default {
         .catch(() => {console.log('프로필 들고 올수 없음.');
         })
     },
-    scoreUpdate({commit, getters}, {profile, moviePk}) {
+    scoreCreate({commit, getters}, profile) {
       axios({
         url: drf.accounts.changeUserInfo(),
         method: 'put',
         headers: getters.authHeader,
         data: profile.genre_score_set
-
       })
         .then(res => {
+          console.log(profile);
           commit('SCORE_UPDATE', res.data)
           this.$store.dispatch('getRecommends')
         })
-        .catch(() => console.log('에러발생'))
+        .catch((err) => console.log(err, '에러발생'))
+    },
+    scoreUpdate({commit, getters}, {profile, moviePk}) {
       axios({
         url: drf.accounts.changeScoreInfo(moviePk),
         method: 'post',
@@ -212,7 +216,21 @@ export default {
           console.log('이건 score');
           commit('SCORE_UPDATE', res.data)
         })
-      }
+        .catch(() => console.log('생성에러'))
+      },
+      resetScore({commit, getters}, profile) {
+        axios({
+          url: drf.accounts.changeUserInfo(),
+          method: 'delete',
+          headers: getters.authHeader,
+          data: profile.genre_score_set
+        })
+          .then(res => {
+            commit('SCORE_UPDATE', res.data)
+            store.dispatch('getRecommends')
+          })
+          .catch(() => console.log('에러발생'))
+      },
   },
 }
 

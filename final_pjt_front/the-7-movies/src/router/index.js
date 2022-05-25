@@ -16,6 +16,7 @@ import ReviewEditView from '@/views/community/ReviewEditView'
 // 추가
 import MovieAllView from '@/views/movies/MovieAllView'
 
+import RecommendHomeView from '@/views/recommend/RecommendHomeView'
 import RecommendView from '@/views/recommend/RecommendView'
 
 import MovieDetailView from '@/views/movies/MovieDetailView'
@@ -89,8 +90,18 @@ const routes = [
   },
     // ---------recommend------------
   {
-    path: '/recommend/:username',
+    path: '/recommend/',
     name: 'recommend',
+    component: RecommendHomeView,
+    beforeEnter: (to, from, next) => {
+      to, from
+      return store.dispatch('getRecommends')
+        .then(() => next())
+    }
+  },
+  {
+    path: '/recommend/:username',
+    name: 'algorecommend',
     component: RecommendView
   },
   // ---------movie detail------------

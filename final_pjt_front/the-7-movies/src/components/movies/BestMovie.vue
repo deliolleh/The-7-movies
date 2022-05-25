@@ -1,21 +1,52 @@
 <template>
+  
   <vueper-slides fade :touchable="false" 
     fixed-height="1000px"
     >
     <vueper-slide
-      v-for="(slide, i) in bestmovie"
-      :key="i"
-      :image="slide.backdrop_path"
-      :title="slide.title"
-      :content="slide.content" />
-</vueper-slides>
-
-      <!-- <v-carousel-item
-        v-for="(item,i) in bestmovie"
-        :key="i"
-        width="100%"
+      v-for="(movie, idx) in bestmovie"
+      :key="idx"
+      :image="movie.backdrop_path"
       >
-      </v-carousel-item> -->
+      <!-- 로그인 했을 경우 -> 영화 정보 -->
+      <template 
+      #content>
+        <div
+        v-if="isLoggedIn"
+        id="homelogin"
+        >
+        <p style="color:white">
+          {{ movie.title }}
+        </p>
+          <router-link :to="{name: 'movieDetail' , params: {moviePk: movie.pk} }">
+            <v-btn
+            color="primary"
+            class="pa-6 font-weight-bold mr-4"
+            style="width : 300px"
+            >영화 상세 정보</v-btn>
+            </router-link>
+        </div>
+        <div v-else-if="!isLoggedIn" id="homeguest">
+          <p class="guestText"> 로그인 하고, <br> 취향에 맞는 영화 찾기! </p>
+          <router-link :to="{name: 'login'}">
+            <v-btn
+              color="primary"
+              class="pa-6 my-3 font-weight-bold mr-4"
+              block
+            >Login</v-btn>
+          </router-link>
+          <router-link :to="{name: 'signup'}">
+            <v-btn
+            color="primary"
+            class="pa-6 font-weight-bold mr-4"
+            block
+            >Signup</v-btn>
+          </router-link>
+        </div>
+      </template>
+      <!-- 로그인 하지 않았을 경우 -> 로그인  -->
+    </vueper-slide>
+  </vueper-slides>
 </template>
 
 <script>
@@ -28,7 +59,7 @@ export default {
   name: 'BestMovie',
   components: { VueperSlides, VueperSlide },
   computed: {
-    ...mapGetters(['bestmovie'])
+    ...mapGetters(['bestmovie', 'isLoggedIn'])
   },
   methods: {
     ...mapActions(['getBestMovie'])
@@ -47,6 +78,44 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
+
+#homelogin {
+  color: whitesmoke;
+  font-size: 3em;
+  margin-bottom: 0.5em;
+  position: absolute;
+  left: 50px;
+  bottom: 180px;
+}
+
+#homeguest {
+  color: whitesmoke;
+  font-size: 3em;
+  margin-bottom: 0.5em;
+  position: absolute;
+  left: 50px;
+  bottom: 180px;
+}
+
+div.vueperslide__title {
+  color: whitesmoke;
+  font-size: 5em;
+  margin-bottom: 0.5em;
+  opacity: 0.7;
+  position: absolute;
+  left: 0px;
+}
+
+div.vueperslide__content {
+  color: whitesmoke;
+  font-size: 3em;
+  margin-bottom: 0.5em;
+  opacity: 0.7;
+  position: absolute;
+  left: 0px;
+}
+
+
 
 </style>

@@ -102,7 +102,9 @@ export default {
         headers: getters.authHeader
       })
         .then(res => {
+          console.log('get recommends 실행?');
           commit('GET_RECOMMENDS', res.data)
+          return res
         })
     }
   }

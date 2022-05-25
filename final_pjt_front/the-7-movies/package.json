@@ -13,6 +13,7 @@
     "swiper-vue2": "^1.0.9",
     "vue": "^2.6.14",
     "vue-axios": "^3.4.1",
+    "vue-carousel-3d": "^1.0.1",
     "vue-router": "^3.5.1",
     "vueperslides": "^2.15.2",
     "vuetify": "^2.6.0",
@@ -30,7 +31,7 @@
     "eslint-plugin-vue": "^8.0.3",
     "sass": "~1.32.0",
     "sass-loader": "^10.0.0",
-    "swiper": "^5.3.7",
+    "swiper": "^8.1.5",
     "vue-cli-plugin-vuetify": "~2.4.8",
     "vue-template-compiler": "^2.6.14",
     "vuetify-loader": "^1.7.0"
