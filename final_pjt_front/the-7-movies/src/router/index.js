@@ -79,6 +79,11 @@ const routes = [
     component: ReviewNewView
   },
   {
+    path: '/community/create/:movieTitle',
+    name: 'reviewcreate',
+    component: ReviewNewView
+  },
+  {
     path: '/community/:reviewPk',
     name: 'reviewDatail',
     component: ReviewDetailView

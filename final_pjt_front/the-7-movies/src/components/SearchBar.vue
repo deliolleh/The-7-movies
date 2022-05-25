@@ -20,8 +20,11 @@ export default {
   name: 'SearchBar',
   data() {
     return {
-      input:'',
+      input:''||this.movietitle
     }
+  },
+  props: {
+    movietitle: String,
   },
   methods: {
     ...mapActions(['getAllMovies', 'getMoviePk']),

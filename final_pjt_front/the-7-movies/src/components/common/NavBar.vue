@@ -3,7 +3,7 @@
       <v-system-bar app style="height: 30px">
           <v-spacer></v-spacer>
       </v-system-bar>
-      <v-app-bar app color="#42b883">
+      <v-app-bar app color="#42b883" class="mt-5">
           <img src="..\public\logo.png" style="width: 30px">
           <v-toolbar-title>
             <router-link to="/">

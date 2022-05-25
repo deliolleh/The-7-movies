@@ -1,7 +1,8 @@
 <template>
   <div>
     <v-container>
-      <search-bar></search-bar>
+      <search-bar v-if="this.$route.name==='create'"></search-bar>
+      <search-bar v-else :movietitle="this.$route.params.movieTitle"></search-bar>
       <v-form 
         @submit.prevent="onSubmit"
         >

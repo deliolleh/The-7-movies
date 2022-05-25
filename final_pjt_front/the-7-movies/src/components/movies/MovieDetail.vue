@@ -82,13 +82,13 @@
           large
         >
         </v-rating>
-        <router-link :to="{ name: 'create' }">
+        <router-link :to="{ name: 'reviewcreate', params:{movieTitle: movie.title} }">
           <v-btn 
             color="primary"
             style="width: 250px"
           >리뷰 작성 </v-btn>
         </router-link>
-
+          <best-review></best-review>
             </v-col>
         </v-row> 
         <!-- <v-divider class="mt-2"></v-divider>
@@ -106,6 +106,7 @@
 <script>
 // import Cast from "../components/Cast.vue"
 // import Images from "../components/Images.vue"
+import BestReview from '@/components/movies/BestReview'
 import { mapActions, mapGetters } from 'vuex'
 export default {
   name: 'MovieDetail',
@@ -118,6 +119,9 @@ export default {
         score: 0
     },
   }},
+  components: {
+    BestReview,
+  },
   computed: {
     ...mapGetters(['movie', 'currentUser', 'profile']),
     average() {
@@ -130,9 +134,10 @@ export default {
     ...mapActions(['getMovie', 'scoreUpdate', 'fetchProfile', 'fetchCurrentUser']),
     onClick() {
       console.log(this.profile.genre_score_set);
-      this.movie.genres.forEach(id => {
+      this.movie.genres.forEach(genre => {
         this.profile.genre_score_set.forEach(object => {
-            if (object.genre === id) {
+            if (object.genre === genre.id) {
+              console.log('출력');
               object.score += this.score_set.score
               console.log(this.score_set.score, object.score);
             }
