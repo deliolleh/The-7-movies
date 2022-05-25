@@ -10,6 +10,7 @@
       <v-card
         width=300
         height=350
+        
         >
         <router-link
           :to="{ name: 'movieDetail', params:{ moviePk: movie.pk} }">
