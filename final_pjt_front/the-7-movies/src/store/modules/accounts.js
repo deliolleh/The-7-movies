@@ -118,7 +118,7 @@ export default {
         })
     },
 
-    logout({ getters, dispatch }) {
+    logout({ getters, dispatch, commit }) {
       /* 
       POST: token을 logout URL로 보내기
         성공하면
@@ -136,6 +136,9 @@ export default {
       })
         .then(() => {
           dispatch('removeToken')
+          commit('SET_AUTH_ERROR', null)
+          commit('SET_PROFILE', {})
+          commit('SET_CURRENT_USER', {})
           alert('성공적으로 Logout 되었습니다.')
         })
         .error(err => {

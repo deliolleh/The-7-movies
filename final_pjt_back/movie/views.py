@@ -114,7 +114,7 @@ def score_add_change_delete(request, movie_pk):
 def inital_movie(request):
     if request.method == 'GET':
         ran = random.randrange(1, 100)
-        movie = Movie.objects.all().order_by('-popularity')[0:16]
+        movie = Movie.objects.exclude(genres__in='16').order_by('-popularity')[ran + 0: ran + 16]
         serializer = MovieChoiceSerializer(movie, many=True)
         return Response(serializer.data)
     
@@ -129,13 +129,15 @@ def inital_movie(request):
 @permission_classes([IsAuthenticated])
 def recommends(request):
     # user = get_list_or_404(Genre_score.objects.filter(user=request.user).order_by('score'))[0:4]
-    user = Genre_score.objects.filter(user=request.user).order_by('-score')[0:4]
+    user = Genre_score.objects.filter(user=request.user, score__gt=0).order_by('-score')[0:4]
+
+    print(user.values())
 
     total = []
     for idx in range(len(user)):
         # print(user[idx].genre_id)
-        num = 3 if idx != len(user) - 1 else 2
-        movies = get_list_or_404(Movie.objects.filter(genres__in=[user[idx].genre_id]).order_by('-popularity'))[0:num]
+        num = 4 if idx != len(user) - 1 else 3
+        movies = get_list_or_404(Movie.objects.filter(genres__in=[user[idx].genre_id]).order_by('-vote_count'))[0:num]
         # movies = Movie.objects.filter(genres__in=[user[idx].genre_id]).order_by('-popularity')[0:num]
         # print(movies)
         total += movies

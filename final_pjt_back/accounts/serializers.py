@@ -70,4 +70,4 @@ class GenreScoreSerializer(serializers.ModelSerializer):
     class Meta:
         model = Genre_score
         fields = '__all__'
-        read_only_fields = ('user', 'genre')
+        read_only_fields = ('user', 'genre',)

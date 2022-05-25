@@ -1816,46 +1816,6 @@
         }
     },
     {
-        "pk": 227,
-        "model": "movie.actor",
-        "fields": {
-            "movie": "635302",
-            "name": "Natsuki Hanae"
-        }
-    },
-    {
-        "pk": 228,
-        "model": "movie.actor",
-        "fields": {
-            "movie": "635302",
-            "name": "Akari Kito"
-        }
-    },
-    {
-        "pk": 229,
-        "model": "movie.actor",
-        "fields": {
-            "movie": "635302",
-            "name": "Hiro Shimono"
-        }
-    },
-    {
-        "pk": 230,
-        "model": "movie.actor",
-        "fields": {
-            "movie": "635302",
-            "name": "Yoshitsugu Matsuoka"
-        }
-    },
-    {
-        "pk": 231,
-        "model": "movie.actor",
-        "fields": {
-            "movie": "635302",
-            "name": "Satoshi Hino"
-        }
-    },
-    {
         "pk": 232,
         "model": "movie.actor",
         "fields": {

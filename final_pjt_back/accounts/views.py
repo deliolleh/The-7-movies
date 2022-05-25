@@ -44,16 +44,12 @@ def genre_init(request):
 @api_view(['PUT'])
 @permission_classes([IsAuthenticated])
 def get_init(request):
-    user = Genre_score.objects.filter(user=request.user)
-    serializer = GenreScoreSerializer(instance=user, data=request.data, many=True)
-    # for idx in range(len(user)):
-    #     serializer = GenreScoreSerializer(instance=user[idx], data=request.data[idx])
-    #     serializer = ProfileSerializer(data=request.data)
-    #     if serializer.is_valid(raise_exception=True):
-    #         serializer.save()
-    if serializer.is_valid(raise_exception=True):
-        serializer.save()
-        user = get_object_or_404(get_user_model(), username=request.user.username)
-        send_serializer = ProfileSerializer(user)
-        # print(send_serializer.data)
-        return Response(send_serializer.data)
+    for idx in range(len(request.data)):
+        user = Genre_score.objects.get(user=request.user, genre=request.data[idx].get('genre'))
+        serializer = GenreScoreSerializer(instance=user, data=request.data[idx])
+        if serializer.is_valid(raise_exception=True):
+            serializer.save()
+    user = get_object_or_404(get_user_model(), username=request.user.username)
+    send_serializer = ProfileSerializer(user)
+    # print(send_serializer.data)
+    return Response(send_serializer.data)

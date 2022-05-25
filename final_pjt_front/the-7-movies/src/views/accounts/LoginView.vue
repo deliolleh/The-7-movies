@@ -1,7 +1,6 @@
 <template>
   <div>
 
-    <account-error-list v-if="authError"></account-error-list>
     <div class="form-container sign-in-container mt-12 d-flex">
       <v-form ref="form"       
         @submit.prevent="login(credentials)"
@@ -23,6 +22,7 @@
         required
         >
         </v-text-field>
+        <account-error-list v-if="authError"></account-error-list>
         <v-btn
         :disabled="!credentials.password"
         type="submit"
