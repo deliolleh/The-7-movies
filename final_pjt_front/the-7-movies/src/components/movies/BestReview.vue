@@ -4,9 +4,10 @@
       <v-col
         v-for="(review, idx) in bestReviews" :key="idx"
         cols="3"
-      >
+        >
         <v-card>
-          <v-card-title>
+          <v-card-title
+            class="text-subtitle-1">
             Reviewer : {{ review.user.username }}
           </v-card-title>
           <v-card-text>
@@ -20,7 +21,7 @@
             >
               Read content
             </v-btn>
-         </v-card-actions>
+          </v-card-actions>
           <v-expand-transition>
             <v-card
               v-if="reveal"
