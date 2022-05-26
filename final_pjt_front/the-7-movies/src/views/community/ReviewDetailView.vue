@@ -52,8 +52,8 @@
 
 <script>
   import { mapGetters, mapActions } from 'vuex'
-  import CommentListForm from '@/components/CommentListForm.vue'
-  import CommentList from '@/components/CommentList.vue'
+  import CommentListForm from '@/components/community/CommentListForm.vue'
+  import CommentList from '@/components/community/CommentList.vue'
   // import UserInfo from '@/components/UserInfo'
 
   export default {

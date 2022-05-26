@@ -5,7 +5,7 @@
 </template>
 
 <script>
-import UserInfo from '@/components/UserInfo'
+import UserInfo from '@/components/accounts/UserInfo'
 
 export default {
   name: 'ProfileView',

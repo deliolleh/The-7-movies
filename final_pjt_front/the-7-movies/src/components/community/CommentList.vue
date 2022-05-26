@@ -12,7 +12,7 @@
 </template>
 
 <script>
-import CommentListItem from '@/components/CommentListItem.vue'
+import CommentListItem from '@/components/community/CommentListItem.vue'
 // import CommentListForm from '@/components/CommentListForm.vue'
 // import { mapGetters, mapActions } from 'vuex'
 
