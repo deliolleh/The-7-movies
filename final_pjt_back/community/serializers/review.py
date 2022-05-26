@@ -53,7 +53,7 @@ class ReviewSerializer(serializers.ModelSerializer):
 
         class Meta:
             model = Movie
-            fields = ('title', 'pk',)
+            fields = ('title', 'pk', 'poster_path',)
     
     movie = MovieSerializer(read_only=True)
     comments = CommentSerializer(many=True, read_only=True)

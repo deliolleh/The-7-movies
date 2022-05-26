@@ -95,6 +95,9 @@
     created() {
       this.fetchReview(this.reviewPk)
     },
+    mounted () {
+      window.scrollTo(0, 0)
+    },
     watch: {
       getIt() {
         this.checkLikes()
