@@ -2,9 +2,27 @@
   <v-app>
 
   <v-container>
+    <v-row>
+      <v-col cols="12" sm="4">
+              <v-hover
+                v-slot="{ hover }"
+                open-delay="200"
+              >
+                <v-card :elevation="hover ? 16 : 2"
+                  :class="{ 'on-hover': hover }">
+                    <router-link :to="{name: 'reviewcreate', params:{movieTitle: review.movie.title} }">
+                          <v-img :src="review.movie.poster_path" alt="" class=""/>
+                    </router-link> 
+                </v-card>
+              </v-hover>
+            </v-col> 
+      <v-col cols="12" sm="8">    
     <!-- <user-info></user-info> -->
     <router-link :to="{ name: 'profile', params: { username: review.user.username } } ">
-    <small> Reviewer : {{ review.user.username }}</small> | 
+    <small> Reviewer : {{ review.user.username }}</small>
+    </router-link>
+    <router-link :to="{ name: 'movieDetail', params: { moviepk: review.movie.pk} }">
+      | {{ review.movie.title }}
     </router-link>
     <v-card>
       <v-system-bar class="py-5 pl-5 ma-0">
@@ -46,6 +64,8 @@
       <!-- Comment UI -->
       <comment-list :comments="review.comments"></comment-list> 
     </div>
+    </v-col>
+    </v-row>
   </v-container>
     </v-app>
 </template>
@@ -54,7 +74,6 @@
   import { mapGetters, mapActions } from 'vuex'
   import CommentListForm from '@/components/community/CommentListForm.vue'
   import CommentList from '@/components/community/CommentList.vue'
-  // import UserInfo from '@/components/UserInfo'
 
   export default {
     name: 'ReviewDetailView',
@@ -70,7 +89,7 @@
       }
     },
     computed: {
-      ...mapGetters(['isAuthor', 'review', 'currentUser']),
+      ...mapGetters(['isAuthor', 'review', 'currentUser', 'movie']),
       likeCount() {
         return this.review.like_users?.length
       },
@@ -94,7 +113,8 @@
     },
     created() {
       this.fetchReview(this.reviewPk)
-    },
+      this.passMoviePk()
+      },
     watch: {
       getIt() {
         this.checkLikes()
@@ -107,7 +127,7 @@
 
 a {
   text-decoration: none;
-  color: #2c3e50;
+  color: black;
 }
 
 a:hover {

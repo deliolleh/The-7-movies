@@ -27,6 +27,7 @@
             label="좋아요"
             color="success"
             hide-details
+            class="mx-2"
           ></v-switch>
       </div>
     </v-card>
@@ -74,6 +75,7 @@ export default {
 </script>
 
 <style scoped>
+
 .user {
   width: 80px;
   height: 60px;
@@ -82,6 +84,7 @@ export default {
   justify-content: center;
   color: #34495e;
   text-decoration: none;
+  border-right: 1px #eee solid;
 }
 
 a:hover {
@@ -91,7 +94,7 @@ a:hover {
 
 
 .post {
-  width: 450px;
+  width: 550px;
   list-style: none;
   display: flex;
   align-items: center;

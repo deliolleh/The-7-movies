@@ -50,10 +50,6 @@
           <best-review></best-review>
             </v-col>
         </v-row> 
-        <!-- <v-divider class="mt-2"></v-divider>
-         <Cast :casts="movie.credits.cast"/>
-         <v-divider class="mt-2"></v-divider>
-         <Images :images="movie.images.backdrops" /> -->
     </v-container>
  
     
@@ -63,15 +59,13 @@
 </template>
 
 <script>
-// import Cast from "../components/Cast.vue"
-// import Images from "../components/Images.vue"
+
 import BestReview from '@/components/movies/BestReview'
 import { mapActions, mapGetters } from 'vuex'
 export default {
   name: 'MovieDetail',
   data() {
     return {
-      videoURL: '',
       score_set: {
         user: '',
         movie: this.$route.params.moviePk,
