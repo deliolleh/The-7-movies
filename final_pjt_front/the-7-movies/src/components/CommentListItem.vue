@@ -1,7 +1,4 @@
 <template>
-  <v-col
-    cols="5"
-  >
     <v-card class="post">
       <router-link 
         class="user"
@@ -33,7 +30,6 @@
           ></v-switch>
       </div>
     </v-card>
-  </v-col>
 </template>
 
 <script>
@@ -62,7 +58,6 @@ export default {
       this.isEditing = !this.isEditing
     },
     checkLikes() {
-      console.log(1)
       if (this.comment.like_people.includes(this.currentUser.pk)){
         this.like= true
         }

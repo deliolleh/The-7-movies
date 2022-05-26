@@ -61,9 +61,11 @@ export default {
   methods: {
     ...mapActions(['filteredList', 'createReview', 'updateReview']),
       onSubmit() {
+        // if (this.$route.name==='create') {
+          
+        // }
         if (this.action === 'create') {
           this.newReview.movie = this.currentMovie
-          console.log(this.newReview);
           this.createReview(this.newReview)
         } else  {
           const payload = {

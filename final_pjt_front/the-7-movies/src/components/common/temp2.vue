@@ -1,74 +1,163 @@
+Skip to content
+Search or jump to…
+Pull requests
+Issues
+Marketplace
+Explore
+ 
+@AJE92 
+edu-fedorae
+/
+vuetify-components
+Public
+Code
+Issues
+Pull requests
+Actions
+Projects
+Wiki
+Security
+Insights
+vuetify-components/src/components/ProfileContactCard.vue
+
+Yisrae Fix Default Component Not Showing On Initial Load
+Latest commit 5bcee03 18 days ago
+ History
+ 1 contributor
+135 lines (117 sloc)  4.38 KB
+   
 <template>
-  <div id="example">
-    <h2 class="mx-3 grey--text">
-      당신을 위한 영화
-    </h2>
-    <carousel-3d
-      :controls-visible="true"
-      :clickable="false"
-      :key="recommends.length"
-      :listData="recommends"
-      :height="500"
-    >
-      <slide :index="i" :key="i" v-for="(movie, i) in recommends">
-        <figure>
-          <img :src="'movie.poster_path'" />
-          <figcaption>
-            <v-btn :to="`/movie/${movie.id}`" text color="white"> {{ movie.title }}</v-btn>
-          </figcaption>
-        </figure>
-      </slide>
-    </carousel-3d>
-  </div>
+      <v-container align="center" justify="center" fill-height>
+        <v-row align="center" justify="center">
+          <div class="text-center">
+            <h1 class="mb-2">Profile Contact Card</h1>
+          </div>
+        </v-row>
+        <v-row class="bg-img" justify="space-around">
+          <v-col cols="12" class="mt-8">
+            <v-card width="400">
+              <v-img
+                  height="200px"
+                  src="https://cdn.pixabay.com/photo/2021/07/09/06/52/lavender-6398415_960_720.jpg"
+              >
+                <v-app-bar
+                    class="mt-8"
+                    flat
+                    color="rgba(0, 0, 0, 0)"
+                >
+                  <v-avatar size="100">
+                    <img
+                        alt="user"
+                        src="https://cdn.pixabay.com/photo/2019/12/16/21/39/tree-4700352_960_720.jpg"
+                    >
+                  </v-avatar>
+
+                  <v-spacer></v-spacer>
+
+                  <v-menu offset-y left>
+                    <template v-slot:activator="{ on, attrs }">
+                      <v-btn
+                          v-bind="attrs"
+                          v-on="on"
+                          color="white"
+                          icon
+                      >
+                        <v-icon>mdi-dots-vertical</v-icon>
+                      </v-btn>
+                    </template>
+                    <v-list>
+                      <v-list-item href="https://edu.fedorae.com">
+                        <v-list-item-title>Edit</v-list-item-title>
+                      </v-list-item>
+                    </v-list>
+                  </v-menu>
+
+                </v-app-bar>
+
+                <v-card-title class="white--text mt-8">
+                  <p class="ml-3">
+                    Jane Doe
+                  </p>
+                </v-card-title>
+              </v-img>
+
+              <v-card-text>
+
+                <div class="font-weight-bold ml-8 mb-2">
+                  Details
+                </div>
+
+                <v-list two-line>
+                  <v-list-item href="https://edu.fedorae.com">
+                    <v-list-item-icon>
+                      <v-icon color="indigo">
+                        mdi-phone
+                      </v-icon>
+                    </v-list-item-icon>
+
+                    <v-list-item-content>
+                      <v-list-item-title>1 444 555 8888</v-list-item-title>
+                      <v-list-item-subtitle>Mobile</v-list-item-subtitle>
+                    </v-list-item-content>
+
+                    <v-list-item-icon>
+                      <v-icon>mdi-message-text</v-icon>
+                    </v-list-item-icon>
+                  </v-list-item>
+
+                  <v-divider inset></v-divider>
+
+                  <v-list-item href="https://edu.fedorae.com">
+                    <v-list-item-icon>
+                      <v-icon color="indigo">
+                        mdi-email
+                      </v-icon>
+                    </v-list-item-icon>
+
+                    <v-list-item-content>
+                      <v-list-item-title>jane@edu.fedorae.com</v-list-item-title>
+                      <v-list-item-subtitle>Work</v-list-item-subtitle>
+                    </v-list-item-content>
+
+                    <v-list-item-icon>
+                      <v-icon>mdi-message-text</v-icon>
+                    </v-list-item-icon>
+                  </v-list-item>
+
+                  <v-divider inset></v-divider>
+
+                  <v-list-item href="https://edu.fedorae.com">
+                    <v-list-item-icon>
+                      <v-icon color="indigo">
+                        mdi-map-marker
+                      </v-icon>
+                    </v-list-item-icon>
+
+                    <v-list-item-content>
+                      <v-list-item-title>Fedorae Education</v-list-item-title>
+                      <v-list-item-subtitle>Online</v-list-item-subtitle>
+                    </v-list-item-content>
+                  </v-list-item>
+                </v-list>
+              </v-card-text>
+            </v-card>
+          </v-col>
+        </v-row>
+      </v-container>
 </template>
 
 <script>
-import { Carousel3d, Slide } from "vue-carousel-3d";
-import { mapGetters } from 'vuex';
 export default {
-  data() {
-    return {
-      recommends: [],
-    };
-  },
-  components: {
-    Carousel3d,
-    Slide,
-  },
-  computed: {
-    ...mapGetters('getRecommends')
-  },
-  mounted() {
-    this.fetchRecommends();
-  },
-  methods: {
-    async fetchRecommends() {
-      const response = await this.getRecommends
-      this.recommends = response.data.results
-      console.log(this.upcomingMovies);
-    },
-  },
-};
+  name: "app-profile-contact-card"
+}
 </script>
 
-<style scoped>
-.carousel-3d-container figure {
-  margin: 0;
-}
-.carousel-3d-container figcaption {
-  position: absolute;
-  background-color: rgba(0, 0, 0, 0.5);
-  color: white;
-  bottom: 0;
-  position: absolute;
-  bottom: 0;
-  padding: 15px;
-  font-size: 12px;
-  min-width: 100%;
-  box-sizing: border-box;
-}
-.next span,
-.prev span {
-  color: red;
+<style>
+.bg-img {
+  background-image: url("https://cdn.pixabay.com/photo/2020/07/12/07/47/bee-5396362_1280.jpg");
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center top;
+  border-radius: 3px;
 }
 </style>

@@ -4,7 +4,7 @@
   <v-container>
     <!-- <user-info></user-info> -->
     <router-link :to="{ name: 'profile', params: { username: review.user.username } } ">
-    <small> Reviewer : {{ review.user.username }}</small>
+    <small> Reviewer : {{ review.user.username }}</small> | 
     </router-link>
     <v-card>
       <v-system-bar class="py-5 pl-5 ma-0">

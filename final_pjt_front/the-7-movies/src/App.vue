@@ -50,6 +50,10 @@ export default {
 
 <style>
 
+h1 {
+  font-size: 45px;
+}
+
 .fade-enter-active,
 .fade-leave-active {
   transition: opacity 0.5s ease;
