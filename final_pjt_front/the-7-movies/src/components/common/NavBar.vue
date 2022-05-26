@@ -5,7 +5,7 @@
       </v-system-bar> -->
       <v-app-bar app color="#42b883">
           <img src="..\public\logo.png" style="width: 30px">
-          <v-toolbar-title>
+          <v-toolbar-title id="title">
             <router-link to="/">
                   The-7-Movies
             </router-link>
@@ -21,7 +21,6 @@
           color="white"
           label="search"
           flat
-          dense=true
           :items="movies"
           item-text="title"
           item-value="pk"
@@ -71,6 +70,15 @@ export default {
 </script>
 
 <style scoped>
+#title {
+  font-family: 'Roboto-BlackItalic';
+  src: url('../../asset/fonts/Roboto-BlackItalic.ttf') format('truetype');
+}
+
+router-link {
+  font-family: 'BlackHanSans-Regular';
+  src: url('../../asset/fonts/BlackHanSans-Regular.ttf') format('truetype');
+}
 
 .header {
     color: white;
@@ -124,5 +132,4 @@ a:hover {
 a.router-link-exact-active {
   text-decoration: underline;
 }
-
 </style>

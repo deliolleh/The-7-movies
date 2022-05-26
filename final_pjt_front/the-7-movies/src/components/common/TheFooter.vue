@@ -9,7 +9,7 @@
       <v-spacer></v-spacer>
     </v-system-bar> -->
 
-      <v-card-text class="white--text text-center">
+      <v-card-text class="white--text text-center pa-0">
         {{ new Date().getFullYear() }} — <strong>The 7 Movies</strong>
         <small> created by 신혜원 한재혁 of 7th SSAFY </small>
       </v-card-text>

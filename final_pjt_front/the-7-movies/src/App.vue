@@ -49,6 +49,10 @@ export default {
 </script>
 
 <style>
+* {
+  font-family: 'BlackHanSans-Regular';
+  src: url('asset/fonts/BlackHanSans-Regular.ttf') format('truetype');
+}
 
 .fade-enter-active,
 .fade-leave-active {
