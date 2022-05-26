@@ -16,7 +16,6 @@
 
 <script>
 import ReviewList from '@/components/ReviewList'
-import bus from '@/utils/bus'
 import { mapGetters } from 'vuex'
 
 export default {
@@ -32,10 +31,6 @@ export default {
   computed: {
     ...mapGetters(['totalPage'])
   },
-  created() {
-    bus.$emit('start:spinner')
-    
-  }
 }
 </script>
 

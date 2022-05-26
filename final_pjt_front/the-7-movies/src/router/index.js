@@ -21,6 +21,7 @@ import RecommendView from '@/views/recommend/RecommendView'
 
 import MovieDetailView from '@/views/movies/MovieDetailView'
 import store from '@/store'
+import bus from '@/utils/bus'
 
 // import store from '@/store/index'
 
@@ -100,8 +101,9 @@ const routes = [
     component: RecommendHomeView,
     beforeEnter: (to, from, next) => {
       to, from
+      bus.$emit('start:spinner')
       return store.dispatch('getRecommends')
-        .then(() => next())
+        .then(() => {next()})
     }
   },
   {
@@ -130,7 +132,13 @@ const routes = [
   {
     path: '/movies/',
     name: 'movieAll',
-    component: MovieAllView
+    component: MovieAllView,
+    beforeEnter: (to, from, next) => {
+      to, from
+      bus.$emit('start:spinner')
+      return store.dispatch('getRecommends')
+        .then(() => {next()})
+    }
   },
   // {
   //   path: '/',
