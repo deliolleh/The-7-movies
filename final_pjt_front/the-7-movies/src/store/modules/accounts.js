@@ -197,7 +197,8 @@ export default {
         })
     },
     scoreCreate({commit, getters}, profile) {
-      axios({
+      console.log(profile.genre_score_set, '스코업뎃');
+      return axios({
         url: drf.accounts.changeUserInfo(),
         method: 'put',
         headers: getters.authHeader,
@@ -206,12 +207,14 @@ export default {
         .then(res => {
           console.log(profile);
           commit('SCORE_UPDATE', res.data)
-          this.$store.dispatch('getRecommends')
         })
-        .catch((err) => console.log(err, '에러발생'))
+          .then(() => {
+            return store.dispatch('getRecommends')
+          })
+          .catch((err) => console.log(err, '에러발생'))
     },
     scoreUpdate({commit, getters}, {profile, moviePk}) {
-      axios({
+      return axios({
         url: drf.accounts.changeScoreInfo(moviePk),
         method: 'post',
         headers: getters.authHeader,

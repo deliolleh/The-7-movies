@@ -24,7 +24,7 @@
           <v-card 
             id="left"
             max-width="350"
-            @click="index=index+2"
+            @click="bigin_left()"
             class=" flex d-flex flex-column"
             >
           <v-expand-x-transition>
@@ -49,7 +49,7 @@
         <v-hover>
           <v-card id="right"
             max-width="350"
-            @click="index=index+2"
+            @click="bigin_right()"
             class=" flex d-flex flex-column"
             >
             <!-- <v-scroll-x-transition> -->
@@ -91,6 +91,51 @@ export default {
   },
   methods: {
     ...mapActions(['getRecommend', 'fetchProfile']),
+     goNext(idx) {
+      const left = document.querySelector('#left > img')
+      const right = document.querySelector('#right > img')
+      left.setAttribute('src', this.recommend[idx].poster_path)
+      right.setAttribute('src', this.recommend[idx+1].poster_path)
+    },
+    bigin_left() {
+      this.recommend[this.index].genres.forEach(genre => {
+        this.profile.genre_score_set.forEach(object => {
+          if (object.genre === genre.id) {
+            object.score += 1
+          }
+        })
+      });
+      this.index = this.index + 2
+      // if (this.index < this.recommend.length-1) {
+      //   return this.goNext(this.index)
+      // } else {
+      //   console.log('일로오나?');
+      //   console.log(this.profile);
+      //   this.$store.dispatch('scoreCreate', this.profile)
+      //   this.$router.push({name: 'recommend'})
+      //   console.log('routing??');
+      //   return
+      // }
+    },
+    bigin_right() {
+      this.recommend[this.index+1].genres.forEach(genre => {
+        this.profile.genre_score_set.forEach(object => {
+          if (object.genre === genre.id) {
+            object.score += 1
+          }
+        })
+      });
+      this.index = this.index + 2
+      //  if (this.index < this.recommend.length-1) {
+      //   return this.goNext(this.index)
+      // } else {
+      //   console.log('오른쪽?');
+      //   console.log(this.profile);
+      //   this.$store.dispatch('scoreCreate', this.profile)
+      //   this.$router.push({name: 'recommend'})
+      //   return
+      // }
+    },
   },
   computed: {
     ...mapGetters(['profile', 'recommend']),

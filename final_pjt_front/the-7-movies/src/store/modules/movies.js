@@ -122,8 +122,8 @@ export default {
         .then(res => {
           commit('GET_RECOMMENDS', res.data)
           console.log('commit 다음');
-          return res
         })
+        .catch(() => console.log('get reco 에러'))
     },
     getBestReview({commit, getters}, moviePk) {
       return axios({
