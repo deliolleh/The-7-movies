@@ -1,13 +1,13 @@
 <template>
-   <v-footer
+    <v-footer
     dark
     padless
     color="#42b883"
     
   >
-    <v-system-bar app style="height: 30px">
+    <!-- <v-system-bar app style="height: 30px">
       <v-spacer></v-spacer>
-    </v-system-bar>
+    </v-system-bar> -->
 
       <v-card-text class="white--text text-center">
         {{ new Date().getFullYear() }} — <strong>The 7 Movies</strong>

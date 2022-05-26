@@ -21,16 +21,6 @@
             @click="bigin_left()"
             class=" flex d-flex flex-column"
             >
-<<<<<<< HEAD
-          <!-- <v-scroll-x-transition> -->
-          <v-fade-transition>
-              <img
-                :src="this.recommend[this.index].poster_path"
-                :key="this.recommend[this.index].poster_path"
-              >
-          </v-fade-transition>
-          <!-- </v-scroll-x-transition> -->
-=======
           <v-expand-x-transition>
             <v-img
               :src="this.recommend[this.index].poster_path"
@@ -38,7 +28,6 @@
             >
             </v-img>
           </v-expand-x-transition>
->>>>>>> f2f730665ac7307e08ac02d4573a01782b81b362
           </v-card>
           <v-card id="right"
             max-width="350"
@@ -55,11 +44,7 @@
             <!-- </v-scroll-x-transition> -->
             <!-- <router-link :to="{name: 'movies', params: `${this.recommend[this.index+1].}`}">
             </router-link> -->
-<<<<<<< HEAD
-        </v-fade-transition>
-=======
         </v-expand-x-transition>
->>>>>>> f2f730665ac7307e08ac02d4573a01782b81b362
           </v-card>
         </v-row>
       </section>

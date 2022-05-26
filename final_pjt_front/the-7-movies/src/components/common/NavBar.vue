@@ -1,9 +1,9 @@
 <template>
   <nav>
-      <v-system-bar app style="height: 30px">
+      <!-- <v-system-bar app style="height: 30px">
           <v-spacer></v-spacer>
-      </v-system-bar>
-      <v-app-bar app color="#42b883" class="mt-5">
+      </v-system-bar> -->
+      <v-app-bar app color="#42b883">
           <img src="..\public\logo.png" style="width: 30px">
           <v-toolbar-title>
             <router-link to="/">
@@ -21,6 +21,7 @@
           color="white"
           label="search"
           flat
+          dense=true
           :items="movies"
           item-text="title"
           item-value="pk"

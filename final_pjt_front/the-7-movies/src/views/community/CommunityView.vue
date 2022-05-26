@@ -34,7 +34,9 @@ export default {
   },
   created() {
     bus.$emit('start:spinner')
-    
+  },
+  mounted () {
+  window.scrollTo(0, 0)
   }
 }
 </script>

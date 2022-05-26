@@ -78,6 +78,9 @@ export default {
     // this.getMoviesList()
     this.getMoviesPage(this.currentPage)
     // this.currentPage++
+  },
+  mounted () {
+  window.scrollTo(0, 0)
   }
 }
 </script>
