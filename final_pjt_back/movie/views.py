@@ -1,7 +1,4 @@
 import random
-from random import shuffle
-
-from django.db.models import F, Count
 
 from rest_framework import status
 from rest_framework.response import Response
@@ -40,6 +37,8 @@ def movie_paginator(request, movie_page):
     serializer = movielistserializer(page_obj, many=True)
     return Response(serializer.data)
 
+@api_view(['GET'])
+@permission_classes([AllowAny])
 def movie_list_filter(request, genre_pk):
     movies = Movie.objects.all().filter(genres__in=genre_pk)
     print(movies)

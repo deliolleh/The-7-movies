@@ -4,12 +4,19 @@ from .models import Movie, Genre, Actor, Score
 from community.models import Review
 
 class movielistserializer(serializers.ModelSerializer):
+    class GenreSerializer(serializers.ModelSerializer):
 
+        class Meta:
+            model = Genre
+            fields = '__all__'
+
+    genres = GenreSerializer(many=True, read_only=True)
 
     class Meta:
         model = Movie
-        fields = ('title', 'like_people', 'poster_path', 'pk')
-        read_only_fields = ('like_people',)
+        fields = ('title', 'like_people', 'poster_path', 'pk',
+            'release_date', 'vote_score', 'genres')
+        read_only_fields = ('like_people', 'genres')
 
 class SerachMovieSerializer(serializers.ModelSerializer):
 
