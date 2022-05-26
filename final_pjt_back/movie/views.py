@@ -59,7 +59,7 @@ def main_movie(request):
     #     total = (F('vote_score')) / (F('popularity') * 100 + Count('vote_user'))
     # ).order_by('total')[0:5]
     # print(movies.values('vote_user'))
-    movies = Movie.objects.all().order_by('-vote_count')[0:6]
+    movies = Movie.objects.all().order_by('-vote_count')[1:22:3]
     serializer = MovieMainSerializer(movies, many=True)
     # print(serializer.data)
     return Response(serializer.data)
