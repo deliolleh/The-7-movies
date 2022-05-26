@@ -32,8 +32,8 @@
           </v-autocomplete>
           <div class="users">
                 <div v-if="!isLoggedIn">
-                  <router-link :to="{name: 'login'}">Login</router-link>
-                  <router-link :to="{name: 'signup'}">Signup</router-link>
+                  <router-link :to="{name: 'login'}">Sign In</router-link>
+                  <router-link :to="{name: 'signup'}">Sign Up</router-link>
                 </div>
                 <div v-if="isLoggedIn">
                   <router-link 

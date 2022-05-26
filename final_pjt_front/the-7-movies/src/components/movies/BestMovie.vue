@@ -33,14 +33,14 @@
               color="primary"
               class="pa-6 my-3 font-weight-bold mr-4"
               block
-            >Login</v-btn>
+            >Sign in</v-btn>
           </router-link>
           <router-link :to="{name: 'signup'}">
             <v-btn
             color="primary"
             class="pa-6 font-weight-bold mr-4"
             block
-            >Signup</v-btn>
+            >Sign up</v-btn>
           </router-link>
         </div>
       </template>
@@ -67,14 +67,6 @@ export default {
   created() {
     this.getBestMovie()
   },
-  slides: [
-  {
-    title: 'El Teide Volcano, Spain',
-    content: 'Photo by Max Rive',
-    // You can also provide a URL for the image.
-  },
-  // Other slides.
-]
 }
 </script>
 

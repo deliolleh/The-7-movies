@@ -21,14 +21,13 @@
             @click="bigin_left()"
             class=" flex d-flex flex-column"
             >
-          <!-- <v-scroll-x-transition> -->
-        <v-fade-transition>
-            <img
+          <v-expand-x-transition>
+            <v-img
               :src="this.recommend[this.index].poster_path"
               :key="this.recommend[this.index].poster_path"
             >
-        </v-fade-transition>
-          <!-- </v-scroll-x-transition> -->
+            </v-img>
+          </v-expand-x-transition>
           </v-card>
           <v-card id="right"
             max-width="350"
@@ -36,15 +35,16 @@
             class=" flex d-flex flex-column"
             >
             <!-- <v-scroll-x-transition> -->
-        <v-fade-transition>
-            <img
+        <v-expand-x-transition>
+            <v-img
               :src="this.recommend[this.index+1].poster_path"
               :key="this.recommend[this.index+1].poster_path"
             >
+            </v-img>
             <!-- </v-scroll-x-transition> -->
             <!-- <router-link :to="{name: 'movies', params: `${this.recommend[this.index+1].}`}">
             </router-link> -->
-        <v-fade-transition>
+        </v-expand-x-transition>
           </v-card>
         </v-row>
       </section>
@@ -126,10 +126,10 @@ export default {
 
 <style scoped>
 
-img {
+/* img {
   -webkit-transition: all 3s ease;
   transition: all 3s ease;
-}
+} */
 
 
 #left {
@@ -141,6 +141,13 @@ img {
 }
 
 .slide-fade-enter-active {
+  transition: all 2s ease;
+}
+.slide-fade-leave-active {
+  transition: all .8s cubic-bezier(1.0, 0.5, 0.8, 1.0);
+}
+
+/* .slide-fade-enter-active {
   opacity: 1;
   z-index: 10;
 }
@@ -152,6 +159,6 @@ img {
 .slide-fade-enter,
 .slide-fade-leave-to {
   opacity: 0;
-}
+} */
 
 </style>
