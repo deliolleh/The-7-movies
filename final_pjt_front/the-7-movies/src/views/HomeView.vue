@@ -23,6 +23,9 @@ export default {
   },
   computed: {
     ...mapGetters(['isLoggedIn'])
+  },
+  mounted () {
+  window.scrollTo(0, 0)
   }
 }
 </script>
