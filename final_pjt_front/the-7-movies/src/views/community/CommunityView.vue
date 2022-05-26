@@ -2,6 +2,9 @@
   <v-app>
     <!-- 게시글 -->
     <div>
+    <h1 class="text-center mt-10">
+      <i class="fa-solid fa-pen"></i> Community
+    </h1>
       <review-list :currentPage="currentPage"></review-list>
     </div>
     <div class="text-center">

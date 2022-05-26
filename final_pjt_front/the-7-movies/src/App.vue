@@ -54,6 +54,10 @@ export default {
   src: url('asset/fonts/BlackHanSans-Regular.ttf') format('truetype');
 }
 
+h1 {
+  font-size: 45px;
+}
+
 .fade-enter-active,
 .fade-leave-active {
   transition: opacity 0.5s ease;

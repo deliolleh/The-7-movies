@@ -21,7 +21,7 @@
                 </router-link>
               </div>
               <div>
-                <p class="review-title">
+                <p class="review-title ml-5">
                   <router-link style="text-decoration: none;" :to="{ name: 'reviewDatail', params: { reviewPk: item.pk } } ">
                     {{ item.title }}
                   </router-link>
@@ -32,14 +32,10 @@
           <div>
             <div class="movie-title">
               <router-link style="text-decoration: none;" :to="{name: 'movieDetail', params: {moviePk : item.movie.pk} }">
-                <h5>영화 제목 : {{ item.movie.title }}</h5>
+                <h5>Movie Title : {{ item.movie.title }}</h5>
               </router-link>
             </div>
           </div>
-          <div>
-            <span>{{  }}</span>
-          </div>
-          <!-- review 목록을 받아서 화면에 뿌리는 역할 -->
         </v-card>
       </v-col>
     </v-row>
@@ -75,6 +71,7 @@ export default {
 .review-title {
   margin: 10px;
   text-align: center;
+  display: block;
 }
 
 .post {

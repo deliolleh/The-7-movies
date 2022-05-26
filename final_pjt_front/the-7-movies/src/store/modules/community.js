@@ -109,7 +109,6 @@ export default {
         headers: getters.authHeader,
       })
         .then(res => {
-          console.log(review, '이거');
           commit('SET_REVIEW', res.data)
           console.log(res.data);
           router.push({

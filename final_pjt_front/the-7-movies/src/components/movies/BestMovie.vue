@@ -7,6 +7,7 @@
       v-for="(movie, idx) in bestmovie"
       :key="idx"
       :image="movie.backdrop_path"
+      autoplay
       >
       <!-- 로그인 했을 경우 -> 영화 정보 -->
       <template 
@@ -15,8 +16,11 @@
         v-if="isLoggedIn"
         id="homelogin"
         >
+      <h1>
+      <i class="fa-solid fa-video"></i> Best Movies
+      </h1>
         <p style="color:white">
-          {{ movie.title }}
+         {{ idx+1 }}. {{ movie.title }}
         </p>
           <router-link :to="{name: 'movieDetail' , params: {moviePk: movie.pk} }">
             <v-btn
@@ -25,6 +29,7 @@
             style="width : 300px"
             >영화 상세 정보</v-btn>
             </router-link>
+            <br>
         </div>
         <div v-else-if="!isLoggedIn" id="homeguest">
           <p class="guestText"> 로그인 하고, <br> 취향에 맞는 영화 찾기! </p>
@@ -111,3 +116,4 @@ div.vueperslide__content {
 
 
 </style>
+

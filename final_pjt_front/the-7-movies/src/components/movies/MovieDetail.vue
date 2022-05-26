@@ -20,54 +20,13 @@
                 <p>감독 : {{ movie.director }}</p>
                   <div class="subtitle-2 grey--text">
                     <p>개봉 : {{movie.release_date}}</p>
-                    <p> 평점 : {{ average }}</p>
+                    <p> 평점 : {{ movie.vote_score }}</p>
                     <span v-for="(item, index) in movie.genres" :key="index" class="ml-1">
                           {{item.name}}
                           <span v-if="(movie.genres.length - 1 != index)">,</span>
                           </span> 
                   </div>
                 <p class="mt-5 grey--text text--darken-3 subheader">{{this.movie.overview}}</p>
-                <!-- <div class="mt-5">
-                    <h2 class="mt-5 grey--text text--darken-3">Featured Cast</h2>
-                    <div :key="index" v-for="(crew, index) in movie.credits.crew" class="mt-5">
-                        <div v-if="index < 2" class="">
-                            <h3>{{crew.name}}</h3>
-                            <span class="grey--text">{{crew.job}}</span>
-                        </div>
-                    </div>
-                </div> -->
-                <!-- <v-dialog
-                v-model="dialog"
-                persistent
-                max-width="800px"
-                >
-                    <template v-slot:activator="{on, attrs}">
-                        <v-btn tile color="error" v-bind="attrs" v-on="on" @click.prevent="openYouTubeModel">
-                            <v-icon left>mdi-play</v-icon>Play
-                        </v-btn>
-                    </template>
-                    <v-card>
-                        <v-card-title>
-                            <span class="headline">{{this.movie.title}}</span>
-                        </v-card-title>
-                        <v-card-text>
-                            <v-container>
-                                <v-row>
-                                    <v-col cols="12" sm="">
-                                        <div class="iframe-container">
-                                            <img :src="mediaURL" v-if="!isVideo" />
-                                            <iframe allowfullscreen v-if="isVideo" :src="mediaURL"></iframe>
-                                        </div>
-                                    </v-col>
-                                </v-row>
-                            </v-container>
-                        </v-card-text>
-                        <v-card-actions>
-                            <v-spacer></v-spacer>
-                            <v-btn color="error" text @click="dialog = flase">Close</v-btn>
-                        </v-card-actions>
-                    </v-card>
-                </v-dialog> -->
           <div class="subtitle-2 grey--text ml-5">
             <span> 영화 평점 남기기 </span>
             <v-icon>mdi-arrow-down</v-icon>
@@ -124,10 +83,6 @@ export default {
   },
   computed: {
     ...mapGetters(['movie', 'currentUser', 'profile', 'currentMovie']),
-    average() {
-      const avg = this.movie.vote_score/this.movie.vote_count
-      return avg
-    }
     
   },
   methods: {
@@ -187,17 +142,5 @@ export default {
 </script>
 
 <style scoped>
-.iframe-container {
-  overflow: hidden;
-  padding-top: 56.25%;
-  position: relative;
-}
-.iframe-container iframe {
-   border: 0;
-   height: 100%;
-   left: 0;
-   position: absolute;
-   top: 0;
-   width: 100%;
-}
+
 </style>

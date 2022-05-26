@@ -1,7 +1,11 @@
 <template>
-  <v-app>
+  <v-container align="center" justify="center" class="mt-5">
+    <h1 class="mx-3 text-center">
+      The 7 Movies for You
+    </h1>
     <v-row
     justify="center"
+    align="center"
     >
       <v-card
       id="cards"
@@ -10,50 +14,61 @@
           <i class="fa-solid fa-user mx-5 my-5"></i>
             {{ profile.username }}
         </v-card-title>
-        <hr>
-        <br>
-        <div
-          v-if="profile.review_set.length"
-          >
-          <ul>
-            <h2> 작성 글 목록 </h2>
-            <li
-            v-for="(review, idx) in profile.review_set"
-            :key="idx"
-            >
-              <router-link :to="{name: 'reviewDatail', params: {reviewPk: review.pk}}">
-              {{ review.title }}
-              </router-link>
-            </li>
-          </ul>
-        </div>
-        
-        <div v-else>
-          <span class="mx-5">
-            아직 작성한 글이 없으시네요.
-          </span>
-          
-          <router-link :to="{name: 'create'}">
-            <v-btn> 글쓰러 가기 </v-btn>
-          </router-link>
-        </div>
-        <div class="mx-5">
-          이런 영화는 어떠세요?
-          <p>
-            <router-link :to="{name: 'movieDetail', params:{moviePk: recommends[0].pk}}">
-              {{ recommends[0].title }}
-              <small> 보러 가기 </small>
-            </router-link>
-          </p>
-        </div>
-
+        <v-spacer></v-spacer>
         <v-card-text>
-        </v-card-text>
-        <div class="user-description">
-        </div>
+        <v-divider inset></v-divider>
+                <div class="font-weight-bold ml-8 mb-2">
+                  User Details
+                </div>
+                <v-list two-line>
+                  <v-list-item>
+                    <v-list-item-icon>
+                      <v-icon color="indigo">
+                        mdi-pen
+                      </v-icon>
+                    </v-list-item-icon>
+                    <v-list-item-content v-if="profile.review_set.length">
+                      <v-list-item-title  v-for="(review, idx) in profile.review_set"
+            :key="idx">작성글 목록</v-list-item-title>              
+                      <router-link :to="{name: 'reviewDatail', params: {reviewPk: review.pk}}">
+                      <v-list-item-subtitle>{{ review.title }}</v-list-item-subtitle>
+                      </router-link>
+                    </v-list-item-content>
+                      <v-list-item-content v-else>
+                      <v-list-item-title> 아직 작성한 리뷰가 없네요! </v-list-item-title>              
+                      <router-link :to="{name: 'create'}">
+                      <v-list-item-subtitle> 리뷰 쓰러 가기 </v-list-item-subtitle>
+                      </router-link>
+                    </v-list-item-content>
+                  </v-list-item>
+
+                  <v-divider inset></v-divider>
+
+                  <v-list-item>
+                    <v-list-item-icon>
+                      <v-icon color="indigo">
+                        mdi-video
+                      </v-icon>
+                    </v-list-item-icon>
+
+                    <v-list-item-content>
+                      <v-list-item-title>{{ profile.username }}님의 취향저격 영화</v-list-item-title>
+                      <v-list-item-subtitle><router-link :to="{name: 'movieDetail', params:{moviePk: recommends[0].pk}}">
+                        {{ recommends[0].title }}
+                        <small> 보러 가기 </small>
+                        <v-img 
+                        :src="recommends[0].poster_path"
+                        style="width: 100px"
+                        ></v-img>
+                        </router-link></v-list-item-subtitle>
+                    </v-list-item-content>
+                  </v-list-item>
+
+                </v-list>
+              </v-card-text>
       </v-card>
     </v-row>
-  </v-app>
+  </v-container>
 </template>
 
 <script>
@@ -102,8 +117,8 @@ export default {
   }
 
   #cards {
-    width: 450px;
-    height: 450px;
+    width: 500px;
+    height: 650px;
   }
 
   a {

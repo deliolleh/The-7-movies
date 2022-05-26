@@ -58,8 +58,6 @@ const routes = [
       to, from, next
       return store.dispatch('fetchCurrentUser')
         .then(() => {
-            console.log('fetchuser받음 2');
-            console.log(store.getters.currentUser.username, '2');
             return store.dispatch('fetchProfile', store.getters.currentUser.username)
               .then(() => {
                 store.dispatch('getRecommends')
@@ -102,8 +100,11 @@ const routes = [
     beforeEnter: (to, from, next) => {
       to, from
       bus.$emit('start:spinner')
-      return store.dispatch('getRecommends')
-        .then(() => {next()})
+      return store.dispatch('fetchCurrentUser')
+        .then(() => {
+          return store.dispatch('getRecommends')
+        })
+          .then(() => {next()})
     }
   },
   {
@@ -136,7 +137,7 @@ const routes = [
     beforeEnter: (to, from, next) => {
       to, from
       bus.$emit('start:spinner')
-      return store.dispatch('getRecommends')
+      return store.dispatch('getAllMovies')
         .then(() => {next()})
     }
   },
