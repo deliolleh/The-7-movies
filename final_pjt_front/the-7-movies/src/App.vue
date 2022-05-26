@@ -14,12 +14,12 @@ import TheFooter from '@/components/common/TheFooter'
 import NavBar from '@/components/common/NavBar.vue'
 import { mapActions } from 'vuex'
 import bus from '@/utils/bus'
-// import TheSpinner from '@/components/common/TheSpinner'
+import TheSpinner from '@/components/common/TheSpinner'
 export default {
-  name: 'HomeView',
+  name: 'app',
   components: {
     NavBar,
-    // TheSpinner,
+    TheSpinner,
     TheFooter,
   },
   data() {

@@ -45,7 +45,7 @@ export default {
       commit('GET_MOIVE_PK', pk)
     },
     getAllMovies({ commit, getters }) {
-      axios({
+      return axios({
         url: drf.movies.search(),
         method: 'get',
         headers: getters.authHeader
@@ -56,7 +56,7 @@ export default {
         .catch(err => console.log(err))
     },
     getMoviesPage({commit, getters}, page) {
-      axios({
+      return axios({
         url: drf.movies.paginator(page),
         method: 'get',
         headers: getters.headers
@@ -69,7 +69,7 @@ export default {
         })
     },
     getMoviesList({ commit, getters }) {
-      axios({
+      return axios({
         url: drf.movies.movies(),
         method: 'get',
         headers: getters.headers
@@ -81,14 +81,16 @@ export default {
         .catch(err => console.log(err))
     },
     getRecommend({commit, getters}) {
-      axios({
+      return axios({
         url: drf.movies.recommend(),
         method: 'get',
         headers: getters.authHeader
       })
         .then(res => {
           commit('GET_RECOMMEND', res.data)
-
+        })
+        .catch(() => {
+          console.log('getrecommend에러?');
         })
     },
     getMovie({commit, getters}, moviePk) {
@@ -102,7 +104,7 @@ export default {
         })
     },
     getBestMovie({commit}) {
-      axios({
+      return axios({
         url: drf.movies.best(),
         method: 'get',
       })
@@ -118,13 +120,13 @@ export default {
         headers: getters.authHeader
       })
         .then(res => {
-          console.log('get recommends 실행?');
           commit('GET_RECOMMENDS', res.data)
+          console.log('commit 다음');
           return res
         })
     },
     getBestReview({commit, getters}, moviePk) {
-      axios({
+      return axios({
         url: drf.community.bestReviews(moviePk),
         method: 'get',
         headers: getters.authHeader

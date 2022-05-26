@@ -25,7 +25,7 @@
 <script>
 import { Carousel3d, Slide } from "vue-carousel-3d";
 import { mapGetters, mapActions } from 'vuex';
-// import bus from '@/utils/bus'
+
 export default {
   components: {
     Carousel3d,
@@ -42,8 +42,15 @@ export default {
     //   console.log(this.upcomingMovies);
     // },
   },
-  mounted() {
-      this.getRecommends();
+  created() {
+    // bus.$emit('start:spinner')
+    // setTimeout(() => {
+    //   this.getRecommends()
+    //     .then(() => {
+    //       console.log('영화받아옴');
+    //       bus.$emit('end:spinner')
+    //     })
+    // }, 3000)
     },
 };
 </script>
