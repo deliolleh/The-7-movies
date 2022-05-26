@@ -9,6 +9,7 @@
     >
       <v-card
       id="cards"
+      height="auto"
       >
         <v-card-title>
           <i class="fa-solid fa-user mx-5 my-5"></i>
@@ -28,11 +29,15 @@
                       </v-icon>
                     </v-list-item-icon>
                     <v-list-item-content v-if="profile.review_set.length">
-                      <v-list-item-title  v-for="(review, idx) in profile.review_set"
-            :key="idx">작성글 목록</v-list-item-title>              
-                      <router-link :to="{name: 'reviewDatail', params: {reviewPk: review.pk}}">
-                      <v-list-item-subtitle>{{ review.title }}</v-list-item-subtitle>
-                      </router-link>
+                      <v-list-item-title
+                        :key="idx"
+                        >작성글 목록
+                        </v-list-item-title>
+                        <div v-for="(review, idx) in profile.review_set" :key="idx">
+                          <router-link :to="{name: 'reviewDatail', params: {reviewPk: review.pk}}">
+                          <v-list-item-subtitle>{{ review.title }}</v-list-item-subtitle>
+                          </router-link>
+                        </div>
                     </v-list-item-content>
                       <v-list-item-content v-else>
                       <v-list-item-title> 아직 작성한 리뷰가 없네요! </v-list-item-title>              
@@ -88,6 +93,7 @@ export default {
   },
   created() {
     this.fetchProfile(this.$route.params.username)
+    console.log(this.profile.review_set)
   },
 }
 </script>
