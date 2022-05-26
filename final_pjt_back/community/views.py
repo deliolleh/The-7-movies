@@ -122,6 +122,7 @@ def update_delete_comment(request, review_pk, comment_pk):
     # review = get_object_or_404(Review, pk=review_pk)
     review = get_object_or_404(Review, pk=review_pk)
     comment = get_object_or_404(Comment, pk=comment_pk)
+    print('get')
 
     if request.method == 'PUT':
         if request.user == comment.user:
@@ -133,8 +134,9 @@ def update_delete_comment(request, review_pk, comment_pk):
         if request.user == comment.user:
             comment.delete()
     
-    new_comments = get_list_or_404(Comment, review=review_pk)
+    new_comments = review.comments.all()
     serializer = CommentSerializer(new_comments, many=True)
+    print(serializer.data)
     return Response(serializer.data)
 
 @api_view(['POST'])
