@@ -2,12 +2,12 @@
   
   <vueper-slides fade :touchable="false" 
     fixed-height="1000px"
+    autoplay
     >
     <vueper-slide
       v-for="(movie, idx) in bestmovie"
       :key="idx"
       :image="movie.backdrop_path"
-      autoplay
       >
       <!-- 로그인 했을 경우 -> 영화 정보 -->
       <template 

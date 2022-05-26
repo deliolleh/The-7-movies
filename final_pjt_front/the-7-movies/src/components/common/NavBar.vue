@@ -39,7 +39,7 @@
                   <router-link 
                     @click.native="logout"
                     :to="{name: 'logout'}">Logout</router-link>
-                  <router-link :to="{name : 'profile', params: {username} }">profile</router-link>
+                  <router-link :to="{name : 'profile', params: {username} }">Profile</router-link>
                 </div>
           </div>
           <v-badge bordered bottom color="green" dot offset-x="10" offset-y="10">

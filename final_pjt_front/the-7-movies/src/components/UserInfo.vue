@@ -1,7 +1,7 @@
 <template>
   <v-container align="center" justify="center" class="mt-5">
     <h1 class="mx-3 text-center">
-      The 7 Movies for You
+      {{ profile.username }}'s profile
     </h1>
     <v-row
     justify="center"
