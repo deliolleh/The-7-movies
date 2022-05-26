@@ -78,7 +78,7 @@
 
 <script>
 import { mapActions, mapGetters } from 'vuex'
-// import bus from '@/utils/bus'
+import bus from '@/utils/bus'
 
 export default {
   name: 'UserInfo',
@@ -95,6 +95,9 @@ export default {
     this.fetchProfile(this.$route.params.username)
     console.log(this.profile.review_set)
   },
+  mounted() {
+    bus.$emit('end:spinner')
+  }
 }
 </script>
 

@@ -59,21 +59,23 @@ export default {
     ...mapGetters(['currentMovie']),
   },
   methods: {
-    ...mapActions(['filteredList', 'createReview', 'updateReview']),
+    ...mapActions(['filteredList', 'createReview', 'updateReview', 'createdReviewBackToMovie']),
       onSubmit() {
-        // if (this.$route.name==='create') {
-          
-        // }
-        if (this.action === 'create') {
-          this.newReview.movie = this.currentMovie
-          this.createReview(this.newReview)
-        } else  {
-          const payload = {
-            pk: this.review.pk,
-            ...this.newReview
+        if (this.$route.name==='create') {
+          if (this.action === 'create') {
+            this.newReview.movie = this.currentMovie
+            this.createReview(this.newReview)
+          } else  {
+            const payload = {
+              pk: this.review.pk,
+              ...this.newReview
+            }
+            console.log(payload);
+            this.updateReview(payload)
           }
-          console.log(payload);
-          this.updateReview(payload)
+        } else {
+          this.newReview.movie = this.currentMovie
+          this.createdReviewBackToMovie(this.newReview)
         }
     }
   },

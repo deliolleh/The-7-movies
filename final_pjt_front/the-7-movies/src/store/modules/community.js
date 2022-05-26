@@ -93,16 +93,8 @@ export default {
     },
 
     createReview({ commit, getters }, review) {
-      /* 게시글 생성
-      POST: reviews URL (게시글 입력정보, token)
-        성공하면
-          응답으로 받은 게시글을 state.review에 저장
-          reviewDetailView 로 이동
-        실패하면
-          에러 메시지 표시
-      */
-      
-      axios({
+
+      return axios({
         url: drf.community.create(),
         method: 'post',
         data: review,
@@ -116,6 +108,24 @@ export default {
           })
         })
         .catch(err => console.log(err))
+    },
+    createdReviewBackToMovie({ commit, getters }, review) {
+
+      console.log(review);
+      return axios({
+        url: drf.community.create(),
+        method: 'post',
+        data: review,
+        headers: getters.authHeader,
+      })
+        .then(res => {
+          commit('SET_REVIEW', res.data)
+          router.push({
+            name: 'movieDetail',
+            params: {moviePk: review.movie}
+          })
+        })
+        .catch(() => console.log('백투무비'))
     },
 
     updateReview({ commit, getters }, {pk, title, content, movie}) {

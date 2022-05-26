@@ -57,6 +57,7 @@ const routes = [
           // next를 호출해야만 호출됨.
     beforeEnter: (to, from, next) => {
       to, from, next
+      bus.$emit('start:spinner')
       return store.dispatch('fetchCurrentUser')
         .then(() => {
             return store.dispatch('fetchProfile', store.getters.currentUser.username)

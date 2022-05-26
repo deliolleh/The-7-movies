@@ -10,7 +10,7 @@
               >
                 <v-card :elevation="hover ? 16 : 2"
                   :class="{ 'on-hover': hover }">
-                    <router-link :to="{name: 'reviewcreate', params:{movieTitle: review.movie.title} }">
+                    <router-link :to="{name: 'movieDetail', params:{moviePk: review.movie.pk} }">
                           <v-img :src="review.movie.poster_path" alt="" class=""/>
                     </router-link> 
                 </v-card>
