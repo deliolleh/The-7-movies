@@ -22,6 +22,7 @@ import RecommendView from '@/views/recommend/RecommendView'
 import MovieDetailView from '@/views/movies/MovieDetailView'
 import store from '@/store'
 import bus from '@/utils/bus'
+import swal from 'sweetalert'
 
 // import store from '@/store/index'
 
@@ -61,7 +62,6 @@ const routes = [
             return store.dispatch('fetchProfile', store.getters.currentUser.username)
               .then(() => {
                 store.dispatch('getRecommends')
-                console.log('여기');
                 next()})
         })
     }
@@ -150,11 +150,18 @@ const routes = [
   {
     path: '/404',
     name: 'NotFound404',
-    component: NotFound404
+    component: NotFound404,
+    beforeEnter: () => {
+      swal('잘못된 경로입니다.', '다시 확인해주세요')
+      router.replace('')
+    }
   },
   {
-    path: '/404',
-    redirect: '/404'
+    path: '*',
+    beforeEnter: () => {
+      swal('잘못된 경로입니다.', '다시 확인해주세요')
+      router.replace('')
+    }
   },
 ]
 

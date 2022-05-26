@@ -1,14 +1,14 @@
 <template>
     
     <!-- <comment-list-form></comment-list-form> -->
-    <v-container>
+    <div>
         <comment-list-item 
           v-for="comment in comments" 
           :comment="comment" 
           :key="comment.pk"
           >
         </comment-list-item>
-    </v-container>
+    </div>
 </template>
 
 <script>
