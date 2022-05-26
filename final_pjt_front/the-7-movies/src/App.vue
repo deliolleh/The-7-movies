@@ -1,9 +1,9 @@
 <template>
   <v-app id="app">
     <nav-bar></nav-bar>
-    <v-scroll-x-transition>
+    <transition name="fade" mode="out-in">
       <router-view></router-view>
-    </v-scroll-x-transition>
+    </transition>
     <the-spinner :loading="this.loadingStatus"></the-spinner>
     <the-footer></the-footer>
   </v-app>
@@ -49,6 +49,17 @@ export default {
 </script>
 
 <style>
+
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 0.5s ease;
+}
+
+
+.fade-enter-from,
+.fade-leave-to {
+  opacity: 0;
+}
 
 /* #app {
   display: flex;

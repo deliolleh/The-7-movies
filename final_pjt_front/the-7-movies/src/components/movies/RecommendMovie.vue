@@ -25,6 +25,7 @@
 <script>
 import { Carousel3d, Slide } from "vue-carousel-3d";
 import { mapGetters, mapActions } from 'vuex';
+// import bus from '@/utils/bus'
 export default {
   components: {
     Carousel3d,
