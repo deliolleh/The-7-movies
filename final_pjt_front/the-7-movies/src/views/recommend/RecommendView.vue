@@ -22,12 +22,12 @@
             class=" flex d-flex flex-column"
             >
           <!-- <v-scroll-x-transition> -->
-        <v-fade-transition>
-            <img
-              :src="this.recommend[this.index].poster_path"
-              :key="this.recommend[this.index].poster_path"
-            >
-        </v-fade-transition>
+          <v-fade-transition>
+              <img
+                :src="this.recommend[this.index].poster_path"
+                :key="this.recommend[this.index].poster_path"
+              >
+          </v-fade-transition>
           <!-- </v-scroll-x-transition> -->
           </v-card>
           <v-card id="right"
@@ -44,7 +44,7 @@
             <!-- </v-scroll-x-transition> -->
             <!-- <router-link :to="{name: 'movies', params: `${this.recommend[this.index+1].}`}">
             </router-link> -->
-        <v-fade-transition>
+        </v-fade-transition>
           </v-card>
         </v-row>
       </section>
