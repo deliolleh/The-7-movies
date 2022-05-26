@@ -6,7 +6,7 @@
 
 <script>
 import { mapActions } from 'vuex'
-import ReviewForm from '@/components/ReviewForm'
+import ReviewForm from '@/components/community/ReviewForm'
 export default {
   name: 'ReviewNewView',
   components: {

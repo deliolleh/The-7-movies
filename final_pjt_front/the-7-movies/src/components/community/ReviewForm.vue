@@ -35,7 +35,7 @@
 
 <script>
 import { mapActions, mapGetters } from 'vuex'
-import SearchBar from '@/components/SearchBar'
+import SearchBar from '@/components/community/SearchBar'
 export default {
   name: 'ReviewForm',
   components: {

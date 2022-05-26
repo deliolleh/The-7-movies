@@ -18,7 +18,7 @@
 </template>
 
 <script>
-import ReviewList from '@/components/ReviewList'
+import ReviewList from '@/components/community/ReviewList'
 import { mapGetters } from 'vuex'
 
 export default {

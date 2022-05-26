@@ -9,7 +9,7 @@
 </template>
 
 <script>
-import ReviewForm from '@/components/ReviewForm.vue'
+import ReviewForm from '@/components/community/ReviewForm.vue'
 import { mapGetters, mapActions } from 'vuex'
   export default {
     name: 'ReviewEditView',
