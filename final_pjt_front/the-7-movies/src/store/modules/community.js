@@ -151,7 +151,7 @@ export default {
           })
         })
         .catch(() => {
-          console.log('리뷰 업데이트 에러요');
+          console.log('리뷰 업데이트 에러');
         })
     },
 
@@ -217,7 +217,6 @@ export default {
         headers: getters.authHeader,
       })
         .then(res => {
-          console.log('댓글?');
           commit('SET_REVIEW_COMMENTS', res.data)
         })
         .catch(err => console.error(err.response))
@@ -245,7 +244,6 @@ export default {
         })
         .catch(err => {
           console.error(err.response)
-          console.log('댓글 수정');  
         })
     },
 
@@ -285,7 +283,6 @@ export default {
           headers: getters.authHeader,
         })
           .then(res => {
-            console.log(res.data, '댓글성공');
             commit('SET_REVIEW', res.data)})
           .catch(err => console.error(err.response))
       },

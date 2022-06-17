@@ -5,39 +5,56 @@ import store from '@/store'
 import swal from 'sweetalert';
 
 export default {
-  // namespaced: true,
 
-  // state는 직접 접근하지 않겠다!
   state: {
-    token: localStorage.getItem('token') || '' ,
+    token: localStorage.getItem('token') || '',
     currentUser: {},
     profile: {},
     authError: null,
     valid: null,
   },
-  // 모든 state는 getters 를 통해서 접근하겠다.
+
   getters: {
     isLoggedIn: state => !!state.token,
     currentUser: state => state.currentUser,
     profile: state => state.profile,
     authError: state => state.authError,
-    authHeader: state => ({ Authorization: `Token ${state.token}`}),
+    authHeader: state => ({ Authorization: `Token ${state.token}` }),
     isValid: state => state.valid,
   },
 
   mutations: {
     SET_TOKEN: (state, token) => state.token = token,
     SET_CURRENT_USER: (state, user) => {
-      console.log('현재 유저정보에 담기전 mutation');
-      state.currentUser = user},
-    SET_PROFILE: (state, profile) => state.profile = profile,
+      state.currentUser = user
+    },
+    SET_PROFILE: (state, profile) => {
+      state.profile = profile
+    },
     SET_AUTH_ERROR: (state, error) => state.authError = error,
     SCORE_UPDATE: (state, profile) => {
       state.profile = profile
-      console.log('scoreupdate됨?')}
+    }
   },
-
   actions: {
+    fetchProfile({ commit, getters }, username) {
+      /*
+      GET: profile URL로 요청보내기
+        성공하면
+          state.profile에 저장
+      */
+      axios({
+        url: drf.accounts.profile(username),
+        method: 'get',
+        headers: getters.authHeader,
+      })
+        .then(res => {
+          commit('SET_PROFILE', res.data)
+        })
+        .catch(() => {
+          console.log('프로필 들고 올수 없음.');
+        })
+    },
     saveToken({ commit }, token) {
       /* 
       state.token 추가 
@@ -109,9 +126,9 @@ export default {
             method: 'get',
             headers: getters.authHeader
           })
-          .then(() => {
-            router.push({ name: 'algorecommend', params: {username : credentials.username} } )
-          })
+            .then(() => {
+              router.push({ name: 'algorecommend', params: { username: credentials.username } })
+            })
         })
         .catch(err => {
           console.error(err.response.data)
@@ -148,7 +165,7 @@ export default {
         })
     },
 
-    fetchCurrentUser({ commit, getters, dispatch }) {
+    async fetchCurrentUser({ commit, getters, dispatch }) {
       /*
       GET: 사용자가 로그인 했다면(토큰이 있다면)
         currentUserInfo URL로 요청보내기
@@ -159,13 +176,12 @@ export default {
             LoginView로 이동
       */
       if (getters.isLoggedIn) {
-        return axios({
+        await axios({
           url: drf.accounts.currentUserInfo(),
           method: 'get',
           headers: getters.authHeader,
         })
           .then(res => {
-            console.log('현재 유저정보 commit전');
             commit('SET_CURRENT_USER', res.data)
             return res
           })
@@ -178,26 +194,7 @@ export default {
       }
     },
 
-    fetchProfile({ commit, getters }, username ) {
-      /*
-      GET: profile URL로 요청보내기
-        성공하면
-          state.profile에 저장
-      */
-      return axios({
-        url: drf.accounts.profile(username),
-        method: 'get',
-        headers: getters.authHeader,
-      })
-        .then(res => {
-          commit('SET_PROFILE', res.data)
-          return res
-        })
-        .catch(() => {console.log('프로필 들고 올수 없음.');
-        })
-    },
-    scoreCreate({commit, getters}, profile) {
-      console.log(profile.genre_score_set, '스코업뎃');
+    scoreCreate({ commit, getters }, profile) {
       return axios({
         url: drf.accounts.changeUserInfo(),
         method: 'put',
@@ -208,12 +205,12 @@ export default {
           console.log(profile);
           commit('SCORE_UPDATE', res.data)
         })
-          .then(() => {
-            return store.dispatch('getRecommends')
-          })
-          .catch((err) => console.log(err, '에러발생'))
+        .then(() => {
+          return store.dispatch('getRecommends')
+        })
+        .catch((err) => console.log(err, '에러발생'))
     },
-    scoreUpdate({commit, getters}, {profile, moviePk}) {
+    scoreUpdate({ commit, getters }, { profile, moviePk }) {
       return axios({
         url: drf.accounts.changeScoreInfo(moviePk),
         method: 'post',
@@ -221,18 +218,17 @@ export default {
         data: profile.score_set
       })
         .then(res => {
-          console.log('이건 score');
           commit('SCORE_UPDATE', res.data)
         })
         .catch(() => console.log('생성에러'))
-      },
-      resetScore({commit, getters}, {profile, moviePk}) {
-        axios({
-          url: drf.accounts.changeScoreInfo(moviePk),
-          method: 'delete',
-          headers: getters.authHeader,
-          data: profile.genre_score_set
-        })
+    },
+    resetScore({ commit, getters }, { profile, moviePk }) {
+      axios({
+        url: drf.accounts.changeScoreInfo(moviePk),
+        method: 'delete',
+        headers: getters.authHeader,
+        data: profile.genre_score_set
+      })
         .then(res => {
           commit('SCORE_UPDATE', res.data)
           store.dispatch('getRecommends')
@@ -241,14 +237,3 @@ export default {
     },
   },
 }
-
-
-/*
-user: {
-  username: '신혜원'
-  genre: {
-    romance: 0,
-    comedy: 0,
-  }
-}
-*/

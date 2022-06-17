@@ -54,17 +54,14 @@ const routes = [
     path: '/profile/:username',
     name: 'profile',
     component: ProfileView,
-          // next를 호출해야만 호출됨.
     beforeEnter: (to, from, next) => {
       to, from, next
-      bus.$emit('start:spinner')
-      return store.dispatch('fetchCurrentUser')
+      console.log(to, from);
+      store.dispatch('fetchProfile', to.params.username)
         .then(() => {
-            return store.dispatch('fetchProfile', store.getters.currentUser.username)
-              .then(() => {
-                store.dispatch('getRecommends')
-                next()})
-        })
+          console.log('user profile 받아옴 3번')
+          store.dispatch('getRecommends')
+            next()})
     }
   },
   // ---------community------------
@@ -142,12 +139,6 @@ const routes = [
         .then(() => {next()})
     }
   },
-  // {
-  //   path: '/',
-  //   name: 'home',
-  //   component: HomeView
-  // },
-  // ---------404------------
   {
     path: '/404',
     name: 'NotFound404',

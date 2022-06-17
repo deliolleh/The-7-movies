@@ -30,7 +30,6 @@
                     </v-list-item-icon>
                     <v-list-item-content v-if="profile.review_set.length">
                       <v-list-item-title
-                        :key="idx"
                         >작성글 목록
                         </v-list-item-title>
                         <div v-for="(review, idx) in profile.review_set" :key="idx">
@@ -78,7 +77,7 @@
 
 <script>
 import { mapActions, mapGetters } from 'vuex'
-import bus from '@/utils/bus'
+// import bus from '@/utils/bus'
 
 export default {
   name: 'UserInfo',
@@ -91,13 +90,9 @@ export default {
   methods: {
     ...mapActions(['fetchProfile'])
   },
-  created() {
-    this.fetchProfile(this.$route.params.username)
-    console.log(this.profile.review_set)
-  },
-  mounted() {
-    bus.$emit('end:spinner')
-  }
+  // mounted() {
+  //   bus.$emit('end:spinner')
+  // }
 }
 </script>
 
